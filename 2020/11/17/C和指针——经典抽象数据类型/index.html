@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>C和指针——经典抽象数据类型 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="内存分配：所有的ADT(抽象数据类型)都必须确定一件事情——如何获取内存来存储值。有三种方案：静态数组、动态分配的数组和动态分配的链式结构。 堆栈：堆栈(stack)这种数据最鲜明的特点就是其后进先出(LIFO)的方式，基本的堆栈操作通常被称为push和pop。push就是把一个新值压入到堆栈的内部，pop就是把堆栈顶部的值移除堆栈并返回该值。堆栈只提供对它的顶部值的访问。 在传统的堆栈接口中，访">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C和指针——经典抽象数据类型">
+<meta property="og:url" content="http://example.com/2020/11/17/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E7%BB%8F%E5%85%B8%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="内存分配：所有的ADT(抽象数据类型)都必须确定一件事情——如何获取内存来存储值。有三种方案：静态数组、动态分配的数组和动态分配的链式结构。 堆栈：堆栈(stack)这种数据最鲜明的特点就是其后进先出(LIFO)的方式，基本的堆栈操作通常被称为push和pop。push就是把一个新值压入到堆栈的内部，pop就是把堆栈顶部的值移除堆栈并返回该值。堆栈只提供对它的顶部值的访问。 在传统的堆栈接口中，访">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-11-17T04:53:11.000Z">
+<meta property="article:modified_time" content="2020-11-17T05:06:59.101Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="C和指针">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-C和指针——经典抽象数据类型" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/17/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E7%BB%8F%E5%85%B8%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="article-date">
+  <time class="dt-published" datetime="2020-11-17T04:53:11.000Z" itemprop="datePublished">2020-11-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      C和指针——经典抽象数据类型
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>内存分配：所有的ADT(抽象数据类型)都必须确定一件事情——如何获取内存来存储值。有三种方案：静态数组、动态分配的数组和动态分配的链式结构。</p>
+<p>堆栈：堆栈(stack)这种数据最鲜明的特点就是其后进先出(LIFO)的方式，基本的堆栈操作通常被称为push和pop。push就是把一个新值压入到堆栈的内部，pop就是把堆栈顶部的值移除堆栈并返回该值。堆栈只提供对它的顶部值的访问。</p>
+<p>在传统的堆栈接口中，访问顶部元素的唯一方法就是把它移除。另一类堆栈接口提供三种基本操作：push、pop和top。push的操作和前面描述一样，pop只把顶部元素从堆栈中移除，并不返回这个值。top返回顶部元素的值，但它并不把顶部元素从堆栈中删除。</p>
+<p>队列：队列和堆栈的顺序不同，它是一种先进先出(FIFO)的结构。</p>
+<p>当满足如后条件时，队列为空：(real+1)%queue_size==front</p>
+<p>当满足如后条件时，队列为满：(real+2)%queue_size==front</p>
+<p>二叉树：树是一种数据结构，它们要么为空，要么具有一个值并具有零个或多个孩子，每个孩子本身也是树。这个递归的定义正确地提示了一个树的高度并没有内在的限制。二叉树(binary tree)是树的一种特殊形式，它的每个节点至多具有两个孩子，分别称为左孩子和右孩子。二叉树具有一个额外的属性：每个节点的值比它的左子树的所有节点的值都要大，但比它的右子树的所有节点的值要小。注意这个定义排除了树中存在值相同的节点的可能性。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/17/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E7%BB%8F%E5%85%B8%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" data-id="ckn5mhdn5000pf0v3czfkabxb" data-title="C和指针——经典抽象数据类型" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/17/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E7%8E%AF%E5%A2%83/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          C和指针——运行时环境
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%8E%AF%E5%A2%83/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java核心技术——卷I——Java程序设计环境</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

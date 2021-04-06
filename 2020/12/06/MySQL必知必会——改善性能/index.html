@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>MySQL必知必会——改善性能 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="针对前面各个章节，对MySQL提供进行性能优化探讨和分析的一些出发点如下： 1）首先，MySQL(与所有的DBMS一样)具有特定的硬件建议。在学习和研究MySQL时，使用任何旧的计算机作为服务器都可以。但对于生产的服务器来说，应该坚持遵守硬件建议。 2）一般来说，关键的生产DBMS应该运行在专用服务器上。 3）MySQL是用一系列的默认设置预先配置的，从这些设置开始通常是很好的。但过一段时间后可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL必知必会——改善性能">
+<meta property="og:url" content="http://example.com/2020/12/06/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%94%B9%E5%96%84%E6%80%A7%E8%83%BD/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="针对前面各个章节，对MySQL提供进行性能优化探讨和分析的一些出发点如下： 1）首先，MySQL(与所有的DBMS一样)具有特定的硬件建议。在学习和研究MySQL时，使用任何旧的计算机作为服务器都可以。但对于生产的服务器来说，应该坚持遵守硬件建议。 2）一般来说，关键的生产DBMS应该运行在专用服务器上。 3）MySQL是用一系列的默认设置预先配置的，从这些设置开始通常是很好的。但过一段时间后可">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-06T00:59:45.000Z">
+<meta property="article:modified_time" content="2020-12-06T01:30:09.544Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="MySQL笔记">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-MySQL必知必会——改善性能" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/06/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%94%B9%E5%96%84%E6%80%A7%E8%83%BD/" class="article-date">
+  <time class="dt-published" datetime="2020-12-06T00:59:45.000Z" itemprop="datePublished">2020-12-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      MySQL必知必会——改善性能
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> 针对前面各个章节，对MySQL提供进行性能优化探讨和分析的一些出发点如下：</p>
+<p>1）首先，MySQL(与所有的DBMS一样)具有特定的硬件建议。在学习和研究MySQL时，使用任何旧的计算机作为服务器都可以。但对于生产的服务器来说，应该坚持遵守硬件建议。</p>
+<p>2）一般来说，关键的生产DBMS应该运行在专用服务器上。</p>
+<p>3）MySQL是用一系列的默认设置预先配置的，从这些设置开始通常是很好的。但过一段时间后可能需要调整内存分配、缓冲区大小等。</p>
+<p>4）MySQL，一个多用户多线程的DBMS，换言之，它经常同时执行多个任务。如果这些任务中的某一个执行缓慢，则所有请求都会执行缓慢。如果遇到显著的性能不良，可以使用show processlist 显示所有活动进程(以及它们的线程ID和执行时间)。还可以使用kill命令终结某个特定的进程(使用这个命令需要作为管理员登录)。</p>
+<p>5）总是有不止一种方法编写同一条select语句。应该试验联结、并、子查询等，找出最佳的方法。</p>
+<p>6）一般来说，存储过程执行得比一条一条地执行其中的各条MySQL语句快。</p>
+<p>7）使用explain语句让MySQL解释它将如何执行一条select语句。</p>
+<p>8）应该总是使用正确的数据类型。</p>
+<p>9）决不要检索比需求还要多的数据。换言之，不要用select*(除非真正需要每个列)。</p>
+<p>10）有的操作(包括insert)支持一个可选的delayed关键字，如果使用它，将把控制立刻返回给调用程序，并且一旦有可能就实际执行该操作。</p>
+<p>11）在导入数据时，应该关闭自动提交。</p>
+<p>12）必须索引数据库表以改善数据检索的性能。确实索引不是一件微不足道的任务，需要分析使用select语句以找出重复的where和order by子句。如果一个简单的where子句返回结果所花的时间太长，则可以断定其中使用的列(或几个列)就是需要索引的对象。</p>
+<p>13）通过使用多条的select语句和连接它们的union语句，能极大的改进性能。</p>
+<p>14）索引改善数据检索的性能，但损害数据插入、删除和更新的性能。如果有一些表，它们收集数据且不经常被搜索，则在有必要之前不用索引它们(索引可根据需要添加和删除)。</p>
+<p>15）like很慢，一般来说。最好是使用fulltext而不是like。</p>
+<p>16）数据库是不断变化的实体。一组优化良好的表一会儿后可能就面目全非了。由于表的使用和内容的更改，理想的优化和配置也会改变。</p>
+<p>17）最重要的规则就是，每条规则在某些条件下就会被打破。    </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/06/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%94%B9%E5%96%84%E6%80%A7%E8%83%BD/" data-id="ckn5mhdo0002jf0v3dzpp3p5k" data-title="MySQL必知必会——改善性能" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/06/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94MySQL%E7%9A%84%E4%BF%9D%E7%95%99%E5%AD%97/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MySQL必知必会——MySQL的保留字
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java核心技术——卷I——集合</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

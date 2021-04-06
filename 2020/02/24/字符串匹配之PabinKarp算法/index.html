@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>字符串匹配之PabinKarp算法 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="第一次写博客，不足之处还请大家指教。下面直接进入主题。 概述字符串匹配相信大家都很熟悉，有很多种解法。比如kmp算法啊，PabinKarp算法啊，当然暴力解法也都行。前几天看蓝桥《算法很美》的视频，里面讲到了PabinKarp算法，觉得挺好玩儿的今天我们就来浅谈一下PabinKarp算法，对自己来说也算个总结。PabinKarp算法其实就是预处理吧。首先用类似于求进制的方法对模式串进行求值，如选一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符串匹配之PabinKarp算法">
+<meta property="og:url" content="http://example.com/2020/02/24/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D%E4%B9%8BPabinKarp%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第一次写博客，不足之处还请大家指教。下面直接进入主题。 概述字符串匹配相信大家都很熟悉，有很多种解法。比如kmp算法啊，PabinKarp算法啊，当然暴力解法也都行。前几天看蓝桥《算法很美》的视频，里面讲到了PabinKarp算法，觉得挺好玩儿的今天我们就来浅谈一下PabinKarp算法，对自己来说也算个总结。PabinKarp算法其实就是预处理吧。首先用类似于求进制的方法对模式串进行求值，如选一">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-02-24T12:13:08.000Z">
+<meta property="article:modified_time" content="2020-02-25T15:21:44.646Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-字符串匹配之PabinKarp算法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/02/24/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D%E4%B9%8BPabinKarp%E7%AE%97%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2020-02-24T12:13:08.000Z" itemprop="datePublished">2020-02-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      字符串匹配之PabinKarp算法
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>第一次写博客，不足之处还请大家指教。下面直接进入主题。</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>字符串匹配相信大家都很熟悉，有很多种解法。比如kmp算法啊，PabinKarp算法啊，当然暴力解法也都行。<br>前几天看蓝桥《算法很美》的视频，里面讲到了PabinKarp算法，觉得挺好玩儿的今天我们就来浅谈一下PabinKarp算法，对自己来说也算个总结。<br>PabinKarp算法其实就是预处理吧。首先用类似于求进制的方法对模式串进行求值，如选一个进制数(31进制)算出它的hash值。然后对原字符串进行处理，具体的处理方法就是。从原字符串的第一个字符开始到模式串的位数，把它看成一个字符串算出它的hash值，然后和模式串的hash值进行比较，相等的话就表示这个字符串与模式串相同。之后再从第二字符开始到模式串的位数，算出这个字符串的hash值再与模式串的hash值进行比较，以此类推直至比较完整个字符串。我写的这个话是我个人对PabinKarp算法理解的一个白话，可能有小伙伴不怎么理解，举个具体例子把。</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>原串为:abababa<br>模式串为:aba<br>首先选一个进制数就31吧，然后用求进制的方法将模式串转换成一个hash值。之后就是对原串的处理了。因为模式串大小是3,所以就从原串的第一个字符开始到第三个字符结束，也就是aba。然后同样用转模式串的方法对这个字串进行运算，算出它的hash值。把这个hash值与模式串的hash值进行比较，相等就表示这个字串与模式串相等，反之就是不等。然后再从第二个字符开始，把它看成是第一位直到第三位结束，也就是bab，算出它的hash值与模式串比较，看是否相等，之后就是从第三、第四位开始以此类推。直到原串的第六位结束，因为你从第六位开始划分，你划不出来三个，它后面只有一个字符。换句话说当你比完第从五位字符开始划分的那个字串后，你就要结束你的循环了，不能再继续下去了。我举得这个例子后，大家应该就对什么是PabinKarp算法有个大致的了解把。从写程序的方面来看，我们大致可以理解为我们要完成三件事，第一:求出模式串的hash值，第二:构建hash数组里面存放从原串的第一个字符开始到第五个字符结束的这些个字串的hash值。第三:将模式串的hash值与hash数组里面的值比较，找出相等的字串。下面我们就直接来看代码</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>#include &lt;stdio.h&gt;<br>#include &lt;stdlib.h&gt;<br>#include &lt;limits.h&gt;<br>#include &lt;math.h&gt;<br>#include &lt;string.h&gt;<br>#define Seed 31//选的k进制数<br>char *fun1(char *string,int left,int right);//截断字符串的方法<br>int fun2(char *s); //求字符串hash值的方法<br>int *fun(char *s,int n);//构建hash数组的方法<br>void match1(char *s,char *ss);//传入原串和模式串，然后依次调用函数<br>void match(int hash_p,int hash_s[]);//比较模式串的hash值与hash数组的值，并输出相等字串的第一个字符的下标<br>static count=0;//定义一个全局变量，表示hash数组的大小<br>int main(void) {<br>    char *n=”abababa”;<br>    char *m=”aba”;<br>    match1(n,m);<br>    return 0;<br>}<br>void match1(char *s,char *ss)<br>{<br>    int hash_p=fun2(ss);<br>    match(hash_p,fun(s,strlen(ss)));<br>}<br>void match(int hash_p,int hash_s[])<br>{<br>    int i;<br>    for(i=0;i&lt;=count;i++)<br>    {<br>        if(hash_p==hash_s[i])<br>        {<br>            printf(“下标为：%d\n”,i);<br>        }<br>    }<br>}<br>//构建hash数组<br>int *fun(char <em>s,int n)<br>{<br>    int <em>String;<br>    int m=(strlen(s)-n+1);<br>    String=(int</em>)malloc(m</em> sizeof(int));<br>    if(NULL == String)<br>    {<br>        printf(“内存溢出. \n”);<br>        exit(0);<br>    }<br>    count=strlen(s)-n+1;<br>    String[0]=fun2(fun1(s,0,n));<br>    int i;<br>    int v;<br>    for(i=n;i&lt;strlen(s);i++)<br>    {<br>        int newChar=s[i];<br>        int oChar=s[i-n];<br>        v=(int)(String[i-n]*Seed+newChar-pow(Seed,n)*oChar)%INT_MAX;<br>        count++;<br>        String[i-n+1]=v;<br>    }<br>    return String;<br>}<br>int fun2(char <em>s)//求字符串的hash值<br>{<br>    int hash=0;<br>    int i;<br>    for(i=0;i&lt;strlen(s);i++)<br>    {<br>        hash=Seed</em>hash+(int)s[i];<br>    }<br>    return hash%INT_MAX;</p>
+<p>}<br>char *fun1(char *string,int left,int right)//截子符串<br>{<br>    char <em>sc;<br>    int string_length=strlen(string);<br>    int real_length=((string_length-left)&gt;=right?right:(string_length-left));<br>    if (NULL == (sc=(char</em>) malloc(real_length * sizeof(char))))<br>    {<br>        printf(“Memory overflow . \n”);<br>        exit(0);<br>    }<br>    strncpy(sc,string+left,real_length);<br>    sc[real_length]=’\0’;<br>    return  sc;</p>
+<h2 id><a href="#" class="headerlink" title="}"></a>}</h2><hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/02/24/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D%E4%B9%8BPabinKarp%E7%AE%97%E6%B3%95/" data-id="ckn5mhdob0037f0v30u84dokb" data-title="字符串匹配之PabinKarp算法" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/06/%E9%B8%9F%E5%93%A5%E7%A7%81%E6%88%BF%E8%8F%9C%E2%80%94%E2%80%94%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%B0%8F%E7%BB%93%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          鸟哥私房菜——第四章小结笔记
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

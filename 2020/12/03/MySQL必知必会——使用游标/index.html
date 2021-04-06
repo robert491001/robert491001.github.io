@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>MySQL必知必会——使用游标 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="MySQL 5添加了对游标的支持。MySQL检索操作返回一组称为结果集的行。这组返回的行都是与SQL语句相匹配的行(零行或多行)。有时，需要在检索出来的行中前进或后退一行或是多行。这就是使用游标的原因。 游标(cursor)是一个存储在MySQL服务器上的数据库查询，它不是一条select语句，而是被该语句检索出来的结果集。在存储了游标之后，应用程序可以根据需要滚动或浏览其中的数据。游标主要用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL必知必会——使用游标">
+<meta property="og:url" content="http://example.com/2020/12/03/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%E6%B8%B8%E6%A0%87/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="MySQL 5添加了对游标的支持。MySQL检索操作返回一组称为结果集的行。这组返回的行都是与SQL语句相匹配的行(零行或多行)。有时，需要在检索出来的行中前进或后退一行或是多行。这就是使用游标的原因。 游标(cursor)是一个存储在MySQL服务器上的数据库查询，它不是一条select语句，而是被该语句检索出来的结果集。在存储了游标之后，应用程序可以根据需要滚动或浏览其中的数据。游标主要用">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-03T01:20:04.000Z">
+<meta property="article:modified_time" content="2020-12-03T01:45:43.880Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="MySQL笔记">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-MySQL必知必会——使用游标" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/03/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%E6%B8%B8%E6%A0%87/" class="article-date">
+  <time class="dt-published" datetime="2020-12-03T01:20:04.000Z" itemprop="datePublished">2020-12-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      MySQL必知必会——使用游标
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>  MySQL 5添加了对游标的支持。MySQL检索操作返回一组称为结果集的行。这组返回的行都是与SQL语句相匹配的行(零行或多行)。有时，需要在检索出来的行中前进或后退一行或是多行。这就是使用游标的原因。</p>
+<p>游标(cursor)是一个存储在MySQL服务器上的数据库查询，它不是一条select语句，而是被该语句检索出来的结果集。在存储了游标之后，应用程序可以根据需要滚动或浏览其中的数据。游标主要用于交互式应用，其中用户需要滚动屏幕上的数据，并对数据进行浏览或做出更改。</p>
+<p>只能用于存储过程：不想多数DBMS一样，MySQL游标只能用于存储过程(和函数)。</p>
+<p>使用游标涉及的几个明确步骤如下：</p>
+<p>1）在能够使用游标前，必须声明(定义)它。这个过程实际上没有检索数据，它只是定义要使用的select语句。</p>
+<p>2）一旦声明后，必须打开游标以供使用。这个过程用前面定义的select语句把数据实际检索出来。</p>
+<p>3）对于填有数据的游标，根据需要取出(检索)各行。</p>
+<p>4）在结束游标使用时，必须关闭游标。</p>
+<p>创建游标：游标用 declare 语句创建。declare命名游标，并定义相应的select语句，根据需要带有where和其他子句。</p>
+<p>打开和关闭游标：游标用 open /close cursor 语句打开和关闭游标。open 已定义游标名字 ，close 已定义游标的名字。close释放游标使用的所有内部内存和资源，因此在每个游标不再需要时都应该关闭。在一个游标关闭后，如果没有重新打开，则不能使用它。但是，使用声明过的游标不需要再次声明，用open打开它就可以了。隐含关闭，如果不明确关闭游标。MySQL将会在到达end语句时自动关闭它。</p>
+<p>使用游标数据：在一个游标被打开后，可以使用 fetch 语句分别访问它的每一行。fetch指定检索什么数据(所需的列)，检索出来的数据存储在什么地方。它还向前移动游标中的内部行指针，使下一条fetch语句检索下一行(不重复读取同一行)。</p>
+<p>declare 语句的发布存在特定的次序。用 declare 语句定义的局部变量必须在定义任意游标或句柄之前定义，而句柄必须在游标之后定义。不遵守此顺序将产生错误信息。</p>
+<p>除了使用 repeat 语句外，MySQL还支持循环语句，它可以用来重复执行代码，直到使用 leave 语句手动退出为止。通常 repeat 语句的语法使它更适合于对游标进行循环。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/03/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%E6%B8%B8%E6%A0%87/" data-id="ckn5mhdnl001uf0v395ie9e18" data-title="MySQL必知必会——使用游标" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/03/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%E8%A7%A6%E5%8F%91%E5%99%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MySQL必知必会——使用触发器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/12/01/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MySQL必知必会——使用存储过程</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

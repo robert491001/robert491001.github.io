@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Java核心技术——卷I——Java基本程序设计结构 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Java区分大小写。 访问修饰符(如public)用于控制程序的其他部分对这段代码的访问级别。 类是构建所有Java应用程序和applet的构建块。Java应用程序中的全部内容都必须放置在类中。 Java定义类名的规则很宽松。名字必须以字母开头，后面可以跟字母和数字的任意组合。长度基本没有限制。但不能使用Java保留字作为类名。 标准的命名规范为：类名是以大写字母开头的名词。如果名字由多个单词组成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java核心技术——卷I——Java基本程序设计结构">
+<meta property="og:url" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Java区分大小写。 访问修饰符(如public)用于控制程序的其他部分对这段代码的访问级别。 类是构建所有Java应用程序和applet的构建块。Java应用程序中的全部内容都必须放置在类中。 Java定义类名的规则很宽松。名字必须以字母开头，后面可以跟字母和数字的任意组合。长度基本没有限制。但不能使用Java保留字作为类名。 标准的命名规范为：类名是以大写字母开头的名词。如果名字由多个单词组成">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/one.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/two.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/three.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/four.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/five.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/six.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/seven.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/eight.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/nine.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/ten.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/eleven.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/twelve.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/fourteen.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/thirteen.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/fifteen.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/sixteen.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/seventeen.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/eighteen.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/nineteen.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/twenty.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/twentyOne.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/twentyTwo.jpg">
+<meta property="og:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/twentyThree.jpg">
+<meta property="article:published_time" content="2020-11-18T04:23:30.000Z">
+<meta property="article:modified_time" content="2020-11-18T09:02:31.478Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java核心技术——卷I">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/one.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Java核心技术——卷I——Java基本程序设计结构" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/" class="article-date">
+  <time class="dt-published" datetime="2020-11-18T04:23:30.000Z" itemprop="datePublished">2020-11-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Java核心技术——卷I——Java基本程序设计结构
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>Java区分大小写。</strong></p>
+<p>访问修饰符(如public)用于控制程序的其他部分对这段代码的访问级别。</p>
+<p>类是构建所有Java应用程序和applet的构建块。Java应用程序中的全部内容都必须放置在类中。</p>
+<p>Java定义类名的规则很宽松。名字必须以字母开头，后面可以跟字母和数字的任意组合。长度基本没有限制。但不能使用Java保留字作为类名。</p>
+<p>标准的命名规范为：类名是以大写字母开头的名词。如果名字由多个单词组成，每个单词的第一个字母都应该大写(这种方式称为骆驼命名法)。</p>
+<p>源代码的文件名必须与公共类的名字相同，并用**.java**作为扩展名。</p>
+<p>Java关键字如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/one.jpg" alt="one"></p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/two.jpg" alt="two"></p>
+<p>根据Java语言规范，main方法必须声明为public。但在九十年代的时候一位程序员发了当main方法不是public修饰时，有些版本的Java解释器同样可以执行。最后在Java1.4以后的版本中强制main方法必须是public。</p>
+<p>Java中的所有函数都是某个类的方法(标准术语将其称为方法，而不是成员函数)。因此，Java中的main方法必须有一个外壳类。Java中的main方法必须是静态的。如果main方法正常退出，那么Java应用程序的退出码为0，表示成功地运行了程序。</p>
+<p>在Java中，每个句子必须用分号结束。特别需要说明，回车不是语句结束的标志，因此，如果需要可以将一条语句写在多行上。</p>
+<p>点号(<strong>.</strong>)用于调用方法。Java使用的通用语法是：<strong>object.method(parameters)</strong>    这等价于函数调用。</p>
+<p>Java是一种强类型语言。这就意味着必须为每一个变量声明一种类型。在Java中，一共有8种基本类型(primitive type)，其中有4种整型、2种浮点型、1种字符类型char(用于表示Unicode编码的代码单元)和1种表示真值boolean类型。Java有个能够表示任意精度的算术包，通常称为“大数”(big number)。虽然被称为大数，但它并不是一种基本Java类型，而是一个Java对象。</p>
+<p>整数：整数用于表示没有小数部分的数值，允许是负数。Java提供了4种整型。详情如下所示：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/three.jpg" alt="three"></p>
+<p>长整型数值有一共后缀L或l，十六进制有一个前缀0x或0X，八进制有一个前缀0。从Java7开始，加上前缀0b或0B就可以写二进制数，同样还可以为数字字面量加下划线。Java没有无符号(unsigned)形式的int、long、short和byte类型。如果确实是要使用无符号数，就需要手工通过代码来调整。</p>
+<p>浮点类型：浮点类型用于表示有小数部分的数值。在Java种有两种浮点类型，详情如下所示：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/four.jpg" alt="four"></p>
+<p>double表示这种类型的数值精度是float类型的两倍(因此又称为双精度数值)，在很多情况下，float类型的精度(6~7位有效数字)并不能满足需要。float类型的数值有一个后缀F或f。没有后缀F的浮点值总是默认为double类型。可以使用十六进制表示浮点数值。在十六进制表示法中，使用p表示指数，而不是e(e是一个十六进制数位)。注意：尾部采用十六进制，指数采用十进制。指数的基数是2，而不是10。所有的浮点数计算都遵循IEEEE 754规范。具体来说，如下是用于表示溢出和出错情况的三个特殊的浮点数值：</p>
+<p>正无穷大、负无穷大、NaN(不是一个数字)</p>
+<p>常量Double.POSITIVE_INFINITY、Double.NEGATIVE_INFINITY和Double.NaN(以及相应发float类型的变量)分别表示这个三个特殊的值。</p>
+<p>浮点数值<strong>不适用</strong>无法接受舍入误差的金融计算。</p>
+<p>char类型：char类型原本用于表示单个字符。但如今，有些Unicode字符可以用一个char值描述，另外一些Unicode字符则需要两个char值。char类型的字面量值要用单引号括起来。char类型的值可以表示为十六进制，其范围从\u0000到\uFFFF。除了转义序列\u之外，还有一些用于表示特殊字符的转义序列。详情如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/five.jpg" alt="five"></p>
+<p>CUE：Unicode转义序列会在解析代码之前得到处理。</p>
+<p>在Java中，char类型描述了UTF-16编码中的一个代码单元。</p>
+<p>boolean类型：boolean类型有两个值：false和true，用来判断逻辑条件。整型值和布尔值之间不能进行相互转换。</p>
+<p>在Java中，每个变量都有一个类型(type)。在声明变量时，先指定变量的类型，然后是变量名。每个声明都以分号结束。变量名必须是一个以字母开头并由字母或数字构成的序列。变量名中所有的字符都是有意义的，<strong>并且大小写敏感</strong>。变量名的长度基本上没有限制。另外，不能使用Java保留字作为变量名，在Java 9中，单下划线 **_**不能作为变量名，可以在一行声明多个变量。</p>
+<p>对一个已经声明过的变量进行赋值，就需要将变量名放在等号(=)左侧，再把一个适当取值的Java表达式放在等号右侧。最后，在Java中可以将声明放在代码中的任何地方。从Java 10开始，对于局部变量，如果可以从变量的初始值推断出它的类型，就不再需要声明类型，只需要使用关键字var而无需指定类型。C和C++区分变量的声明与定义，但在Java中并不区分。</p>
+<p>在Java中，final指示常量。final表示这个变量只能被赋值一次。一旦被赋值之后，就不能够再更改了。习惯上，常量名使用全大写。在Java中，经常希望某个常量可以在一个类的多个方法中使用，通常将这些常量称为类常量。<em><strong>可以使用关键字static final 设置一个类常量</strong></em>。需要注意，类常量定义位于main方法的外部。const是Java保留的关键字，但目前并没有使用。因此在Java中，必须使用final定义常量。</p>
+<p>Java中，使用算术运算符+，-，*，/表示加减乘除。当参与/运算的两个操作数都是整数时，表示整数除法；否则，表示浮点除法。需要注意，<strong>整数除以0将会产生一个异常，而浮点数被0除将会得到无穷大或NaN的结果</strong>。</p>
+<p>sqrt()——平方根，pow()——幂运算(pow方法有两个double类型的参数，其返回结果也为double)，floorMod()——解决一个长期存在的有关整数余数的问题。Math提供的一些常用三角函数：Math.sin，Math.cons，Math.tan，Math.atan，Math.atan2，还有指数以及它的反函数——自然对数以及以10为底的对数：Math.exp，Math.log，Math.log10，最后，还有两个表示圆周率和e常量的最接近的近似值:Math.PI，Math.E。</p>
+<p>数值类型之间的合法转换，如下所示：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/six.jpg" alt="six"></p>
+<p>实线头表示无信息丢失的转换；虚线头表示可能有精度损失的转换。强制类型转换的语法格式是在圆括号中给出想要转换的目标类型，后面紧跟待转换的变量名。如果想对浮点数进行舍入运算，那就需要使用Math.round方法。</p>
+<p>可以在赋值中使用二元运算符，一般来说运算符放在=号左边，如*=。如果运算符得到一个值，其类型与左边操作数的类型不同，就会发生强制类型转换。==表示等于，！=表示不等于。&amp;&amp;表示逻辑“与”运算符，||表示逻辑“或”运算符，！表示逻辑非运算符。&amp;&amp;和||是按照“短路”方式来求值的：如果第一个操作数已经能够确定表达式的值，第二个操作数就不必计算了。最后，Java支持三元操作符**?:**。</p>
+<p>位运算符包含：**&amp;(and)，|(or)，^(xor)，~(not)**。这些运算符按位模式处理。还有&lt;&lt;和&gt;&gt;运算符可以将位模式左移或右移，最后&gt;&gt;&gt;运算符会用0填充高位，这与&gt;&gt;不同，它会用符号位填充高位。不存在&lt;&lt;&lt;运算符。</p>
+<p>同一级别的运算符按照从左到右的次序进行计算(但右结合运算符除外，如下表所示)：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/seven.jpg" alt="seven"></p>
+<p>从概念上讲，Java字符串就是Unicode字符序列。Java没有内置的字符串类型，而是在标准Java类库中提供了一个预定义类，很自然地叫作String。<strong>每个用双引号括起来的字符串都是String类的一个实例</strong>。</p>
+<p>substring()——从一个较大的字符串中提取一个子串。substring方法的第二个参数是不想复制的第一个位置。在substring中从0开始计数。类似于C和C++，Java字符串中的代码单元和代码点从0开始计数。Java语言允许使用+号连接(拼接)两个字符串，当一个字符串与一个非字符串的值进行拼接时，后者会转换成字符串。在Java 11中，还提供了一个repeat方法。String类<strong>没有提供</strong>修改字符串中某个字符的方法，所以在Java文档中将String类对象称为不可变的。equals()——检测两个字符串是否相等。如果要检测两个字符串是否相等，同时不区分大小写，可以使用equalsIgnoreGase()方法。==运算符不能检测两个字符串是否相等，它只能确定两个字符串是否存放在同一个位置上。</p>
+<p>空串“”是长度位0的字符串。空串是一个Java对象，有自己的串长度(0)和内容(空)。不过，String变量还可以存方一个特殊的值，名为null，表示目前没有任何对象与该变量关联。Java字符串由char值序列组成。length方法将返回采用UTF-16编码表示给定字符串所需要的代码单元数量。codePointCout()——得到实际的长度，即码点数量。虚拟机不一定把字符串实现为代码单元序列。在Java 9中，只包含单字节代码单元的字符串使用byte数组实现，所有其他字符串使用char数组。</p>
+<p>String API详情如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/eight.jpg" alt="eight"></p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/nine.jpg" alt="nine"></p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/ten.jpg" alt="ten"></p>
+<p>StringBuilder类在Java 5中引入。这个类的前身是StringBuffer，它的效率有些低，但允许采用多线程的方式添加或删除字符。StringBuilder API如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/eleven.jpg" alt="eleven"></p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/twelve.jpg" alt="twelve"></p>
+<p>Scanner类不适用于从控制台读取密码。Java 6特别引入了Console类来实现这个目的。Scanner API与Console API如下： </p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/fourteen.jpg" alt="fourteen"></p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/thirteen.jpg" alt="thirteen"></p>
+<p>Java 5沿用了C语言函数库中的printf方法。用于printf的转换符如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/fifteen.jpg" alt="fifteen"></p>
+<p>另外，还可以指定控制格式化输出外部的各种标志。详情如下所示：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/sixteen.jpg" alt="sixteen"></p>
+<p>日期和时间转换符如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/seventeen.jpg" alt="seventeen"></p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/eighteen.jpg" alt="eighteen"></p>
+<p>要想读取以该文件，需要构造一个Scanner对象，要想写入文件，就需要构造一个PrintWriter对象。如果用一个不存在的文件构造一个Scanner，或者用一个无法创建的文件名构造一个PrintWriter，就会产生异常。Scanner API，PrintWriter API以及相关API 如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/nineteen.jpg" alt="nineteen"></p>
+<p>Java使用条件语句和循环结构确定控制流程。块(即复合语句)是指由若干条Java语句组成的语句，并用一对大括号括起来。块确定了变量的作用域。一个块可以嵌套在另一个块中，但是不能在嵌套的两个块中声明同名的变量。相反在C++中，可以在嵌套的块中重定义一个变量。在内层定义的变量会覆盖在外层定义的变量。</p>
+<p>Java中，条件语句的形式为：<strong>if (condition) statement</strong> 这里条件必须用小括号括起来。使用块，可以在Java程序结构中原本只能放置一条语句的地方放置多条语句。</p>
+<p>当条件为true时，while循环执行一条语句(也可以是一个块语句)。一般形式为：<em><strong>while(condition) statement</strong></em> 如果开始时循环条件的值为false，那么while循环一次也不执行。while循环语句在最前面检测循环条件。因此，循环体中代码有可能一次都不执行。如果希望循环体至少执行一次，需要使用do/while循环将检测放在最后。语法为：<em><strong>do  statement while(condition)</strong></em>; 这种循环先执行语句(通常是一个语句块)，然后再检测循环条件，如果为true，就重复执行语句，然后再次检测循环条件，以此类推。for循环语句是支持迭代的一种通用结构，由一个计数器或类似的变量控制迭代次数。每次迭代后这个变量将会更新。</p>
+<p>在循环中，检测两个浮点数是否相等需要格外小心。由于舍入的误差，可能永远达不到精确的最终值。特别注意，如果在for语句内部定义一个变量，这个变量就不能在循环体之外使用。另一方面，可以在不同的for循环中定义同名的变量。</p>
+<p>switch语句将从与选项值相匹配的case标签开始执行，直到遇到break语句，或者执行到switch语句的结束处为止。如果没有相匹配的case标签，而有default子句，就执行这个子句。case标签可以是：类型为char，byte或int的常量表达式、枚举常量、从Java 7开始还可以是字符串字面量。当在switch语句中使用枚举常量时，不必在每个枚举中指明枚举名，可以由switch的表达式值推导得出。</p>
+<p>Java提供了一种带标签的break语句，用于跳出多重嵌套的循环语句。注意，标签必须放在希望跳出的最外层循环之前，并且必须紧跟一个冒号。同时只能跳出语句块，不能跳入语句块。continue语句将控制转移到最内层循环的首部。还有一种带标签的continue语句，将跳到与标签匹配的循环的首部。</p>
+<p>java.math包中有两个特别的类：BigInteger和BigDecimal。这两个类可以处理包含任意长度数字序列的数值。BigInteger类实现任意精度的整数运算，BigDecimal实现任意精度的浮点数运算。使用静态方法valueOf()方法可以将普通的数值抓换为大数。对于更大的数，可以使用一个带字符串参数的构造器。不能使用算术运算符处理大数，只能使用相关的方法。</p>
+<p>BigInteger API和BigDecimal API如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/twenty.jpg" alt="twenty"></p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/twentyOne.jpg" alt="twentyOne"></p>
+<p>数组存储相同类型值的序列。数组是一种数据结构，用来存储同一类型的集合。通过一个整型下标可以访问数组中的每一个值。在声明数组变量时，需要指出数组类型(数据元素类型紧跟[])和数组变量的名字。数组长度不要求是常量。一旦创建了数组，就不能再改变它的长度。在Java中，允许有长度为0的数组。注意，长度为0的数组与null并不相同。创建一个数字数组时，所有元素都初始化为0。boolean数组的元素会初始化为false。对象数组的元素则初始化为一个特殊值null，表示这些元素(还)未存放任何对象。</p>
+<p>增强for循环语句格式为： <em><strong>for(variable :collection) statement</strong></em> 它定义一个变量用于暂存集合中的每一个元素，并执行相应的语句。collection这一集合表达式必须是一个数组或是一个实现了Iterable接口的类对象。for each循环语句的循环变量将会遍历数组中的每个元素，而不是下标值。</p>
+<p>Java中，允许将一个数组变量拷贝到另一个数组变量。这时，两个变量将引用同一个数组。如果希望将一个数组的所有值拷贝到一个新的数组中去，就要使用Array类的copyOf方法。该方法的第二个参数是新数组的长度，这个方法通常用来增加数组的大小。如果数组元素是数值型，那么额外的元素将被赋值为0；如果数值元素是布尔型，则赋值为false。相反，如果长度小于原始数组的长度，则只拷贝前面的值。</p>
+<p>Java数组与堆栈上的C++数组有很大不同，但基本上与堆上分配的数组指针一样。Java中的[]运算符被预定义为会完成越界检查，而且没有指针运算，既不能通过a+1得到数组中的下一个元素。</p>
+<p>每一个Java应用程序都有带一个String arg[]参数的main方法。这个参数表示main方法将接受一个字符串数组，也就是命令行上指定的参数。</p>
+<p>对数值数组进行排序，可以使用Arrays类中的sort方法。该方法使用了优化的快速排序算法。Math.random方法将返回一个0到1之间(包括0，不包括1)的随机数浮点数</p>
+<p>Arrays API如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/twentyTwo.jpg" alt="twentyTwo"></p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/twentyThree.jpg" alt="twentyThree"></p>
+<p>多维数组将使用多个下标访问数组元素。for each循环语句不能自动处理二维数组的每一个元素。它会循环处理行，而这些本身就是一维数组。要想访问二维数组的所有元素，需要使用两个嵌套循环。如果想快速地打印一个二维数组的数据元素列表，可以调用deepToString()方法。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/" data-id="ckn5mhdoo003sf0v3b4rrcjuv" data-title="Java核心技术——卷I——Java基本程序设计结构" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/19/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E5%88%9B%E5%BB%BA%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E6%AE%B5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MySQL必知必会——创建计算机字段
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/18/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%90%9C%E7%B4%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MySQL必知必会——用正则表达式进行搜索</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

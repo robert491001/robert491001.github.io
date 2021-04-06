@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Java核心技术——卷I——继承 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="继承的基本思想是：可以基于已有的类创建新的类。 反射是指在程序运行期间更多地了解类以及其属性的能力。 关键字extends表明正在构造的新类派生于一个已存在的类。这个已存在的类称为超类(super class)、基类(base class)或父类(parent class)；新类称为子类(subclass)、派生类(derived class)或孩子类(child class)。子类其实比超类拥有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java核心技术——卷I——继承">
+<meta property="og:url" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="继承的基本思想是：可以基于已有的类创建新的类。 反射是指在程序运行期间更多地了解类以及其属性的能力。 关键字extends表明正在构造的新类派生于一个已存在的类。这个已存在的类称为超类(super class)、基类(base class)或父类(parent class)；新类称为子类(subclass)、派生类(derived class)或孩子类(child class)。子类其实比超类拥有">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/one.jpg">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/two.jpg">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/three.jpg">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/four.jpg">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/five.jpg">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/six.jpg">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/seven.jpg">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/eight.jpg">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/nine.jpg">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/ten.jpg">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/eleven.jpg">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/twelve.jpg">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/thirteen.jpg">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/fourteen.jpg">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/fifteen.jpg">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/sixteen.jpg">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/seventeen.jpg">
+<meta property="og:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/eighteen.jpg">
+<meta property="article:published_time" content="2020-11-21T02:14:20.000Z">
+<meta property="article:modified_time" content="2020-11-23T04:03:07.897Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java核心技术——卷I">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/one.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Java核心技术——卷I——继承" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/" class="article-date">
+  <time class="dt-published" datetime="2020-11-21T02:14:20.000Z" itemprop="datePublished">2020-11-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Java核心技术——卷I——继承
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>继承的基本思想是：可以基于已有的类创建新的类。</p>
+<p>反射是指在程序运行期间更多地了解类以及其属性的能力。</p>
+<p>关键字extends表明正在构造的新类派生于一个已存在的类。这个已存在的类称为超类(super class)、基类(base class)或父类(parent class)；新类称为子类(subclass)、派生类(derived class)或孩子类(child class)。子类其实比超类拥有的功能更多。Java与C++定义继承的方式十分相似。Java用关键字extends代替了C++中的冒号(:)。在Java中，所有的继承都是公共继承，而没有C++中的私有继承和保护继承。</p>
+<p>super是一个指示编译器调用超类方法的特殊关键字，它不是一个对象的引用。在Java中使用关键字super调用超类的方法，而在C++中则采用超类名加::操作符的形式。可以在子类中增加字段、增加方法或覆盖超类的方法，不过，继续绝不会删除任何字段或方法。</p>
+<p>使用super调用构造器的语句必须是子类构造器的第一条语句。如果子类构造器没有显式地调用超类的构造器，将自动调用超类的无参构造器。如果超类没有无参构造器，并且在子类的构造器中又没有显式地调用超类的其他构造器，Java编译器就会报告一个错误。</p>
+<p>与this一样，super关键字也有两个含义：一是调用超类的方法，二是调用超类的构造器。调用构造器的语句只能作为另一个构造器的第一条语句出现。构造器参数可以传递给当前类(this)的另一个构造器，也可以传递给超类(super)的构造器。</p>
+<p>一个对象可以指示多种实际类型的现象称为多态(polymorphism)。在运行时能够自动地选择适当的方法，称为动态绑定(dynamic binding)。在C++中，如果希望实现动态绑定，需要将成员函数声明为virtual。在Java中，动态绑定是默认的行为。如果<strong>不</strong>希望让一个方法是虚拟的，可以将它标记为final。</p>
+<p>继承并仅限于一个层次。由一个公共超类派生出来的所有类的集合称为继承层次(inheritance hierarchy)。在继承层次中，从某个特定的类到其祖先的路径称为该类的继承链(inheritance chain)。在C++中，一个类可以有多个超类。Java不支持多重继续。</p>
+<p>有一个简单规则可以用来判断是否应该将数据设计为继承关系，这就是”is-a”规则，它指出子类的每个对象也是超类的对象。“is-a”规则的另一种表述是原则替换。它指出程序中出现超类对象的任何地方都可以使用子类对象替换。。在Java中，对象变量是多态的。不过，不能将超类的引用赋给子类变量。在Java中，子类引用的数据可以转换成超类引用的数组，而不需要使用强制类型转换。</p>
+<p>如果在子类中定义了一个与超类签名相同的方法，那么子类中的这个方法就会覆盖超类中这个相同前面的方法。允许子类将覆盖方法的返回类型改为原返回类型的子类型。</p>
+<p>如果是private方法，static方法，final方法或构造器，那么编译器将可以准确地知道应该调用哪个方法。这称为静态绑定(static bindign)。与此对应的是，如果要调用的方法依赖于隐式参数的实际类型，那么必须在运行时使用动态绑定。动态绑定有一个非常重要的特性：无需对现有的代码进行修改就可以对程序进行扩展。</p>
+<p>Warning：在覆盖一个方法的时候，子类方法<strong>不能低于</strong>超类方法的<strong>可见性</strong>。</p>
+<p>不允许扩展的类被称为final类。类中的某个特定的方法也可以被声明为final。如果这样做，子类就不能覆盖这个方法(final类中的所有方法自动地成为final方法。注意，不包括字段)。如果一个方法没有被覆盖并且很短，编译器就能够对它进行优化处理，这个过程称为内联。</p>
+<p>对象引用的强制类型转换语法与数值表达式的强制类型转换类似，仅需要用一对圆括号将目标类名括起来，并放置在需要转换的对象引用之前就可以了。进行强制类型转换的唯一原因是：要在暂时忽视对象的实际类型之后使用对象的全部功能。总结：1）只能在继承层次内进行强制类型转换 2)在将超类转换成子类之前，应该使用instanceof进行检查。注意：如果对一个null的对象进行instanceof检查，不会产生异常，只是返回false。</p>
+<p>使用abstract关键字修饰的方法称为抽象方法。包含一个或多个抽象方法的类本身必须被声明为抽象的，除了抽象方法，抽象类还可以包含字段和具体方法。即使不含抽象方法，也可以将类声明为抽象类。抽象类不能实例化。需要注意，可以定义一个抽象类的变量，但是这样的变量只能引用非抽象子类的对象。在C++中，有一种抽象方法称为纯虚函数(pure virtual function)，要在末尾用=0标记。如果至少有一个纯虚函数，这个C++类就是抽象类。在C++中，没有提供用于表示抽象类的特殊关键字。</p>
+<p>在Java中，保护字段(由protected修饰符修饰的字段)只能由同一个包中的类访问。事实上，Java中的受保护部分对所有子类及同一个包中的所有其他类都可见。Java中的4个访问控制修饰符小结：</p>
+<p>1）仅对本类可见——private</p>
+<p>2）对外部可见——public</p>
+<p>3）对本包和所有子类可见——protected</p>
+<p>4）对本包可见——默认，不需要修饰符。</p>
+<p>Object类是Java中的所有类的始祖，在Java中每个类都扩展Object。如果没有明确地指出超类，Object就被认为是这个类的超类。可以使用Object类型的变量引用任何类型的对象。在Java中，只有基本类型不是对象。所有的数组类型，不管是对象数组还是基本类型的数组都扩展了Object类。</p>
+<p>Object类中实现的equals方法将确定两个对象引用是否相等。在子类中定义equals方法时，首先调用超类的equals方法。如果检测失败，对象就不可能相等。如果超类中的字段都相等，就需要比较子类中的实例字段。Java语言规范要求equals方法具有以下的特性：</p>
+<p>1）自反性：对于任何非空引用x，x.equals(x)应该返回true。</p>
+<p>2）对称性：对于任何引用x和y，当且仅当y.equals(x)返回true时，x.equals(y)返回true。</p>
+<p>3）传递性：对于任何引用x，y和z，如果x.equals(y)返回true，y.equals(z)返回true，x.equals(z)也应该返回true。</p>
+<p>4）一致性：如果x和y引用的对象没有发生变化，反复调用x.equals(y)应该返回同样的结果。</p>
+<p>5）对于任意非空引用x，x.equals(null)应该返回false。</p>
+<p>equals相关API如下：</p>
+<p><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/one.jpg" alt="one"></p>
+<p><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/two.jpg" alt="two"></p>
+<p>散列码(hash code)是由对象导出的一个整型值。散列码是没有规律的。如果是两个不同的对象，散列码基本上不会相同。由于hashCode方法定义在Object类中，因此每个对象都有一个默认的散列码，其值由对象的存储地址得出。注意，字符串的散列码是由<strong>内容</strong>导出的。hashCode方法应该返回一个整数(也可以是负数)。equals与hashCode的定义必须相容：即如果两个对象相等，那么它们的散列码也应该返回相同的值。如果存在数组类型的字段，那么可以使用静态的Arrays.hashCode方法计算一个散列码，这个散列码由数组元素的散列码组成。</p>
+<p>hashCode方法的相关API如下：</p>
+<p><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/three.jpg" alt="three"></p>
+<p><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/four.jpg" alt="four"></p>
+<p>toString方法，它会返回表示对象值的一个字符串。绝大多数(但不是全部)的toString方法都遵循这样的格式：类的名字，随后是一对方括号括起来的字段值。随处可见toString方法的主要原因是：只要对象与一个字符串通过操作符“+”连接起来，Java编译器就会自动地调用toString方法来获得这个对象的字符串描述。打印数组可以使用Arrays.toString。要想打印多维数组，则需要调用Arrays.deepToString方法。</p>
+<p>Object类部分API如下：</p>
+<p><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/five.jpg" alt="five"></p>
+<p>ArrayList类类似于数组，但在添加和删除元素时，它能够自动地调整数组容量，而不需要为此编写任何代码。ArrayList是一个有类型参数(type parameter)的泛型类(generic class)。为了指定数组列表保存的元素对象的类型，需要用一对尖括号将类名括起来追加到ArrayList后面。在<strong>Java10</strong>中，最后使用var关键字以避免重复写类名。Java 5 以前的版本没有提供泛型类，而是有一个保存Object类型的元素的ArrayList类，它是一个”自适应大小”的集合。仍然可以使用没有后缀&lt;……&gt;的ArrayList，这将被认为是删去了类型参数的一个”原始”类型。</p>
+<p>可以使用add方法将元素添加到数组列表中。数组列表管理着一个内部的对象引用数组。数组列表的容量与数组的大小有一个非常重要的区别。如果分配一个有100个元素的数组，数组就有100个空位置(槽)可以使用。而容量为100个元素的数组列表只是<strong>可能</strong>保存100个元素(实际上也可以超过100，不过要以重新分配空间为代价)，但是在最初，甚至完成初始化构造之后，数组列表不包含任何元素。size方法将返回数组列表中包含的实际元素个数。一旦数组列表的大小被确定，不再改变时可以调用trimToSize方法将存储块的大小调整为保存当前元素数量所需要的存储空间。垃圾回收器将回收多余的存储空间。</p>
+<p>ArrayList相关API如下：</p>
+<p><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/six.jpg" alt="six"></p>
+<p><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/seven.jpg" alt="seven"></p>
+<p><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/eight.jpg" alt="eight"></p>
+<p>将一个原始ArrayList赋值给一个类型化ArrayList会得到一个警告。</p>
+<p>所有的基本类型都有一个与之对应的类。通常，这些类称为包装器(wrapper)。这些包装器类有显而易见的名字：Integer，Long，Float，Double，Short，Byte，Character和Boolean(前6个类派生于公共的超类Number)。包装器类是不可变的，即一旦构造了包装器，就不允许更改包装在其中的值。同时，包装器类还是final，因此不能派生它们的子类。将一个int类型的元素添加到Integer对象的过程称为自动装箱，相反的，当将一个Integer对象赋给一个int值时，将会自动拆箱。自动装箱和自动拆箱甚至也适用于算术表达式。基本类型与它们对应的对象包装器有一个很大不同：同一性。自动装箱的规范要求boolean，byte，char&lt;=127，介于-128和127之间的short和int被包装到固定的对象中。包装器类引用可以是null，但会抛出一个NullPointerException异常。最后要注意，装箱和拆箱是编译器要做的工作，而不是虚拟机。编译器在生产类的字节码时会插入必要的方法调用。虚拟机只是执行这些字节码。</p>
+<p>Integer相关API如下：</p>
+<p><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/nine.jpg" alt="nine"></p>
+<p>可以提供参数数量可变的方法(有时这些方法被称为“变参”(varags)方法)，如：public PrintStream printf(String fmt ,Object …… args){return format(fmt，args)；} 这里的省略号……是Java代码的一部分，它表明这个方法可以接受任意数量的对象(除了fmt参数之外)。允许将数组作为最后一个参数传递给有可变参数的方法。</p>
+<p>在比较两个枚举类型值时，并不需要调用equals，可以直接使用”==”即可。枚举的构造器总是私有的。所有的枚举类型都是Enum类的子类。每个枚举类型都有一个静态的values方法，它将返回一个包含全部枚举值的数组。ordinal方法返回enum声明中枚举常量的位置，位置从0开始计数。</p>
+<p>与枚举类型相关的API 如下：</p>
+<p><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/ten.jpg" alt="ten"></p>
+<p>反射库(reflection library)提供了一个丰富且精巧的工具集，可以用来编写能够动态操纵Java代码的程序。能够分析类能力的程序称为反射(reflective)。反射可以用来：</p>
+<p>1）在运行时分析类的能力。</p>
+<p>2）在运行时检查对象，例如，编写一个适用于所有类的toString方法。</p>
+<p>3）实现范型数组操作代码。</p>
+<p>4）利用Method对象，这个对象很像C++中的函数指针。</p>
+<p>程序运行期间，Java运行时系统始终为所有对象维护一个运行时类型标识。这个信息会跟踪每个对象所属的类。保存这些信息的类名为Class。Object类中的getClass方法将会返回一个Class类型的实例。Class对象会描述一个特定类的属性。可能最常用的Class方法就是getName，该方法返回类的名字。需要注意，一个Class对象实际上表示的是一个类型，这可能是类，也可能不是类。Class类实际上是一个泛型类。虚拟机为每个类型管理一个唯一的Class对象，因此，可以利用==运算符实现两个对象的比较。</p>
+<p>与反射相关的部分API 如下：</p>
+<p><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/eleven.jpg" alt="eleven"></p>
+<p>异常有两种类型：非检查型异常和检查型异常。对于检查型异常，编译器将会检测程序员是否知道这个异常并做好准备来处理后果。如果一个方法包含一条可能抛出检查型异常的语句，则在方法名上增加一个throws子句。调用这个方法的任何方法也都需要一个throws声明，包括main方法。</p>
+<p>在Java中，类通常有一些关联的数据文件，如：图像和声音文件；包含消息字符串和按钮标签的文本文件。这些文件被称为资源(resource)。与之相关的API 如下：<br><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/twelve.jpg" alt="twelve"></p>
+<p>利用反射分析类的能力，检查类的结构。与之相关的API如下：</p>
+<p><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/thirteen.jpg" alt="thirteen"></p>
+<p><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/fourteen.jpg" alt="fourteen"></p>
+<p>使用反射在运行时分析对象，与之相关的API如下：</p>
+<p><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/fifteen.jpg" alt="fifteen"></p>
+<p><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/sixteen.jpg" alt="sixteen"></p>
+<p>为反射编写泛型数组代码，与之相关的API如下：</p>
+<p><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/seventeen.jpg" alt="seventeen"></p>
+<p>调用任意方法和构造器，与之相关的API如下：</p>
+<p><img src="/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/eighteen.jpg" alt="eighteen"></p>
+<p>继承的设计技巧：</p>
+<p>1）将公共的操作和字段放在超类中。</p>
+<p>2）不要使用受保护的字段。</p>
+<p>3）使用继承实现“is-a”关系。</p>
+<p>4）除非所有继承的方法都有意义，否则不要使用继承。</p>
+<p>5）在覆盖方法时，不要改变预期的行为。</p>
+<p>6）使用多态，而不用使用类型信息。</p>
+<p>7）不要滥用反射。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E7%BB%A7%E6%89%BF/" data-id="ckn5mhdne001cf0v3hpz5hnob" data-title="Java核心技术——卷I——继承" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/23/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E5%88%86%E7%BB%84%E6%95%B0%E6%8D%AE/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MySQL必知必会——分组数据
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/21/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%B1%87%E6%80%BB%E6%95%B0%E6%8D%AE/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MySQL必知必会——汇总数据</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

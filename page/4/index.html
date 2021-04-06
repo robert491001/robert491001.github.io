@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-MySQL必知必会——使用数据处理函数" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/20/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0/" class="article-date">
+  <time class="dt-published" datetime="2020-11-20T06:12:03.000Z" itemprop="datePublished">2020-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/20/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0/">MySQL必知必会——使用数据处理函数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>SQL支持利用函数来处理数据。函数一般是在数据上执行的，它给数据的转换和处理提供了方便。</p>
+<p>大多数SQL实现支持以下函数：</p>
+<p>1）用于处理文本串(如删除或填充值，转换值为大写或小写)的文本函数。</p>
+<p>2）用于在数值数据上进行算术操作(如返回绝对值，进行代数运算等等)的数值函数。</p>
+<p>3）用于处理日期和时间值并从这些值中提取特定成分(如返回两个日期之间，检查日期有效性等)的日期和时间函数。</p>
+<p>4）返回DBMS正在使用的特殊信息(如返回用户登录信息，检查版本细节)的系统函数。</p>
+<p>常用的文本处理函数如下：</p>
+<p><img src="/2020/11/20/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0/one.JPG" alt="one"></p>
+<p>CUE：SOUNDEX是一个将任何文本串转化为描述其语言表示的字母数字模式的算法。SOUNDEX考虑了类似的发音字符和字节，使得能对串进行发音比较而不是字母比较。虽然SOUNDEX并不是SQL概念，但MySQL(就像大多数DBMS一样)都提供对SOUNDEX的支持。</p>
+<p>常用的日期和时间处理函数如下：</p>
+<p><img src="/2020/11/20/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0/two.png" alt="two"></p>
+<p>常用的数值处理函数如下：</p>
+<p><img src="/2020/11/20/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0/three.png" alt="three"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/20/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0/" data-id="ckn5mhdno001xf0v3ftfve4ox" data-title="MySQL必知必会——使用数据处理函数" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Java核心技术——卷I——对象与类" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/" class="article-date">
+  <time class="dt-published" datetime="2020-11-19T06:21:59.000Z" itemprop="datePublished">2020-11-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/">Java核心技术——卷I——对象与类</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>面向对象程序设计(object-oriented-programming,OOP)是当今主流的程序设计范型，它取代了20世纪70年代的“结构化”或过程式编程技术。面向对象程序是由对象组成的，每个对象包含对用户公开的特定功能和隐藏的实现部分。传统的结构化程序设计通过一系列的过程(即算法)来求解问题，即算法是第一位的，数据结构是第二位的。而OOP却相反，将数据放在第一位，然后再考虑操作数据的算法。</p>
+<p>类(class)是构造对象的模板或蓝图。由类构造(construct)对象的过程称为创建类的实例(instance)。封装(encapsulation，有时又称为数据隐藏)是将数据和行为组合在一个包中，并对对象的使用者隐藏具体的实现方式。对象中数据称为实例字段，操作数据的过程称为方法。实现封装的关键在于，绝对不能让类中的方法直接访问其他类的实例字段。程序只能通过对象的方法与对象数据进行交互。</p>
+<p>OOP的另一个原则就是：可以通过扩展其他类来构建新类。在扩展一个已有的类时，这个扩展后的新类具有被扩展的类的全部属性和方法。通过扩展一个类来建立另外一个类的过程称为继承(inheritance)</p>
+<p>对象的三个主要特性如下：</p>
+<p>1）对象的行为(behavior)——可以对对象完成哪些操作，或者可以对对象应用哪些方法？</p>
+<p>2）对象的状态(state)——当调用那些方法时，对象会如何相应？</p>
+<p>3）对象的标识(identify)——如何区分具有相同行为与状态的不同对象？</p>
+<p>对象的行为是用可调用的方法来定义的。此外每个对象都保存着描述当前状况的信息，这就是对象的状态。对象的状态可能会随着时间而发生改变，但这种改变不会是自发的。对象状态的改变必须通过调用方法实现。每个对象都有一个唯一的的标识。需要注意的是，作为同一个类的实例，每个对象的标识总是不同的，状态也往往存在着差异。</p>
+<p>传统的过程式程序中，必须从顶部的main函数开始编写程序。而OOP是首先从识别类开始，然后再为各个类添加方法。识别类的一个简单经验是在分析问题的过程中寻找名词，而方法对应着动词。</p>
+<p>在类之间的，最常见的关系有：依赖(“uses-a”)、聚合(“has-a”)、继承(“is-a”)。如果一个类的方法使用或操纵另一个类的对象，就说一个类依赖于另一个类；如果类A的对象包含类B的对象，就说它们是聚合；而继承表示一个更特殊的类与一个更一般的类之间的关系。</p>
+<p>表达类关系的UML符号如下所示：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/one.jpg" alt="one"></p>
+<p>在Java中，要使用构造器(constructtor，或称为构造函数)构造新实例。构造器是一种特殊的方法，用来构造并初始化对象。构造器的名字应该与类名相同。要认识到重要一点：对象变量并没有实际包含一个对象，它只是引用一个对象。在Java中，任何对象变量的值都是存储在另外一个地方的某个对象的引用。new操作符的返回值也是一个引用。所有的对象都存储在堆中。Java中，可以使用clone方法获得对象的完整副本。</p>
+<p>只访问对象而不修改对象的方法被称为<strong>访问器方法</strong>，相反访问对象且改变对象的方法称为<strong>更改器方法</strong>。而在C++中，带有const后缀的方法是访问器方法；没有声明为const的方法默认为更改器方法。</p>
+<p>LocalDate 相关API如下：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/two.jpg" alt="two"></p>
+<p>Java中，最简单的类定义形式为：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/three.jpg" alt="three"></p>
+<p>在一个源文件中，只能有一个公共类，但可以有任意数目的非公共类。</p>
+<p>构造器与类同名。构造器与其他方法有一个重要的不同。构造器总是结合new运算符来调用。不能对一个已经存在的对象调用构造器来达到重新设置实例字段的目的。总结，有关构造器的内容如下：</p>
+<p>1）构造器与类同名</p>
+<p>2）每个类可以有一个以上的构造器</p>
+<p>3）构造器可以有0个、1个或多个参数</p>
+<p>4）构造器没有返回值</p>
+<p>5）构造器总是伴随着new操作符一起调用。</p>
+<p>要特别注意，不要在构造器中定义与实例字段同名的局部变量。</p>
+<p>var关键字只能用于方法中的局部变量。参数和字段的类型必须声明。</p>
+<p>如果对null值应用一个方法，会产生一个NullPointerException异常。</p>
+<p>方法用于操作对象以及存取它们的实例字段。方法一般伴随着两种参数，隐式参数与显示参数。隐式参数是出现在方法名前所引用方法的对象名(有人也把隐式参数称为方法调用的目标或接收者)。显示参数是位于方法名后面括号中的数值。在每一个方法中，关键字this指示隐式参数。</p>
+<p>只返回实例字段值的方法，又称为字段访问器方法。特别注意，不要编写返回可变对象引用的访问器方法。如果实在要返回一个可变对象的引用，应该对它进行克隆。对象克隆是指存放在另一个新位置上的对象副本。</p>
+<p>一个方法可以访问所属类的所有对象的私有数据。</p>
+<p>可以将实例字段定义为final。这样的字段必须在构造对象时初始化。也就是说，必须确保在每一个构造器执行后，这个字段的值已经设置，并且以后不能再修改这个字段。</p>
+<p>静态方法是不在对象上执行的方法，可以认为静态方法是没有this参数的方法(一个非静态方法中，this参数指示这个方法的隐式参数)。可以使用对象调用静态方法，这是合法的。但是建议还是使用类名而不是对象来调用静态方法。以下两种情况可以使用静态方法：</p>
+<p>1）方法不需要访问对象状态，因为它需要的所有参数都通过显示参数提供。</p>
+<p>2）方法只需要访问类的静态字段。</p>
+<p>需要注意，可以调用静态方法而不需要任何对象。那就是说main方法也是一个静态方法。</p>
+<p>CUE：每一个类可以有一个main方法。这是常用于对类进行单元测试的一个技巧。</p>
+<p>Objects相关API 如下：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/four.jpg" alt="four"></p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/five.jpg" alt="five"></p>
+<p>按值调用表示方法接受的是调用者提供的值；按引用调用表示方法接受的是调用者提供的变量地址。方法可以修改按引用传递的变量的值，而不能修改按值传递的变量的值。<strong>Java总是采用按值调用</strong>。Java中对方法参数可以采取何种操作如下所示：</p>
+<p>1）方法可以改变对象参数的状态。</p>
+<p>2）方法不能修改基本数据类型的参数(即数值型和布尔型)</p>
+<p>3）方法不能让一个对象参数引用一个新的对象。</p>
+<p>如果多个方法有相同的名字、不同的参数，这种情况便称为重载。Java允许重载任何方法，而不仅仅是构造器方法。因此，要完整地描述一个方法，需要指定方法名以及参数类型。这叫做方法的签名。注意，返回类型不是方法签名的一部分。也就是，不能有两个名字相同、参数类型也相同却有不同返回类型的方法。</p>
+<p>如果在构造器中没有显式地为字段设置初值，那么就会被自动地赋值为默认值：数值为0、布尔值为false、对象引用为null。这是字段与局部变量的一个重要区别。方法中的局部变量必须明确地初始化。无参构造器会将所有的实例字段设置为默认值。<strong>仅</strong>当类没有任何其他构造器的时候，程序才会得到一个默认的无参数的构造器。</p>
+<p>关键字this除了指示一个方法的隐式参数外，还有另外一个含义：如果构造器的第一个语句形式如this(….)，这个构造器将调用同一个类的另外一个构造器。</p>
+<p>初始化数据字段的方法除了在构造器中设置以及在声明中赋值外，还有第三种机制。称作初始化块。在一个类的声明中，可以包含任意多个代码块。只要构造这个类的对象，这些块就会被执行。可以在初始化块中设置字段，即使这些字段在类后面才定义，这也是合法的。但是，为了避免循环定义，不允许读取在后面初始化的字段。</p>
+<p>Random相关API如下：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/six.jpg" alt="six"></p>
+<p>Java允许使用包(package)将类组织在一个集合中。使用包的主要原因是确保类名的唯一性。事实上，为了保证包名的绝对唯一性要用一个因特网域名以逆序的形式作为包名，然后对于不同的工程使用不同的子包。从编译器的角度来看，嵌套的包之间没有任何关系。每一个包都是独立的类的集合。</p>
+<p>一个类可以使用所属包中所有类，以及其他包中的公共类(public class)。可以采用两种方式访问另一个包中的公共类，第一种方式就是使用完全限定名，就是包名后面跟着类名；第二种方式就是使用import语句。import语句是一种引用包中各个类的简捷方式。一旦使用了import语句，在使用类时，就不必写出类的全名了。import语句应该位于源文件的顶部(但位于package语句的后面)。需要注意的是，可以使用星号(*)导入一个包，但不能使用import java.*或import java.*.*导入以java为前缀的所有包。在包中定位类是编译器的工作。类文件中的字节码总是使用完整的包名引用其他类。import语句的唯一好处就是简捷，可以使用简短的名字而不是完整的包名来引用一个类。有一种import语句运行导入静态方法和静态字段，而不只是类。另外，还可以导入特定的方法或字段。</p>
+<p>要想将类放入包中，就必须将包的名字放在源文件的开头，即放在定义这个包中各个类的代码之前。如果没有在源文件中放置package语句，这个源文件中的类就属于无名包。无名包没有包名。注意，编译器在编译源文件的时候<strong>不检查</strong>目录结构。如果包与目录不匹配，<strong>虚拟机</strong>就找不到类。</p>
+<p>类存储在文件系统的子目录中。类的路径必须与包名匹配。另外，类文件也可以存储在JAR(Java归档)文件中。JAR文件使用ZIP格式组织文件和子目录。类路径是所有包含类文件的路径的集合。在UNIX环境中，类路径中的各项之间用冒汗(:)分隔，而在Windows环境中，则以分号(;)分隔，不管是UNIX还是Windows，都用句点(.)表示当前目录从。从Java 6 开始，可以在JAR文件目录中指定通配符，不过在UNIX中，*必须转义以防止shell扩展。Java编译器总是在当前的目录查找文件，但Java虚拟机仅在类路径中包含”.”目录的时候才查看当前目录。</p>
+<p>最好使用 -classpath(或 -cp，或者Java 9中的 –class-path)选项指定类路径。整个指令必须写在一行中。在Java 9中，还可以从<strong>模块路径</strong>加载类</p>
+<p>一个JAR文件既可以包含类文件，也可以包含诸如图象和声音等其他类型的文件。可以使用jar工具制作JAR文件(在默认的JDK安装下，该工具位于bin目录下)。创建一个新JAR文件最常用的命令使用以下语法：</p>
+<p>jar  cvf  jarFileName  file1  file2 ……</p>
+<p>通常jar命令的格式如下：</p>
+<p>jar options file1 file2 ……</p>
+<p>jar程序所有选项如下所示：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/seven.jpg" alt="seven"></p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/eight.jpg" alt="eight"></p>
+<p>除了类文件以及其他资源文件以外，每个JAR文件还包含一个清单文件(manifest)，用于描述归档文件的特殊特性。清单文件被命名为MANIFEST.MF，它位于JAR文件的一个特殊的META-INF子目录中。符合标准的最小清单文件为：</p>
+<p>Manifest -Version: 1.0</p>
+<p>而复杂的清单文件可能包含更多条目。这些条目被分成更多个节。第一节被称为主节。它作用于整个JAR文件。随后的条目用来指定命名实体的属性。它们都必须以Name条目开始。节于节之间用空行分开。若要编辑清单文件，需要将希望添加到清单文件的行放到文本文件中，然后运行：jar cfm jarFileName manifestFileName ……;而若要更新一个已有的JAR文件的清单，则需要将增加的部分放置到一个文本文件中，然后运行：</p>
+<p>jar ufm MyArchive.jar manifest -additions.mf</p>
+<p>可以使用jar命令中的e选项指定程序的入口点，即通常需要在调用Java程序启动器时指定的类。或者，可以在清单文件中指定程序的主类。但注意，不要为主类名添加扩展名.class。清单文件的最后一行必须以换行符结束。否则，清单文件将无法被正确地读取。</p>
+<p>在控制台端启动jar文件命令为：java -jar MyProgram.jar  。而在OS中采取的操作方式为：</p>
+<p>1）Windows平台下，Java运行时安装程序将为“.jar”扩展名创建一个文件关联，会用javaw -jar命令启动文件(与java命令不同的是该命令不打开shell窗口)</p>
+<p>2）在MAC OS平台下，OS能够识别“.jar”扩展名文件。双击便会执行。</p>
+<p>Java 9引入了多版本JAR(multi-release JAR)，其中可以包含面向不同Java版本的类文件。为了保证向后兼容，额外的类文件放在META-INF/versions目录中。要增加不同版本的类文件，可以使用 –release标志：</p>
+<p>jar uf MyProgram.jar –release 9 Application.class</p>
+<p>要从头构建一个多版本JAR文件，可以使用 -C选项，对应每个版本要切换到一个不同的类文件目录：</p>
+<p>jar cf MyProgram.jar -C bin/8 .  –release 9 -C bin/9 Application.class</p>
+<p>面向不同版本编译时，要使用 –release标志和-d 标志来指定输入目录:</p>
+<p>javac -d bin/8 –release 8 ……</p>
+<p>在Java 9中，-d选项会创建这个目录(如果原先改目录不存在的话)。 –release标志也是Java 9新增的。</p>
+<p>JDK的命令行选项一直以来都使用单个短横线加多字母选项名的形式，但jar命令除外，这个命令遵循经典的tar命令选项格式，而没有短横线。从Java 9开始，Java工具开始转向一种更常用的选项格式，多字母选项名前面加两个短横线，另外对于常用的选项可以使用单字母快捷方式。带 – 和多字母的选项的参数用空格或者一个等于号(=)分隔。单字母选项的参数可以用空格分隔，或者之间跟在选项后面。无参数的单字母选项可以组合在一起，但目前不能使用这种方式，因为这会带来混淆的。jar 命令的长选项：</p>
+<p>jar –create –verbose –file jarFileName file1 file2 ……</p>
+<p>对于单字母选项，不组合的话，也是可以使用：jar -c -v -f jarFileName file1 file2 ……</p>
+<p>JDK中包含一个很有用的工具——javadoc，它可以由源文件生成一个HTML文档。javadoc工具从以下几项中抽取信息：</p>
+<p>1）模块 ；2）包；3）公共类与接口；4）公共和受保护的字段；5）公共的和受保护的构造器及方法。可以(而且应该)为上述各个特性编写注释。注释放置在所描述特性的前面。注释以/**开始，并以*/结束。每个/**……*/文档注释包含标记以及之后紧跟着的自由格式文本。标记以@开始，如@since或@param。自由格式文本的第一句应该是一个概要性的句子。类注释必须放在import语句之后，类定义之前。每个方法注释必须放在所描述的方法之前。除了通用标记外，还可以使用如下标记：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/nine.jpg" alt="nine"></p>
+<p>标记@since text会建立一个“since”(始于)条目。text(文本)可以是引入这个特性的版本的任何描述。如下标记也可以用在类文档注释中：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/ten.jpg" alt="ten"></p>
+<p>通过@see和@link标记，可以使用超链接，链接到javadoc文档的相关部分或外部文档。标记@see reference将在“see also”(参见)部分增加一个超链接。需要注意的是，一定要使用井号(#)，而不要使用句号(.)分隔类名与方法名，或类名与变量名。如果@see标记后面有一个&lt;字符，就需要指定一个超链接。可以超链接到任何URL。如果@see标记后面有一个双引号(“)字符，文本就会显示在“see also”部分。可以为一个特性添加多个@see标记，但必须将它们放在一起。最后，在Java 9中，可以使用{@index entry}标记为搜索框增加一个条目。</p>
+<p>要想产生包注释，就需要在每一个包目录中添加一个单独的文件。有如下两个选择：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/eleven.jpg" alt="eleven"></p>
+<p>类设计技巧：</p>
+<p>1）一定要保证数据私有</p>
+<p>2）一定要对数据进行初始化</p>
+<p>3）不要在类中使用过多的基本类型</p>
+<p>4）不是所有的字段都需要单独的字段访问器和字段更改器。</p>
+<p>5）分解有过多的职责类</p>
+<p>6）类名和方法名要能够体现它们的职责。类名应当是一个名词，或者前面有形容词修饰的名词。或者是有动名词修饰的名词。对于方法来说，要遵循标准惯例：访问器方法用小写get开头，更改器方法用小写的set开头。</p>
+<p>7）优先使用不可变的类。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/" data-id="ckn5mhdop003uf0v31lwg24i1" data-title="Java核心技术——卷I——对象与类" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MySQL必知必会——创建计算机字段" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/19/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E5%88%9B%E5%BB%BA%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E6%AE%B5/" class="article-date">
+  <time class="dt-published" datetime="2020-11-19T01:22:00.000Z" itemprop="datePublished">2020-11-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/19/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E5%88%9B%E5%BB%BA%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E6%AE%B5/">MySQL必知必会——创建计算机字段</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>字段(field)基本上与列(column)的意思相同，经常互换使用，不过数据库列一般称为列，而术语字段通常用在计算字段的连接上。</p>
+<p>拼接(concatenate)将值联结到一起构成单个值。在MySQL的select语句中，可以使用concat()函数来拼接两个列。concat()拼接串，即把多个串连接起来形成一个较长的串，concat()需要一个或多个指定的串，各个串之间用逗号分隔。</p>
+<p>rtrim()函数去掉值右边的所有空格。MySQL除了支持rtrim()函数，还支持ltrim()(去掉串左边的空格)以及trim()(去掉串两边的空格)。</p>
+<p>别名(alias)是一个字段或值的替换名，别名用AS关键字赋予。别名还有其他用途，如在实际的表列名包含不符合规定的字符(如空格)时重新命名它，在原来的名字含混或容易误解时扩充它，等等。别名有时也称为导出列，但不管称为什么，它们所代表都是相同的东西。</p>
+<p>MySQL的算术操作符如下：</p>
+<p><img src="/2020/11/19/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E5%88%9B%E5%BB%BA%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E6%AE%B5/one.png" alt="one"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/19/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E5%88%9B%E5%BB%BA%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E6%AE%B5/" data-id="ckn5mhdnv002bf0v34ym1cskt" data-title="MySQL必知必会——创建计算机字段" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Java核心技术——卷I——Java基本程序设计结构" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/" class="article-date">
+  <time class="dt-published" datetime="2020-11-18T04:23:30.000Z" itemprop="datePublished">2020-11-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/">Java核心技术——卷I——Java基本程序设计结构</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>Java区分大小写。</strong></p>
+<p>访问修饰符(如public)用于控制程序的其他部分对这段代码的访问级别。</p>
+<p>类是构建所有Java应用程序和applet的构建块。Java应用程序中的全部内容都必须放置在类中。</p>
+<p>Java定义类名的规则很宽松。名字必须以字母开头，后面可以跟字母和数字的任意组合。长度基本没有限制。但不能使用Java保留字作为类名。</p>
+<p>标准的命名规范为：类名是以大写字母开头的名词。如果名字由多个单词组成，每个单词的第一个字母都应该大写(这种方式称为骆驼命名法)。</p>
+<p>源代码的文件名必须与公共类的名字相同，并用**.java**作为扩展名。</p>
+<p>Java关键字如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/one.jpg" alt="one"></p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/two.jpg" alt="two"></p>
+<p>根据Java语言规范，main方法必须声明为public。但在九十年代的时候一位程序员发了当main方法不是public修饰时，有些版本的Java解释器同样可以执行。最后在Java1.4以后的版本中强制main方法必须是public。</p>
+<p>Java中的所有函数都是某个类的方法(标准术语将其称为方法，而不是成员函数)。因此，Java中的main方法必须有一个外壳类。Java中的main方法必须是静态的。如果main方法正常退出，那么Java应用程序的退出码为0，表示成功地运行了程序。</p>
+<p>在Java中，每个句子必须用分号结束。特别需要说明，回车不是语句结束的标志，因此，如果需要可以将一条语句写在多行上。</p>
+<p>点号(<strong>.</strong>)用于调用方法。Java使用的通用语法是：<strong>object.method(parameters)</strong>    这等价于函数调用。</p>
+<p>Java是一种强类型语言。这就意味着必须为每一个变量声明一种类型。在Java中，一共有8种基本类型(primitive type)，其中有4种整型、2种浮点型、1种字符类型char(用于表示Unicode编码的代码单元)和1种表示真值boolean类型。Java有个能够表示任意精度的算术包，通常称为“大数”(big number)。虽然被称为大数，但它并不是一种基本Java类型，而是一个Java对象。</p>
+<p>整数：整数用于表示没有小数部分的数值，允许是负数。Java提供了4种整型。详情如下所示：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/three.jpg" alt="three"></p>
+<p>长整型数值有一共后缀L或l，十六进制有一个前缀0x或0X，八进制有一个前缀0。从Java7开始，加上前缀0b或0B就可以写二进制数，同样还可以为数字字面量加下划线。Java没有无符号(unsigned)形式的int、long、short和byte类型。如果确实是要使用无符号数，就需要手工通过代码来调整。</p>
+<p>浮点类型：浮点类型用于表示有小数部分的数值。在Java种有两种浮点类型，详情如下所示：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/four.jpg" alt="four"></p>
+<p>double表示这种类型的数值精度是float类型的两倍(因此又称为双精度数值)，在很多情况下，float类型的精度(6~7位有效数字)并不能满足需要。float类型的数值有一个后缀F或f。没有后缀F的浮点值总是默认为double类型。可以使用十六进制表示浮点数值。在十六进制表示法中，使用p表示指数，而不是e(e是一个十六进制数位)。注意：尾部采用十六进制，指数采用十进制。指数的基数是2，而不是10。所有的浮点数计算都遵循IEEEE 754规范。具体来说，如下是用于表示溢出和出错情况的三个特殊的浮点数值：</p>
+<p>正无穷大、负无穷大、NaN(不是一个数字)</p>
+<p>常量Double.POSITIVE_INFINITY、Double.NEGATIVE_INFINITY和Double.NaN(以及相应发float类型的变量)分别表示这个三个特殊的值。</p>
+<p>浮点数值<strong>不适用</strong>无法接受舍入误差的金融计算。</p>
+<p>char类型：char类型原本用于表示单个字符。但如今，有些Unicode字符可以用一个char值描述，另外一些Unicode字符则需要两个char值。char类型的字面量值要用单引号括起来。char类型的值可以表示为十六进制，其范围从\u0000到\uFFFF。除了转义序列\u之外，还有一些用于表示特殊字符的转义序列。详情如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/five.jpg" alt="five"></p>
+<p>CUE：Unicode转义序列会在解析代码之前得到处理。</p>
+<p>在Java中，char类型描述了UTF-16编码中的一个代码单元。</p>
+<p>boolean类型：boolean类型有两个值：false和true，用来判断逻辑条件。整型值和布尔值之间不能进行相互转换。</p>
+<p>在Java中，每个变量都有一个类型(type)。在声明变量时，先指定变量的类型，然后是变量名。每个声明都以分号结束。变量名必须是一个以字母开头并由字母或数字构成的序列。变量名中所有的字符都是有意义的，<strong>并且大小写敏感</strong>。变量名的长度基本上没有限制。另外，不能使用Java保留字作为变量名，在Java 9中，单下划线 **_**不能作为变量名，可以在一行声明多个变量。</p>
+<p>对一个已经声明过的变量进行赋值，就需要将变量名放在等号(=)左侧，再把一个适当取值的Java表达式放在等号右侧。最后，在Java中可以将声明放在代码中的任何地方。从Java 10开始，对于局部变量，如果可以从变量的初始值推断出它的类型，就不再需要声明类型，只需要使用关键字var而无需指定类型。C和C++区分变量的声明与定义，但在Java中并不区分。</p>
+<p>在Java中，final指示常量。final表示这个变量只能被赋值一次。一旦被赋值之后，就不能够再更改了。习惯上，常量名使用全大写。在Java中，经常希望某个常量可以在一个类的多个方法中使用，通常将这些常量称为类常量。<em><strong>可以使用关键字static final 设置一个类常量</strong></em>。需要注意，类常量定义位于main方法的外部。const是Java保留的关键字，但目前并没有使用。因此在Java中，必须使用final定义常量。</p>
+<p>Java中，使用算术运算符+，-，*，/表示加减乘除。当参与/运算的两个操作数都是整数时，表示整数除法；否则，表示浮点除法。需要注意，<strong>整数除以0将会产生一个异常，而浮点数被0除将会得到无穷大或NaN的结果</strong>。</p>
+<p>sqrt()——平方根，pow()——幂运算(pow方法有两个double类型的参数，其返回结果也为double)，floorMod()——解决一个长期存在的有关整数余数的问题。Math提供的一些常用三角函数：Math.sin，Math.cons，Math.tan，Math.atan，Math.atan2，还有指数以及它的反函数——自然对数以及以10为底的对数：Math.exp，Math.log，Math.log10，最后，还有两个表示圆周率和e常量的最接近的近似值:Math.PI，Math.E。</p>
+<p>数值类型之间的合法转换，如下所示：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/six.jpg" alt="six"></p>
+<p>实线头表示无信息丢失的转换；虚线头表示可能有精度损失的转换。强制类型转换的语法格式是在圆括号中给出想要转换的目标类型，后面紧跟待转换的变量名。如果想对浮点数进行舍入运算，那就需要使用Math.round方法。</p>
+<p>可以在赋值中使用二元运算符，一般来说运算符放在=号左边，如*=。如果运算符得到一个值，其类型与左边操作数的类型不同，就会发生强制类型转换。==表示等于，！=表示不等于。&amp;&amp;表示逻辑“与”运算符，||表示逻辑“或”运算符，！表示逻辑非运算符。&amp;&amp;和||是按照“短路”方式来求值的：如果第一个操作数已经能够确定表达式的值，第二个操作数就不必计算了。最后，Java支持三元操作符**?:**。</p>
+<p>位运算符包含：**&amp;(and)，|(or)，^(xor)，~(not)**。这些运算符按位模式处理。还有&lt;&lt;和&gt;&gt;运算符可以将位模式左移或右移，最后&gt;&gt;&gt;运算符会用0填充高位，这与&gt;&gt;不同，它会用符号位填充高位。不存在&lt;&lt;&lt;运算符。</p>
+<p>同一级别的运算符按照从左到右的次序进行计算(但右结合运算符除外，如下表所示)：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/seven.jpg" alt="seven"></p>
+<p>从概念上讲，Java字符串就是Unicode字符序列。Java没有内置的字符串类型，而是在标准Java类库中提供了一个预定义类，很自然地叫作String。<strong>每个用双引号括起来的字符串都是String类的一个实例</strong>。</p>
+<p>substring()——从一个较大的字符串中提取一个子串。substring方法的第二个参数是不想复制的第一个位置。在substring中从0开始计数。类似于C和C++，Java字符串中的代码单元和代码点从0开始计数。Java语言允许使用+号连接(拼接)两个字符串，当一个字符串与一个非字符串的值进行拼接时，后者会转换成字符串。在Java 11中，还提供了一个repeat方法。String类<strong>没有提供</strong>修改字符串中某个字符的方法，所以在Java文档中将String类对象称为不可变的。equals()——检测两个字符串是否相等。如果要检测两个字符串是否相等，同时不区分大小写，可以使用equalsIgnoreGase()方法。==运算符不能检测两个字符串是否相等，它只能确定两个字符串是否存放在同一个位置上。</p>
+<p>空串“”是长度位0的字符串。空串是一个Java对象，有自己的串长度(0)和内容(空)。不过，String变量还可以存方一个特殊的值，名为null，表示目前没有任何对象与该变量关联。Java字符串由char值序列组成。length方法将返回采用UTF-16编码表示给定字符串所需要的代码单元数量。codePointCout()——得到实际的长度，即码点数量。虚拟机不一定把字符串实现为代码单元序列。在Java 9中，只包含单字节代码单元的字符串使用byte数组实现，所有其他字符串使用char数组。</p>
+<p>String API详情如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/eight.jpg" alt="eight"></p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/nine.jpg" alt="nine"></p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/ten.jpg" alt="ten"></p>
+<p>StringBuilder类在Java 5中引入。这个类的前身是StringBuffer，它的效率有些低，但允许采用多线程的方式添加或删除字符。StringBuilder API如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/eleven.jpg" alt="eleven"></p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/twelve.jpg" alt="twelve"></p>
+<p>Scanner类不适用于从控制台读取密码。Java 6特别引入了Console类来实现这个目的。Scanner API与Console API如下： </p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/fourteen.jpg" alt="fourteen"></p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/thirteen.jpg" alt="thirteen"></p>
+<p>Java 5沿用了C语言函数库中的printf方法。用于printf的转换符如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/fifteen.jpg" alt="fifteen"></p>
+<p>另外，还可以指定控制格式化输出外部的各种标志。详情如下所示：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/sixteen.jpg" alt="sixteen"></p>
+<p>日期和时间转换符如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/seventeen.jpg" alt="seventeen"></p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/eighteen.jpg" alt="eighteen"></p>
+<p>要想读取以该文件，需要构造一个Scanner对象，要想写入文件，就需要构造一个PrintWriter对象。如果用一个不存在的文件构造一个Scanner，或者用一个无法创建的文件名构造一个PrintWriter，就会产生异常。Scanner API，PrintWriter API以及相关API 如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/nineteen.jpg" alt="nineteen"></p>
+<p>Java使用条件语句和循环结构确定控制流程。块(即复合语句)是指由若干条Java语句组成的语句，并用一对大括号括起来。块确定了变量的作用域。一个块可以嵌套在另一个块中，但是不能在嵌套的两个块中声明同名的变量。相反在C++中，可以在嵌套的块中重定义一个变量。在内层定义的变量会覆盖在外层定义的变量。</p>
+<p>Java中，条件语句的形式为：<strong>if (condition) statement</strong> 这里条件必须用小括号括起来。使用块，可以在Java程序结构中原本只能放置一条语句的地方放置多条语句。</p>
+<p>当条件为true时，while循环执行一条语句(也可以是一个块语句)。一般形式为：<em><strong>while(condition) statement</strong></em> 如果开始时循环条件的值为false，那么while循环一次也不执行。while循环语句在最前面检测循环条件。因此，循环体中代码有可能一次都不执行。如果希望循环体至少执行一次，需要使用do/while循环将检测放在最后。语法为：<em><strong>do  statement while(condition)</strong></em>; 这种循环先执行语句(通常是一个语句块)，然后再检测循环条件，如果为true，就重复执行语句，然后再次检测循环条件，以此类推。for循环语句是支持迭代的一种通用结构，由一个计数器或类似的变量控制迭代次数。每次迭代后这个变量将会更新。</p>
+<p>在循环中，检测两个浮点数是否相等需要格外小心。由于舍入的误差，可能永远达不到精确的最终值。特别注意，如果在for语句内部定义一个变量，这个变量就不能在循环体之外使用。另一方面，可以在不同的for循环中定义同名的变量。</p>
+<p>switch语句将从与选项值相匹配的case标签开始执行，直到遇到break语句，或者执行到switch语句的结束处为止。如果没有相匹配的case标签，而有default子句，就执行这个子句。case标签可以是：类型为char，byte或int的常量表达式、枚举常量、从Java 7开始还可以是字符串字面量。当在switch语句中使用枚举常量时，不必在每个枚举中指明枚举名，可以由switch的表达式值推导得出。</p>
+<p>Java提供了一种带标签的break语句，用于跳出多重嵌套的循环语句。注意，标签必须放在希望跳出的最外层循环之前，并且必须紧跟一个冒号。同时只能跳出语句块，不能跳入语句块。continue语句将控制转移到最内层循环的首部。还有一种带标签的continue语句，将跳到与标签匹配的循环的首部。</p>
+<p>java.math包中有两个特别的类：BigInteger和BigDecimal。这两个类可以处理包含任意长度数字序列的数值。BigInteger类实现任意精度的整数运算，BigDecimal实现任意精度的浮点数运算。使用静态方法valueOf()方法可以将普通的数值抓换为大数。对于更大的数，可以使用一个带字符串参数的构造器。不能使用算术运算符处理大数，只能使用相关的方法。</p>
+<p>BigInteger API和BigDecimal API如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/twenty.jpg" alt="twenty"></p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/twentyOne.jpg" alt="twentyOne"></p>
+<p>数组存储相同类型值的序列。数组是一种数据结构，用来存储同一类型的集合。通过一个整型下标可以访问数组中的每一个值。在声明数组变量时，需要指出数组类型(数据元素类型紧跟[])和数组变量的名字。数组长度不要求是常量。一旦创建了数组，就不能再改变它的长度。在Java中，允许有长度为0的数组。注意，长度为0的数组与null并不相同。创建一个数字数组时，所有元素都初始化为0。boolean数组的元素会初始化为false。对象数组的元素则初始化为一个特殊值null，表示这些元素(还)未存放任何对象。</p>
+<p>增强for循环语句格式为： <em><strong>for(variable :collection) statement</strong></em> 它定义一个变量用于暂存集合中的每一个元素，并执行相应的语句。collection这一集合表达式必须是一个数组或是一个实现了Iterable接口的类对象。for each循环语句的循环变量将会遍历数组中的每个元素，而不是下标值。</p>
+<p>Java中，允许将一个数组变量拷贝到另一个数组变量。这时，两个变量将引用同一个数组。如果希望将一个数组的所有值拷贝到一个新的数组中去，就要使用Array类的copyOf方法。该方法的第二个参数是新数组的长度，这个方法通常用来增加数组的大小。如果数组元素是数值型，那么额外的元素将被赋值为0；如果数值元素是布尔型，则赋值为false。相反，如果长度小于原始数组的长度，则只拷贝前面的值。</p>
+<p>Java数组与堆栈上的C++数组有很大不同，但基本上与堆上分配的数组指针一样。Java中的[]运算符被预定义为会完成越界检查，而且没有指针运算，既不能通过a+1得到数组中的下一个元素。</p>
+<p>每一个Java应用程序都有带一个String arg[]参数的main方法。这个参数表示main方法将接受一个字符串数组，也就是命令行上指定的参数。</p>
+<p>对数值数组进行排序，可以使用Arrays类中的sort方法。该方法使用了优化的快速排序算法。Math.random方法将返回一个0到1之间(包括0，不包括1)的随机数浮点数</p>
+<p>Arrays API如下：</p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/twentyTwo.jpg" alt="twentyTwo"></p>
+<p><img src="/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/twentyThree.jpg" alt="twentyThree"></p>
+<p>多维数组将使用多个下标访问数组元素。for each循环语句不能自动处理二维数组的每一个元素。它会循环处理行，而这些本身就是一维数组。要想访问二维数组的所有元素，需要使用两个嵌套循环。如果想快速地打印一个二维数组的数据元素列表，可以调用deepToString()方法。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/" data-id="ckn5mhdoo003sf0v3b4rrcjuv" data-title="Java核心技术——卷I——Java基本程序设计结构" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MySQL必知必会——用正则表达式进行搜索" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/18/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%90%9C%E7%B4%A2/" class="article-date">
+  <time class="dt-published" datetime="2020-11-18T02:26:49.000Z" itemprop="datePublished">2020-11-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/18/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%90%9C%E7%B4%A2/">MySQL必知必会——用正则表达式进行搜索</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>正则表达式是用来匹配文本的特殊的串(字符集合)。正则表达式的作用是匹配文本，将一个模式(即正则表达式)与一个文本串进行比较。</p>
+<p>仅为正则表达式语言的一个子集：MySQL仅支持多数正则表达式实现的一个很小的子集。</p>
+<p>关键字：REGEXP后所跟的东西作为正则表达式。</p>
+<p><strong>.</strong> 是正则表达式语言中一个特殊的字符，它表示匹配任意一个字符，因此每个行都被检索出来。</p>
+<p>匹配不区分大小写：MySQL的正则表达式(自版本3.23.4后)不区分大小写。如果要区分大小写，可使用BINARY关键字。</p>
+<p>为搜索两个串之一(或者为这个串，或者为另外一个串)，使用 | 操作符，| 为正则表达式的OR操作符，它表示匹配其中之一。[]是另一种形式的OR语句。</p>
+<p>字符集合也可以被否定，即它们将匹配除指定字符外的任何东西。为否定一个字符集，在集合的开始处放置一个^符号即可。</p>
+<p>匹配范围：可使用 - 来定义一个范围。范围不限于完整的集合，如[1-2]和[6-9]也是合法的范围。此外，范围不一定只是数值的，如[a-z]匹配任意字母字符。</p>
+<p>为了匹配特殊字符，必须用\\为前导。如\\-表示查找-，这种处理就是所谓的转义，正则表达式内具有特殊的所有字符都必须以这种方式转义。这包含 <strong>.</strong> 、**|<strong>、</strong>[]**以及迄今为止使用过的其他特殊字符。\\也用来引用元字符(具有特殊含义的字符)，如下表所示：</p>
+<p><img src="/2020/11/18/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%90%9C%E7%B4%A2/one.png" alt="one"></p>
+<p>匹配\：为匹配反斜杠(\)字符本身，需要使用\\\。</p>
+<p>\或\?：多数正则表达式实现使用单个反斜杠转义特殊字符，以便能使用这些字符本身。但是MySQL要求两个反斜杠(MySQL自身解释一个，正则表达式库解释另外一个)。</p>
+<p>Like与regexp的差别：Like匹配整个列，如果被匹配的文本在列值中出现，Like将不会找到它，相应的行也不被返回(除非使用通配符)。而regexp在列值内进行匹配，如果被匹配的文本在列值中出现，regexp将会找到它，相应的行将被返回。</p>
+<p>常用匹配字符类表如下：</p>
+<p><img src="/2020/11/18/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%90%9C%E7%B4%A2/two.png" alt="two"></p>
+<p>常用重复元字符表如下：</p>
+<p><img src="/2020/11/18/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%90%9C%E7%B4%A2/three.png" alt="three"></p>
+<p>常用定位元字符表如下:</p>
+<p><img src="/2020/11/18/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%90%9C%E7%B4%A2/four.png" alt="four"></p>
+<p>^的双重用途：当在集合中(用[和]定义)，则用它来否定该集合；否则，用来指串的开始处。</p>
+<p>使regexp起类似于like的作用，like和regexp的不同在于，like匹配整个串而regexp匹配子串。利用定位符，通过用^开始每个表达式，用$结束每个表达式，可以使用regexp的作用与like一样。</p>
+<p>简单的正则表达式：regexp检查总是返回0(没有匹配)或1(匹配)。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/18/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%90%9C%E7%B4%A2/" data-id="ckn5mhdo5002vf0v3ejzv8yyq" data-title="MySQL必知必会——用正则表达式进行搜索" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C和指针——运行时环境" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/17/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E7%8E%AF%E5%A2%83/" class="article-date">
+  <time class="dt-published" datetime="2020-11-17T05:12:14.000Z" itemprop="datePublished">2020-11-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/17/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E7%8E%AF%E5%A2%83/">C和指针——运行时环境</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>一个函数分成三个部分：函数序(prologue)、函数体(body)和函数跋(epilogue)。函数序用于执行函数启动启动需要的一些工作，函数跋用于在函数即将返回之前清理堆栈。当然，函数体用于执行有用工作的地方。</p>
+<p>堆栈帧是堆栈中的一个区域，函数在那里存储变量和其他值。</p>
+<p>局部变量声明和函数原型并不会产生任何汇编代码，但如果任何局部变量在声明时进行了初始化，那么会出现指令用于赋值操作。</p>
+<p>是链接器而不是编译器决定外部标识符的最大长度。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/17/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E7%8E%AF%E5%A2%83/" data-id="ckn5mhdn4000nf0v32oae36q2" data-title="C和指针——运行时环境" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C和指针——经典抽象数据类型" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/17/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E7%BB%8F%E5%85%B8%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="article-date">
+  <time class="dt-published" datetime="2020-11-17T04:53:11.000Z" itemprop="datePublished">2020-11-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/17/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E7%BB%8F%E5%85%B8%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">C和指针——经典抽象数据类型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>内存分配：所有的ADT(抽象数据类型)都必须确定一件事情——如何获取内存来存储值。有三种方案：静态数组、动态分配的数组和动态分配的链式结构。</p>
+<p>堆栈：堆栈(stack)这种数据最鲜明的特点就是其后进先出(LIFO)的方式，基本的堆栈操作通常被称为push和pop。push就是把一个新值压入到堆栈的内部，pop就是把堆栈顶部的值移除堆栈并返回该值。堆栈只提供对它的顶部值的访问。</p>
+<p>在传统的堆栈接口中，访问顶部元素的唯一方法就是把它移除。另一类堆栈接口提供三种基本操作：push、pop和top。push的操作和前面描述一样，pop只把顶部元素从堆栈中移除，并不返回这个值。top返回顶部元素的值，但它并不把顶部元素从堆栈中删除。</p>
+<p>队列：队列和堆栈的顺序不同，它是一种先进先出(FIFO)的结构。</p>
+<p>当满足如后条件时，队列为空：(real+1)%queue_size==front</p>
+<p>当满足如后条件时，队列为满：(real+2)%queue_size==front</p>
+<p>二叉树：树是一种数据结构，它们要么为空，要么具有一个值并具有零个或多个孩子，每个孩子本身也是树。这个递归的定义正确地提示了一个树的高度并没有内在的限制。二叉树(binary tree)是树的一种特殊形式，它的每个节点至多具有两个孩子，分别称为左孩子和右孩子。二叉树具有一个额外的属性：每个节点的值比它的左子树的所有节点的值都要大，但比它的右子树的所有节点的值要小。注意这个定义排除了树中存在值相同的节点的可能性。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/17/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E7%BB%8F%E5%85%B8%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" data-id="ckn5mhdn5000pf0v3czfkabxb" data-title="C和指针——经典抽象数据类型" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Java核心技术——卷I——Java程序设计环境" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%8E%AF%E5%A2%83/" class="article-date">
+  <time class="dt-published" datetime="2020-11-17T03:42:56.000Z" itemprop="datePublished">2020-11-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%8E%AF%E5%A2%83/">Java核心技术——卷I——Java程序设计环境</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>有关Java的一些术语如下所示：</p>
+<p><img src="/2020/11/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%8E%AF%E5%A2%83/one.jpg" alt="one"></p>
+<p><img src="/2020/11/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%8E%AF%E5%A2%83/two.jpg" alt="two"></p>
+<p>可以看到，JDK是Java Development Kit的缩写。在Java 10之前，还有一个术语是Java运行时环境(JRE)，它只包含虚拟机。这并不是开发人员想要的，只是专门为不需要编译器的用户提供。Java 2这种提法始于1998年。</p>
+<p>CUE：在window或Linux上安装JDK时，还需要另外完成一个步骤：将安装目录添加到可执行路径中——可执行路径是OS查找可执行文件时所遍历的目录列表。</p>
+<p>记住，Java区分大小写。</p>
+<p>Java 9引入了另一种使用Java的方法。JShell程序提供了一个“读取——计算——打印循环”(Read-Evaluate-Prin Loop, REPL)。键入一个Java表达式；JShell会评估你的输入，打印结果，等待你的下一个输入。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%8E%AF%E5%A2%83/" data-id="ckn5mhdn90010f0v3gw866ele" data-title="Java核心技术——卷I——Java程序设计环境" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C和指针——标准库函数" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/" class="article-date">
+  <time class="dt-published" datetime="2020-11-16T02:10:25.000Z" itemprop="datePublished">2020-11-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/">C和指针——标准库函数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>整型函数：该组函数返回整型值。函数分为三类：算术、随机数和字符串转换。</p>
+<p>算术：引入头文件为&lt;stdlib.h&gt;。标准函数库包含了4个整型算术函数。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/one.png" alt="one"></p>
+<p>abs函数返回它的参数的绝对值。如果其结果不能用一个整数表示，该行为是未定义的。labs用于执行相同的任务，但它的作用对象是长整数。div函数把它的第2个参数(分母)除以第一个参数(分子)，产生商和余数，用一个div_t结构返回。该结构包含以下两个字段。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/two.png" alt="two"></p>
+<p>两个字段可以不一定要以这个顺序出现。如果不能整除，商将是所有小于代数商的整数中最靠近它的那个整数。注意/操作符的除法运算结果并未精确定义。当/操作符的任何一个操作数为负而不能整除时，到底商是最大的那个小于等于代数商的整数还是最小的那个大于等于代数商的整数，这取决于编译器。ldiv所执行的任务和div相同，但作用于长整数，其返回值是一个ldiv_t结构。</p>
+<p>随机数：同样引入头文件为&lt;stdlib.h&gt;。伪随机数，之所以如此称呼是因为它们通过两个合在一起的函数通过计算产生随机数，因此有可能重复，所以并不是真正的随机数。两个函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/three.png" alt="three"></p>
+<p>rand函数返回一个范围在0和RADN_MAX(至少为32767)之间的随机数。如果要得到一个更小范围的伪随机数，首先把这个函数的返回值根据所需范围的大写进行取模，然后通过加上或减去一个偏移量对它进行调整。srand函数用给它的参数值对随机数发生器进行初始化。一个常用的技巧是使用每天的时间作为伪随机数产生器的种子。</p>
+<p>字符串转换：引入头文件为&lt;stdlib.h&gt;。字符串转换函数把字符串转换为数值。其中最简单的函数atoi和atol，执行基数为10的转换。strtol和strtoul函数允许在转换时指定基数。同时还允许访问字符串的剩余部分。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/four.png" alt="four"></p>
+<p>如果任何一个上述函数的第1个参数包含了前导空白字符，它们将被跳过。然后函数把合法的字符转换为指定类型的值。如果存在任何非法缀尾字符，它们也将被忽略。如果这些函数的string参数中并不包含一个合法的数值，函数就返回0.如果被转换的值无法表示，函数便在errno中存储ERANGE这个值，并返回下表中的一个值。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/five.png" alt="five"></p>
+<p>浮点型函数：头文件&lt;math.h&gt;包含了函数库中剩余的数学函数的声明。这些函数的返回值以及绝大多数参数的类型都是double类型。</p>
+<p>如果一个函数的参数不在该函数的定义域之内，称为定义域错误。当出现一个定义域错误时，函数返回一个由编译器定义的错误值，并且在errno中存储EDOM这个值。如果一个函数的结果值过大或过小，无法用double类型表示，这个称为范围错误。当结果值太大时，函数将返回HUGE_VAL，它是一个math.h中定义的double类型的值。如果一个函数的结果值太小，无法用一个double表示，函数将返回0.这种情况也属于范围错误，但errno会不会设置ERANGE取决于编译器。</p>
+<p>标准函数库提供了常见的三角函数，函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/six.png" alt="six"></p>
+<p>前三个函数的参数是一个用弧度表示的角度，这些函数分别返回这个角度的正弦、余弦和正切。后三个函数返回它们的参数的反正弦、反余弦和反正切值。如果第三和第四个函数的参数并不位于-1和1之间，就出现一个定义域错误。asin和atan的返回值是范围在<img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourOne.JPG" alt="fourOne">之间的一个弧度。acos的返回值是一个范围在0和<img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourtyOne.JPG" alt="fourtyOne">之间的一个弧度。最后一个函数返回表达式y/x的反正切值，但它使用这个参数的符号来决定结果值位于那个象限。它的返回值是一个范围在<img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourtyTwo.JPG" alt="fourtyTwo">之间的弧度。</p>
+<p>双曲函数。这些函数分别返回它们的参数的双曲正弦、双曲余弦和双曲正切值。每个函数的参数都是一个以弧度表示的角度。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/seven.png" alt="seven"></p>
+<p>对数和指数函数。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/eight.png" alt="eight"></p>
+<p>第一个函数返回e值的x次幂。第二个函数返回x以e为底的底数，也就是常说的自然对数。第三个函数返回x以10为底的对数。</p>
+<p>注意x以任意一个以b为底的对数可以通过下面公式进行计算。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/nine.png" alt="nine"></p>
+<p>如果它们的参数为负数，两个对数函数都将出现定义域错误。</p>
+<p>浮点表示形式：以下三个函数提供了一种根据一个编译器定义的格式存储一个浮点值的方式。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/ten.png" alt="ten"></p>
+<p>第一个函数计算一个指数(exponent)和小数(fraction)。这样<img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourtyThree.JPG" alt="fourtyThree">=value。其中0.5&lt;=fraction&lt;1，exponent是一个i整数。exponent存储于第2个参数所指向的内存位置。函数返回fraction的值。第二个函数的返回值是<img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourtyThree1.JPG" alt="fourtyThree1">也就是它原型的值。最后一个函数把一个浮点值分成整数和小数两个部分，每个部分都具有和原值一样的符号。整数部分以double类型存储于第2个参数所指向的内存位置，小数部分作为函数的返回值返回。</p>
+<p>幂家族函数：函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/eleven.png" alt="eleven"></p>
+<p>第一个函数返回<img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/clip_image002-1605495528686.png" alt="img">的值。由于在计算这个值时可能要用到对数，所以如果x是一个负数且y不是一个整数，就会出现一个定义域错误。第二个函数返回其参数的平方根。如果参数为负，就会出现一个定义域错误。</p>
+<p>底数、顶数、绝对值和余数：函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twelve.png" alt="twelve"></p>
+<p>第一个函数返回不大于其参数的最大整数值。这个值以double的形式返回。第二个函数返回不下于其参数的最小整数值。第三个函数返回其参数的绝对值。最后一个函数返回x除以y所产生的余数，这个除法的商被限制为一个整数值。</p>
+<p>字符串转换：该函数和整型字符转换函数类似，只不过它们返回浮点值。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirteen.png" alt="thirteen"></p>
+<p>如果任何一个上述函数的第1个参数包含了前导空白字符，它们将被跳过。然后函数把合法的字符转换为指定类型的值；如果存在任何非法缀尾字符，它们也将被忽略；如果两个函数的字符串并不包含任何合法的数值字符，函数就返回0。如果转换的值太大或太小，无法用double表示，那么函数就在errno种存储ERANGE这个值，如果值太大(不论正负)，函数返回HUGE_VAL。如果值太小，函数返回零。</p>
+<p>日期和时间函数：引入头文件&lt;time.h&gt;</p>
+<p>处理时间的函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourteen.png" alt="fourteen"></p>
+<p>该函数返回程序从开始执行起处理器所所消耗的时间。注意该值可能是个近似值。如果机器无法提供处理器时间，或者如果时间值太大，无法用clock_t变量表示，函数就返回-1。该函数返回一个数字，它是由编译器定义的。通常它是处理器时钟滴答的次数。如果要将该值转换为秒，应该把它除以常量CLOCKS_PER_SEC。</p>
+<p>表示当前时间的函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fiveteen.png" alt="fiveteen"></p>
+<p>该函数返回当前的日期和时间。如果参数是一个非NULL的指针。时间值也将通过这个指针进行存储。如果机器无法提供处理器时间，或者时间值太大，无法用time_t变量表示，函数就返回-1。</p>
+<p>日期和时间的转换，函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/sixteen.png" alt="sixteen"></p>
+<p>第一个函数的参数是一个指向time_t的指针，并返回一个指向字符串的指针。字符串格式如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/seventeen.png" alt="seventeen"></p>
+<p>字符串内部空格是固定的。</p>
+<p>第二个函数计算time1-time2的差，并把结果值转换为秒。注意他的返回值是一个double类型的值。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/eightteen.png" alt="eightteen"></p>
+<p>第一个函数把时间转换为世界协调时间(UTC)。第二个函数把一个时间值转换为当地时间。函数返回值均为tm结构。tm结构包含了如下字段：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/nineteen.png" alt="nineteen"></p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twenty.png" alt="twenty"></p>
+<p>第一个函数把参数所表示的时间值转换为一个以下面的格式表示的字符串：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentyOne.png" alt="twentyOne"></p>
+<p>第二个函数把一个tm结构转换为一个根据某个格式字符串而定的字符串。如果转换结果字符串的长度下于maxsize参数，那么该字符串就被复制到第1个参数所指向的数组中，函数返回字符串的长度。否则，函数返回-1且数组的内容是未定义的。</p>
+<p>格式字符串包含了普通字符和格式代码。普通字符被复制到它们原先在字符串中出现的位置。格式代码则被一个日期或时间值代替。格式代码包括一个%字符，后面跟一个表示所需值的字符。下表列出了已经实现的格式代码：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentyTwo.png" alt="twentyTwo"></p>
+<p>如果%字符后面是一个其他任何字符，其结果是未定义的。%U和%W代码基本相同，区别在于前者把当年的第1个星期日作为第1个星期的开始而后者把当年的第1个星期一作为第1个星期的开始。如果无法判断时区，%Z代码就由一个空字符代替。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentyThree.png" alt="twentyThree"></p>
+<p>该函数用于把一个tm结构转换为一个time_t值。tm结构中tm_wday和tm_yday的值被忽略，其他字段的值也无需限制在它们的通常范围内。在转换之后，该tm结构会进行规格化，因此被忽略的两个值将是正确的，其余字段的值也都位于它们通常的范围之内。</p>
+<p>非本地跳转：引入头文件&lt;setjmp.h&gt;</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentyFour.png" alt="twentyFour"></p>
+<p>以上两个函数提供一种类似goto语句的机制，但不局限于一个函数的作用域之内。这些函数常用于深层嵌套的函数调用链中。如果在某个低层的函数中检测到一个错误，就可以立即返回到顶层函数，不必向调用链中的每个中间层函数返回一个错误标志。</p>
+<p>信号：信号表示一种事件，它可能异步地发生，也就是并不与程序执行过程的任何事件同步。头文件&lt;signal.h&gt;。下表列出了标准所定义的信号。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentyFive.png" alt="twentyFive"></p>
+<p>前面几个信号是同步的，因为它们都是在程序内存发生的。最后两个信号则是异步的。它们在程序的外部产生，通常由程序的用户所触发。</p>
+<p>处理信号，函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentySix.png" alt="twentySix"></p>
+<p>该函数用于显式地引发一个信号。调用这个函数将引发它的参数所值的信号。</p>
+<p>当一个信号发生时，程序可以使用三种方式对它作出反应。缺省的反应是编译器定义，通常是终止程序。程序也可以指定其他行为对信号做出反应。信号可以被忽略，或者程序可以设置一个信号处理函数。当信号发生时调用该函数。signal函数用于指定程序希望采取的反应。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentySeven.png" alt="twentySeven"></p>
+<p>signal是一个函数，它返回一个函数指针，后者所指向的函数接受一个整型参数且没有返回值。如果signal调用失败，函数将返回SIG_ERR值。该值是个宏，它在signal.h头文件中定义。该头文件还定义了另外两个宏，SIG_DFI和SIG_IGN，它们可以作为signal函数的第2个参数，SIG_DFI恢复对该信号的缺省反应，SIG_IGN使该信号被忽略。</p>
+<p>volatile数据。volatile关键字告诉编译器防止它一种修改程序含义的方式“优化”程序。从信号处理函数返回：从一个信号处理函数返回导致程序的执行流从信号发生的地点恢复执行。这个规则的例外情况是SIGFPE。由于计算无法完成，从这个信号返回的效果是未定义的。</p>
+<p>警告：如果希望以后捕捉同种类型的信号，从当前这个信号的处理函数返回之前注意要调用signal函数重新设置信号处理函数。否则，只有第1个信号才会被捕捉，接下来的信号将使用缺省反应进行处理。</p>
+<p>打印可变参数列表，引入头文件&lt;stdarg.h&gt;</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentynine.png" alt="twentynine"></p>
+<p>这些函数与它们对应的标准函数基本相同，但它们使用了一个可变参数列表。在调用这些函数之前。arg参数必须使用va_start进行初始化。这些函数都不需要调用va_end。</p>
+<p>执行环境：以下函数对程序的执行环境进行通信或者对后者施加影响。引入头文件&lt;stdlib.h&gt;。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirty.png" alt="thirty"></p>
+<p>第一个函数用于不正常终止一个正在执行的程序。由于该函数将引发SIGABRT信号，因此可以在程序中为这个信号设置一个信号处理函数，在程序终止(或干脆不终止)之前采取任何想采取的动作，甚至可以不终止程序。</p>
+<p>atexit函数可以把一些函数注册为退出函数。当程序将要正常终止时(或者由于调用exit，或者用于main函数返回)，退出函数将被调用，退出函数将不能接受任何参数。exit用于终止程序。如果程序以main函数返回一个值结束，那么其效果相当于用这个值作用参数调用exit函数。</p>
+<p>当exit函数被调用时，所有被atexit函数注册为退出函数的函数将按照它们所注册的顺序被反序依次调用。然后，所有用于流的缓冲区被刷新，所有打开的文件将被关闭。同tmpfile函数创建的文件被删除。然后退出状态返回给宿主环境。程序停止执行。</p>
+<p>警告：由于程序停止执行，所有exit函数绝不会返回到它的调用处。但是，如果一个用atexit注册为退出函数的函数再次调用了exit，其结果是未定义的。这个错误可能导致一个无限循环，很可能只有当堆栈的内存耗尽后才会终止。</p>
+<p>断言：断言就是声明某种东西应该为真。ANSI C实现了一个assert宏。引入头文件为&lt;assert.h&gt;。宏的原型如下:</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyOne.png" alt="thirtyOne"></p>
+<p>当它被执行时，这个宏对表达式参数进行测试。如果它的值为假(即零)，它就向标准错误打印一条诊断信息并终止程序。这条信息的格式是由编译器定义的，但它将包含这个表达式和源文件的名字以及断言所在的行号。如果表达式为真(即非零)，它不打印任何东西，程序继续执行。</p>
+<p>当程序被完整地测试完毕后，可以在编译时通过定义NDEBUG消除所有的断言。当NDEBUG被定义后，预处理器将丢弃所有的断言，这样就跟消除了这方面的开销。</p>
+<p>定义NDEBUG方法：在源文件中在头文件&lt;assert.h&gt;被包含之前增加如下定义：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyTwo.JPG" alt="thirtyTwo"></p>
+<p>排序和查找，引入头文件&lt;stdlib.h&gt;。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyThree.png" alt="thirtyThree"></p>
+<p>该函数在一个数组中以升序的方式对数据进行排序。由于它是和类型无关的，所有可以使用该函数来排序任意类型的数据，数组中元素的长度是固定的。</p>
+<p>函数的第1个参数指向需要排序的数组，第2个参数指定数组中元素的数目，第3个参数指定每个元素的长度(以字节为单位)，第4个参数是一个指针，用于对需要排序的元素类型进行比较。在排序时，qsort调用这个函数对数组中的数据进行比较。</p>
+<p>比较函数接受两个参数，它们是指向两个需要进行比较的值的指针。函数应该返回一个整数，大于零、等于零和小于零分别表示第1个参数大、等于和小于第2个参数。</p>
+<p>由于比较函数与类型无关的性质，参数被声明为void*类型。在比较函数中必须使用强制类型转换，把它们转换为合适的指针类型。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyFour.png" alt="thirtyFour"></p>
+<p>该函数在一个以及排好序的数组中用二分查找一个特定的元素。如果数组尚未排序，其结果是未定义的。函数第1给参数指向需要查找的值，第2个参数指向查找所有数组，第3个参数指定数组中元素的数目，第4个参数是每个元素的长度(以字节为单位)。最后一个参数是和qsort中相同的指向比较函数的指针。bsearch函数返回一个指向查找到的数组元素的指针。如果需要查找的值不存在，函数返回一个NULL指针。注意关键字参数的类型必须与数组元素的类型相同。如果数组中的结果包含了一个关键字字段和其他一些数据，必须创建一个完整的结果并填充关键字字段。其他字段可以留空，因为比较函数只检查关键字字段。</p>
+<p>locale：标准定义了locale，这是一组特定的参数，每个国家可能各不相同。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyFive.png" alt="thirtyFive"></p>
+<p>上述函数用于修改整个或部分locale。函数的第1个参数指定locale的哪个部分需要进行修改。它所允许出现的值如下所示：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtySix.png" alt="thirtySix"></p>
+<p>如果函数的第2个参数为NULL，函数将返回一个指向给定类型的当前locale的名字的指针。这个值可能保存并在后续的setlocale函数中使用，用来恢复以前的locale。如果第2个参数不是NULL，它指定需要使用新的locale。如果函数调用成功，它将返回locale的值。否则，返回一个NULL指针，原来的locale不受影响。</p>
+<p>数值和货币格式&lt;locale.h&gt;</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtySeven.png" alt="thirtySeven"></p>
+<p>该函数用于获得根据当前的locale对非货币值和货币值进行合适的格式化所需要的信息。注意这个函数并不实际执行格式化任务，它只是提供一些如何进行格式化的信息。</p>
+<p>lconv结构包含两种类型的参数：字符和字符指针。字符参数为非负值。如果一个字符参数为CHAR_MAX，那么这个值就在当前的locale中不可用(或不使用)。对于字符指针参数，如果它指向一个空字符串，它表示的意义和上述相同。</p>
+<p>数值格式化：下表列出的参数用于格式化非货币的数值量。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyEight.png" alt="thirtyEight"></p>
+<p>grouping字符串按照以下方式进行解释。该字符串的第1个值指定小数点左边多是个数字组成一组。第2个值指定再往左边一组数字的个数，以下依次类推。有两个值具有特别的意义：CHAR_MAX表示剩余的数字并不分组。0表示前面的值适用于数值中剩余的各组数字。</p>
+<p>货币格式化：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyNIne.png" alt="thirtyNIne"></p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyNien1.png" alt="thirtyNien1"></p>
+<p>当按照国际化的用途格式化货币值时，字符串int-curr_symbol替代了currency_symbol，字符int_frac_digits替代了frac_digits。国际货币符合是根据ISO 4217:1987标准形成的。这个字符串的头三个字符是字母形式的国际货币符号， 第4个字符用于分隔符合和值。</p>
+<p>字符串和locale&lt;string.h&gt;</p>
+<p>一台机器的字符集的对照序列是固定的，但locale提供了一种方法指定不同的序列。当必须要使用一个并非缺省的对照序列时，可以使用下列两个函数。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourty.png" alt="fourty"></p>
+<p>第一个函数对两个根据当前locale的LC_COLLATE类型参数指定的字符串进行比较。它返回一个大于、等于或小于零值，分别表示第1个参数大于、等于或小于第2个参数</p>
+<p>注意这个比较可能比较strcmp需要多得多计算量，因为它需要遵循一个并非是本地机器的对照序列。当字符串必须以这种方式反复进行比较时，可以使用第二个strxfm函数减少计算量。它把根据当前的locale解释的第2个参数转换为另一个不依赖于loclae的字符串。尽管转换后的字符串的内容是未确定的，但使用strcmp函数对这种字符串进行比较和使用strcoll函数对原先的字符串进行比较的结果是相同的。</p>
+<p>改变locale的效果：改变locale会产生一些另外的效果。如下所示：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourFive.png" alt="fourFive"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/" data-id="ckn5mhdon003of0v36j5y28x7" data-title="C和指针——标准库函数" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C和指针——输入函数" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/" class="article-date">
+  <time class="dt-published" datetime="2020-11-11T05:22:44.000Z" itemprop="datePublished">2020-11-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/">C和指针——输入函数/输出函数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>ANSI C和早期 C相比的最大优点之一就是它在规范里所包含的函数库。每个ANSI编译器必须支持一组规定的函数，并具备规范所要求的接口，而且按照规定的行为工作。</p>
+<p>错误报告：perror函数以一种简单、统一的方式报告错误。ANSI C函数库的许多函数用OS来完成某些任务，I/O函数尤其如此。标准库函数在一个外部整型变量errno（在errno.h）中保存错误代码之后就把这个信息传递给用户程序，提示操作失败的准确原因。perror函数简化向用户报告这些特定错误的过程。它的原型定义于stdio.h，如下所示：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/one.png" alt="one"></p>
+<p>如果message不是NULL并且指向一个非空的字符串，perror函数就打印出这个字符串，后面跟一个分号和一个空格，然后打印出一条用于解释errno当前错误代码的信息。</p>
+<p>注：只有当一个库函数失败时，errno才会被设置。当函数成功运行时，errno的值不会被修改。</p>
+<p>终止执行：函数exit，它用于终止一个程序的执行。它的原型定义于stdlib.h。如下所示：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/two.png" alt="two"></p>
+<p>status参数返回给OS，用于提示程序是否正常完成。这个值和main函数返回的整型状态值相同。预定义符号EXIT_SUCCESS和EXIT_FAILURE分别提示程序的终止是成功还是失败。注意该函数没有返回值。当exit函数结束时，程序已经消失，所以它无处可返。</p>
+<p>标准I/O函数库(standard I/O library)具有一组I/O函数，实现了在原先的I/O库基础上许多程序员自行添加实现的额外功能。函数库同时引进了缓存I/O的概念，提高了绝对大多数程序的效率。</p>
+<p>ANSI I/O概念：头文件stdio.h包含了与ANSI 函数库的I/O部分有关的声明。它的名字来源于旧式的标准I/O函数库。</p>
+<p>流：ANSI C进一步对I/O的概念进行了抽象，就C程序而言，所有的I/O操作只是简单地从程序移进或移出字节的事情。因此，这种字节流便被称为流(stream)。绝大多数流是完全缓冲，这意味着“读取”和“写入”实际上是从一块被称为缓冲区的内存区域来回复制数据。用于输出流的缓冲区只有当它写满时才会被刷新(flush 物理写入)到设备或文件中。</p>
+<p>流分为两种类型，文本流(text)和二进制流(binary)</p>
+<p>文本流：文本流的有些特性在不同的系统中可能不同。其中之一就是文本行的最大长度。标准规定至少允许254个字符。另一个可能不同的特性时文本行的结束方式。MS-DOS系统中，文本文件约定以一个回车符或一个换行符结尾。但是，UNIX系统只使用一个换行符结尾。标准把文本行定义为零个或多个字符，后面跟一个表示结束的换行符。</p>
+<p>二进制流：二进制流中的字节将完全根据程序编写它们的形式写入到文件或设备中，而且完全根据它们从文件或设备读取的形式读入到程序中。</p>
+<p>文件：stdio.h所包含的声明之一就是FILE结构。FILE是一个数据结构，用于访问一个流。如果同时激活了几个流，每个流都有一个相应的FILE与它关联。</p>
+<p>对于每个ANSI C程序，运行时系统必须提供至少三个流——标准输入、标准输出和标准错误。这些流的名字分别为stdin、stdout和stderr，它们都是一个指向FILE结构的指针。标准输入是缺省情况下输入的来源，标准输出是缺省的输出设置。通常标准输入为键盘设备，标准输出为终端或屏幕。许多OS允许用户在程序执行时修改缺省的标准输入和输出设备。MS-DOS和UNIX系统都支持以下方法进行输入/输出的重定向。</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/three.png" alt="three"></p>
+<p>当这个程序执行时，它将从文件data而不是键盘作为标准输入进行读取，它将把标准输出写入到文件answer而不是屏幕上。</p>
+<p>标准错误就是错误信息写入的地方。perror函数把它的输入也写到这个地方。在许多OS中，标准输出和标准错误在缺省情况下是相同的。但是，为错误信息准备一个不同的流意味着，即使标准输入重定向到其他地方，错误信息仍将出现在屏幕或其他缺省的输出设备上。</p>
+<p>标准I/O常量。EOF是许多函数的返回值，它提示到达了文件尾。EOF所选择的实际值比一个字符要多几位，这是为了避免二进制值被错误地解释为EOF。一个程序同时最大能够打开的文件与编译器有关，但可以保证的是至少能够同时打开FOPEN_MAX个文件。这个常量包括了三个标准流，它的值至少是8。常量FILENAME_MAX是一个整型值，用于提示一个字符数组应该多大以便容纳编译器所支持的最大合法文件名。如果对文件名的长度没有一个实际的限制，那么这个常量的值就是文件名的推荐最大长度。</p>
+<p>文件I/O的一般情况：</p>
+<p>1.程序为必须同时处于活动状态的每个文件声明一个指针变量，其类型是FILE*。这个指针指向这个FILE结构，当它处于活动状态时由流使用。</p>
+<p>2.流通过调用fopen函数打开。为了打开一个流，必须指定需要访问的文件或设备以及它们的访问方式(如，读、写或者即读又写)。fopen和OS验证文件或设备确实存在(有些OS中，还验证是否允许执行所指定的访问方式)并初始化FILE结构。</p>
+<p>3.然后，根据需要对该文件进行读取或写入。</p>
+<p>4.最后，调用fclose函数关闭流。关闭一个流可以防止与他相关联的文件被再次访问，保证任何存储于缓冲区的数据被正确地写到文件中，并且释放FILE结构使它可以用于另外的文件。</p>
+<p>标准流I/O：标准流I/O更为简单，因为它们并不需要打开或关闭。</p>
+<p>I/O函数以三种基本的形式处理数据：单个字符、文本行和二进制数据。对于每种形式，都有一组特定的函数来进行处理。每种I/O形式的函数或函数家族如下所示。函数家族以斜体表示，它指一组函数中的每个都执行相同的基本任务，只是方式稍有不同。</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/four.JPG" alt="four"></p>
+<p>打开流：fopen函数打开一个特定的文件，并把一个流和这个文件相关联。函数原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/five.JPG" alt="five"></p>
+<p>两个参数都是字符串。name是希望打开的文件或设备的名字。FILE*变量的名字是程序用来保存fopen的返回值，它并不影响那个文件被打开。mode参数提示流是用于只读、只写还是即读又写，以及它是文本流还是二进制流。常用的模式如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/six.png" alt="six"></p>
+<p>mode以r,w或a开头，分别表示打开的流用于读取、写入还是添加。在mode中添加“a+“表示该文件打开用于更新，并且流即允许读也允许写。</p>
+<p>如果fopen函数执行成功，它返回一个指向FILE结构的指针，该结构代表这个新创建的流，如果函数执行失败，它就返回一个NULL指针。errno会提示问题的性质。</p>
+<p>注意：应该始终检查fopen函数的返回值！如果函数失败，会返回一个NULL指针，如果程序不检查错误，这个NULL指针就会传给后续的I/O函数。它们将对这个指针执行间接访问，并将失败。</p>
+<p>freopen函数用于打开(或重新打开)一个特定的文件流。函数原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/seven.png" alt="seven"></p>
+<p>最后一个参数就是需要打开的流。它可能是一个先前从fopen函数返回的流，也可能是标准流stdin、stdout或stder。这个函数首先试图关闭这个流，然后用指定的文件和模式重新打开这个流。如果打开失败，函数返回一个NULL的值。如果打开成功，函数就返回它的第三个参数值。</p>
+<p>关闭流：流是用fclose关闭的，函数原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/eight.png" alt="eight"></p>
+<p>对于输入流，fclose函数在文件关闭之前刷新缓冲区。如果执行成功，fclose返回零值，否则返回EOF。</p>
+<p>字符I/O：字符输入时由getchar函数家族执行的，它们的原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/night.png" alt="night"></p>
+<p>需要操作的流作为参数传递给getc和fgetc，但getchar始终从标准输入读取。每个函数从流中读取下一个字符，并把它作为函数的返回值返回。如果流中不存在更多的字符，函数就返回常量值EOF。这些函数都用于读取字符，但它们都返回一个int型值而不是char型值。原因是为了允许函数报告文件的末尾EOF。</p>
+<p>把单个字符写入到流中，可以使用putchar函数家族。函数原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/ten.png" alt="ten"></p>
+<p>第一个参数是要被打印的字符，在打印之前，函数就把这个整数参数裁剪为一个i无符号字符型值。如果由于任何原因导致函数失败，它们就返回EOF。</p>
+<p>字符I/O宏：fgetc和fputc都是真正的函数，但getc、putc、getchar和putchar都是通过#define指令定义的宏。</p>
+<p>撤销字符I/O：ungetc把一个先前读入的字符返回到流中，这样它可以在以后被重新读入。函数原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/eleven.png" alt="eleven"></p>
+<p>每个流都至少允许一个字符被退回，如果一个流允许退回到多个字符，那么这些字符再次被读取的顺序就以退回时的反序进行。注意把字符退回到流中和写入到流中并不相同。与一个流相关联的外部存储并不受ungetc的影响。</p>
+<p>注意：”退回“字符和流的当前位置有关，如果用fseek、fsetpos或rewind函数改变了流的位置，所有退回的字符都将被丢弃。</p>
+<p>未格式化的行I/O：行I/O可以用两种方式执行——未格式化或格式化。这两种形式都用于操作字符串。区别在于未格式化的I/O简单读取或写入字符串，而格式化的I/O则执行数字和其他变量的内部和外部表示形式之间的转换。gets和puts函数家族是用于操作字符串而不是单个字符。它们的函数原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/twelve.png" alt="twelve"></p>
+<p>fgets从指定的stream读取字符并把他们复制到buffer中。当读取到换行符并存储到缓冲区之后就不在读取。如果缓冲区内存储的字符达到了buffer_size-1个时它也停止读取。在任何一种情况下，一个NULL字节将被添加到缓冲区所存储数据的末尾，使它成为一个字符串。如果在任何字符读取前就到达了文件尾，缓冲区就未进行修改，函数返回一个NULL指针。否则，函数返回它的第一个参数(指向缓冲区的指针)。这个返回值通常用于检查是否到达了文件尾。</p>
+<p>传递给fputs的缓冲区必须包含一个字符串，它的字符被写入到流中。该字符预期以NULL字节结尾。该字符串是逐字写入的：如果它不包含一个换行符，就不会写入换行符。如果它包含好几个换行符所有的换行符都会被写入。因此，当fgets每次都读取一整行时，fputs既可以一次写入一行的一部分，也可以一次写入一整行，甚至可以一次写入好几行。如果写入出现错误，返回常量值EOF，否则它将返回一个非负值。</p>
+<p>注意：fget无法把字符串读入到一个长度小于两个字符的缓冲区，因为其中一个字符需要为NULL字节保留。</p>
+<p>gets和puts函数几乎和fget和fputs相同，之所以存在它们是为了允许向后兼容。它们之间的一个主要功能区别在于当gets读取一行输入时，它并不在缓冲区存储结尾的换行符。当puts写入一个字符串时，它在字符串写入之后向输出再添加一个换行符。</p>
+<p>格式化的行I/O：scanf家族函数原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/thirteen.png" alt="thirteen"></p>
+<p>每个原型中的省略号表示一个可变长度的指针列表。从输入转换而来的值逐个存储到这些指针参数所指向的内存位置。这些函数都从输入源读取字符并根据format字符串给出的格式代码对它们进行抓换，fscanf的输入源就是作为参数给出的流，scanf从标准输入读取，而sscanf则从第1个参数所给的字符串中读取字符。当格式化字符串到达末尾或者读取的输入不在匹配格式字符串所指定的类型时，输入停止。在任何一种情况下，被转换的输入值的数目作为函数的返回值返回。如果在任何输入值被转换之前文件就已达到尾部，函数就返回常量值EOF。</p>
+<p>scanf函数家族中的format字符串可能包含以下内容：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/fourteen.png" alt="fourteen"></p>
+<p>scanf函数家族的格式代码都以一个百分号开头，后面可以是(1)一个可选的星号，(2)一个可选的宽度，(3)一个可选的限定符，(4)格式代码。星号将使转换后的值被丢弃而不是进行存储。宽度是一个非负的整数给出，它限制将被读取用于转换的输入字符的个数。如果省略宽度，函数就连续读入字符直到遇见输入中的下一个空白字符。限定符用于修改有些格式代码的含义。详情如下所示：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/fifteen.png" alt="fifteen"></p>
+<p>格式代码就是一个单个字符，详情如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/sixteen.png" alt="sixteen"></p>
+<p>printf函数家族用于创建格式化的输入。家族函数原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/seventeen.png" alt="seventeen"></p>
+<p>printf根据格式代码和format参数中的其他字符对参数列表中值进行格式化。使用printf结果输出到标准输出。使用fprintf，可以使用任何输出流，而sprintf把它的结果作为一个NULL结尾的字符串存储到指定的buffer缓冲区而不是写入到流中。3个函数的返回值是实际打印或存储的字符数。</p>
+<p>printf格式代码：格式代码由一个百分号开头，后面跟(1)零个或多个标志字符，用于修改有些转换的执行方式，(2)一个可选的最小字段宽度，(3)一个可选的精度，(4)一个可选的修改符，(5)转换类型。详情如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/eighteen.JPG" alt="eighteen"></p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/nineteen.png" alt="nineteen"></p>
+<p>#标志可以用于几种printf格式代码，为转换选择一种替换形式。详情如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/twenty.png" alt="twenty"></p>
+<p>二进制I/O：fread函数用于读取二进制数据，fwrite函数用于写入二进制数据。函数原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/twentyOne.png" alt="twentyOne"></p>
+<p>buffer是一个指向用于保存数据的内存位置的指针，size是缓冲区中每个元素的字节数，count是读取或写入的元素数，stream是数据读取或写入的流。buffer参数被解释为一个或多个值的数组。count参数指定数组中有多少个值。函数的返回值是实际读取或写入的元素(并非字节)数目。如果输入过程遇到了文件尾或者输出过程中出现了错误，这个数字可能比请求的元素数目要小。</p>
+<p>刷新和定位函数。fflush函数迫使一个输出流的缓冲区内的的数据进行物理写入，不管它是不是已经写满。函数原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/twentyTwo.png" alt="twentyTwo"></p>
+<p>在正常情况下，数据以线性的方式写入。同时C也支持随机访问I/O，也就是以任意顺序访问文件的不同位置。随机访问是通过在读取或写入先前定位到文件中需要的位置来实现的。有两个函数用于执行该项操作，函数原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/twentyThree.png" alt="twentyThree"></p>
+<p>ftell函数返回流的当前位置，也就是说，下一个读取或写入将要开始的位置距离文件起始位置的偏移量。在二进制流中，这个值是当前位置距离文件起始位置之间的字节数。在文本流中，这个值表示一个位置，但因为OS原因它不一定准确地表示当前位置和文件起始位置之间的字节数。但是ftell函数返回的值总是可以用于fseek函数中，作为一个距离文件起始位置的偏移量。</p>
+<p>fseek函数允许在一个流中定位。它的第1个参数是需要改变的流，第2和第3个参数标识文件需要定位的位置。详情如下:</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/twentyFour.png" alt="twentyFour"></p>
+<p>在二进制中从SEEK_END进行定位可能不被支持，所以应该避免。在文本流中，如果from是SEEK_CUR或SEEK_END，offset必须是零。如果from是SEEK_SET,offset必须是一个从同一个流中以前调用ftell所返回的值。</p>
+<p>用fseek改变一个流的位置会带来三个副作用。首先，行末指示字符被清除。其次，如果在fseek之前使用ungetc把一个字符返回到流中，那么这个被退回的字符会被丢弃，因为在定位操作以后，它不再是”下一个字符“。最后，定位允许你从写入模式切换到读取模式，或者回到打开的流以便更新。    </p>
+<p>另外还有三个额外的函数，用一些限制更严的方式执行相同的任务。函数原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/twentyFive.png" alt="twentyFive"></p>
+<p>rewind函数将读/写指针设置回指定流的起始位置，同时清除流的错误提示标识。fgetpos和fsetpos分别是ftell和fseek函数的替代方案。它们的主要区别在于这对函数接受一个指向fpost_t的指针作为参数。fgetpos在这个位置存储文件的当前位置，fsetpos把文件位置设置为存储在这个位置的值。</p>
+<p>改变缓冲方式：下面两个函数可用于对缓冲方式进行修改。这两个函数只有当指定的流被打开但还没有在它上面执行其他操作前才能被调用。函数原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/twentySix.png" alt="twentySix"></p>
+<p>setbuf设置了另一个数组，用于对流进行缓冲。该数组的字符长度必须为BUFSIZ (它在stdio.h中定义)。为一个流自行指定缓冲区可以防止 I/O函数库为它动态分配一个缓冲区。如果用一个NULL参数调用该函数，setbuf函数将关闭流的所有缓存方式。字符准确地将程序所规引的方式进行读取和写入。</p>
+<p>setvbuf函数更为通用。mode参数用于指定缓冲的类型。_IOFBF指定一个完全缓冲的流，_IONBF指定一个不缓冲的流，_IOLBF指定一个行缓冲流。所谓行缓冲流，就是每当一个换行符写入到缓冲区时，缓冲区便进行刷新。buf和size参数用于指定需要使用的缓冲区。如果buf为NULL，那么size的值必须是0，一般而言，最好用一个长度为BUFSIZ的字符数组作为缓冲区。</p>
+<p>流错误函数：函数原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/twentySeven.png" alt="twentySeven"></p>
+<p>如果流当前处于文件尾，feof函数返回真。该状态可以通过对流执行fseek，rewind或fsetpos函数来清除。ferro函数报告流的错误状态，如果出现任何读/写错误函数就返回真。最后cleareer函数对指定的错误标志进行重置。</p>
+<p>临时文件：tempfile函数用于创建一个临时文件，当文件被关闭或程序终止时这个文件便自动删除，该文件以wb+模式打开，这使它可以用于二进制和文本数据。函数原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/twentyEight.png" alt="twentyEight"></p>
+<p>临时文件的名字可以用tmpnam函数创建，函数原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/twentyNine.png" alt="twentyNine"></p>
+<p>如果传递给函数的参数为NULL，那么这个函数便返回一个指向静态数组的指针，该数组包含了被创建的文件名。否则，参数便假定是一个指向长度至少为L_tmpnam的字符数组的指针。在这种情况下，文件名在这个数组中创建，返回值就是这个参数。无论哪种情况，这个被创建的文件名保证不会与存在的文件名同名。只有调用次数不超过TMP_MAX次，tmpnam函数每次调用时都能产生一个新的不同名字。</p>
+<p>文件操作函数：有两个函数用于操作文件但不执行任何输入/输出操作。两个函数如果执行成功，返回零值。如果失败，返回非零值。函数原型如下：</p>
+<p><img src="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/thirty.png" alt="thirty"></p>
+<p>remove函数删除一个指定的文件。如果函数被调用时文件正处于打开状态，其结果将取决于编译器。</p>
+<p>rename函数用于改变一个文件的名字，从oldname改为newname。如果已经有一个名为newname的文件存在，其结果将取决于编译器。如果函数失败，文件仍然可以用原来的名字进行访问。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/" data-id="ckn5mhdon003pf0v3gv3kc2lc" data-title="C和指针——输入函数/输出函数" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

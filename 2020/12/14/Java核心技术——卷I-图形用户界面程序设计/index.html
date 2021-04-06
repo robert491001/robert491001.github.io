@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Java核心技术——卷I-图形用户界面程序设计 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="在Java1.0刚刚出现的时候，它包含了一个用于基本GUI程序设计的类库，名为抽象窗口工具包(Abstract Window Toolkit，AWT)。基本AWT库将处理用户界面元素的任务委托给各个目标平台(如Windows，Solaris等)上的原生GUI工具包，由原生GUI工具包负责用户界面元素的创建和行为。1996年，Netscape创建了一种称为IFC(Internet Foundati">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java核心技术——卷I-图形用户界面程序设计">
+<meta property="og:url" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在Java1.0刚刚出现的时候，它包含了一个用于基本GUI程序设计的类库，名为抽象窗口工具包(Abstract Window Toolkit，AWT)。基本AWT库将处理用户界面元素的任务委托给各个目标平台(如Windows，Solaris等)上的原生GUI工具包，由原生GUI工具包负责用户界面元素的创建和行为。1996年，Netscape创建了一种称为IFC(Internet Foundati">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/one.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/two.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/three.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/four.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/five.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/six.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/seven.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/eight.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/nine.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/ten.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/eleven.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twelve.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/thirteen.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/fourteen.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/fifteen.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/sixteen.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/seventeen.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/eighteen.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/nineteen.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twenty.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyOne.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyTwo.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyThree.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyFour.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyFive.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentySix.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentySeven.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyEight.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyNine.jpg">
+<meta property="og:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/thirty.jpg">
+<meta property="article:published_time" content="2020-12-14T04:41:47.000Z">
+<meta property="article:modified_time" content="2020-12-14T12:05:21.106Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java核心技术——卷I">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/one.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Java核心技术——卷I-图形用户界面程序设计" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" class="article-date">
+  <time class="dt-published" datetime="2020-12-14T04:41:47.000Z" itemprop="datePublished">2020-12-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Java核心技术——卷I-图形用户界面程序设计
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> 在Java1.0刚刚出现的时候，它包含了一个用于基本GUI程序设计的类库，名为<strong>抽象窗口工具包(Abstract Window Toolkit，AWT)<strong>。基本AWT库将处理用户界面元素的任务委托给各个目标平台(如Windows，Solaris等)上的原生GUI工具包，由原生GUI工具包负责用户界面元素的创建和行为。1996年，Netscape创建了一种称为</strong>IFC(Internet Foundation Class)<strong>的GUI库，它将按钮、菜单等用户界面元素绘制在窗口上。底层系统所需的唯一功能就是能够显示一个窗口，并在这个窗口中绘制。Sun公司与Netscape合作完善了这种方法，创建了一个名为</strong>Swing</strong>的用户界面库。Swing作为Java 1.1的一个扩展，现已成为Java 1.2标准库的一部分。Swing现在是不基于对等元素的GUI工具包的官方名字。Swing不是完全替代AWT，而是构建在AWT架构之上。Swing只是提供了更加强大的用户界面组件。编写Swing程序时，还是在使用AWT的基本机制，特别是事件处理。Swing必须努力绘制用户界面的每一个像素。</p>
+<p>在Java中，**顶层窗口(就是没有包含在其他窗口中的窗口)称为窗体(frame)**。AWT库中有一个称为Frame的类，用于描述这个顶层窗口。这个类的Swing版本名为JFrame，它扩展了Frame类(Java中组件类中，绝大多数Swing组件类都以“J”开头，没有J开头的类是属于AWT组件的，不属于Swing)。JFrame是极少数几个不绘制在画布上的Swing组件之一，它的修饰部件(如按钮、标题栏等)由用户的窗口系统绘制，而不是由Swing。</p>
+<p>所有的Swing组件必须由**事件分派线程(event dispatch thread)**配置，这是控制线程，它将鼠标点击和按键等事件传递给用户接口组件。代码形式如下：</p>
+<p><strong>EventQueue.invokeLater(()-&gt;</strong></p>
+<p><strong>{</strong></p>
+<p><strong>statements;</strong></p>
+<p><strong>});</strong></p>
+<p>窗体<strong>起初是不可见的</strong>，为了显示窗体，main方法中需要调用窗体的<strong>setVisible</strong>方法。当使用事件分派线程时需要注意，退出main并没有终止程序，终止的只是主线程。事件分派线程会保持程序处于激活状态，直到关闭窗体或调用System.exit方法终止程序。</p>
+<p>JFrame类本身只包含若干改变窗体外观的方法，大多数处理窗体大小和位置的方法都来自JFrame的各个超类。其中最重要的有以下方法：</p>
+<p>1）setLocation方法和setBounds方法用于设置窗体的位置。</p>
+<p>2）setIconImage方法用于告诉窗口系统在标题栏、任务切换窗口等位置显示那个图标。</p>
+<p>3）setTitle方法用于改变标题栏的文字。</p>
+<p>4）setResizable利用一个boolean值确定是否允许用户改变窗体的大小。</p>
+<p>JFrame类的继承层次如下图所示：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/one.jpg" alt="one"></p>
+<p>组件类的很多方法是以获取/设置(get/set)方法对形式出现的，这样的一对获取/设置方法被称为<strong>属性</strong>(property)。属性有一个名和一个类型。将get或set之后的第一个字母改为小写字母就可以得到相应的属性名。关于get/set约定，有一个例外：对于类型为boolean的属性，获取方法以is开头。JFrame类中重要方法的相关API如下所示：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/two.jpg" alt="two"></p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/three.jpg" alt="three"></p>
+<p>JFrame的结构相当复杂，下图给出了JFrame的组成。可以看到，在JFrame中有四层窗格，其中Swing程序员最关心的是<strong>内容窗格</strong>。添加到窗体的所有组件都会自动添加到内容窗格中。</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/four.jpg" alt="four"></p>
+<p>要在一个组件上绘制，需要定义一个扩展JComponent的类，并覆盖其中的paintComponent方法。paintComponent方法有一个Graphics类型的参数，Graphics对象保存着用于绘制图像和文本的一组设置。在Java中，所有的绘制都必须通过Graphics对象完成，其中包括了绘制图案、图像和文本的方法。对于屏幕来说，Graphics对象的度量单位是像素。坐标(0,0)指示绘制组件的左上角。相关的API如下所示：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/five.jpg" alt="five"></p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/six.jpg" alt="six"></p>
+<p>在遇到需要绘制图像的操作时，可以使用Java 2D库的图形类。要想使用Java 2D库绘制图形，需要获得Graphics2D类的一个对象。这个类是Graphics类的子类。自从Java 1.2 版本以来，paintComponent等方法会自动地接收一个Graphics2D对象，只需要使用一个类型强制转换。Java 2D库采用面向对象的方法组织几何图形。具体来说，它提供了表示<strong>直线、矩形</strong>和<strong>椭圆</strong>的类：<strong>Line2D,Rectangle2D,Ellipse2D</strong>。这些类都实现了Shape接口。Java 2D库还支持更加复杂的图形，如圆弧，二次曲线和通用路径。Java 2D库针对像素采用的是浮点坐标，而不是整数坐标。内部计算都采用单精度float，但由于在Java语言中将double值转换为float值时必须进行强制类型转换的原因，2D库的设计者为每个图形类提供了两个版本：一个是float类型的；另一个是double类型的。下图显示了图形类之间的关系，其中灰色填充的部分是从Java 1.0遗留下来的两个类。</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/seven.jpg" alt="seven"></p>
+<p>相关的API如下：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/eight.jpg" alt="eight"></p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/nine.jpg" alt="nine"></p>
+<p>使用Graphics2D类的setPaint方法可以为图形上下文上的所有后续的绘制操作选择颜色。Color类用于定义颜色，在java.awt.Color类中提供了13个预定的常量，它们分别表示13种标准颜色。BLACK,BLUE,CYAN,DARK_GRAY,GRAY,GREEN,LIGHT_GRAY,MAGENTA,ORANGE,PINK,RED,WHITE,YELLOW。可以提供三色分量来创建Color对象，从而指定一个定制颜色。红，绿和蓝三种颜色取值为0~255之间的整数。相关API如下：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/ten.jpg" alt="ten"></p>
+<p>可以通过字体名(font face name)指定一种字体。字体名由字体族名和一个可选的后缀组成。AWT定义了5个逻辑字体名：SansSerif，Serif，Monospaced，Dialog，DialogInput。另外Oracle JDK总是包含3个字体族，名为“Lucida Sans”，“Lucida  Bright”和“Lucida Sans Typewriter”。要想使用某种字体绘制字符，必须首先创建一个Font类的对象。需要指定字体名、字体风格和字体大小。在Font构造器中，提供字体名的位置也可以给出逻辑字体名。可以把Font构造器的第二个参数设置为以下值来指定字体的风格(常规，加粗，斜体和加粗斜体):</p>
+<p>Font.PLAIN；Font.BOLD；Font.ITALIC；Font.BOLD+Font.ITALIC。常规字体的字体大小为1点。</p>
+<p>下图解释了几个基本的排版术语：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/eleven.jpg" alt="eleven"></p>
+<p>基线(baseline)是一条虚构的线(如字母e的底线)，上坡度(ascent)是从基线到坡顶的距离，下坡度是从基线到坡低的距离。行间距是某一行的坡底与其下一行的坡顶之间的空隙，字体的高度是连续两个基线之间的距离，它等于下坡度+行间距+上坡度。相关API如下：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twelve.jpg" alt="twelve"></p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/thirteen.jpg" alt="thirteen"></p>
+<p>可以使用ImageIcon类从文件读取图像，相关API如下：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/fourteen.jpg" alt="fourteen"></p>
+<p>在Java AWT中，事件源(如按钮或滚动条)有一些方法，允许注册事件监听器，这些对象会对事件做出所需的响应。通知一个事件监听器发生了某个事件时，这个事件的相关信息会封装在一个事件对象(event object)中。在Java中，所有的事件对象最终都派生于java.util.EventObject类。不同的事件源可以产生不同类型的事件。综上所述，关于AWT事件处理机制的概要说明如下：</p>
+<p>1）事件监听器是一个实现了监听器接口的类实例。</p>
+<p>2）事件源对象能够注册监听器对象并向其发送事件对象。</p>
+<p>3）当事件发生时，事件源将事件对象发送给所有注册的监听器。</p>
+<p>4）监听器对象再使用事件对象中的信息决定如何对事件做出响应。</p>
+<p>下图显示了事件处理类和接口之间的关系：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/fifteen.jpg" alt="fifteen"></p>
+<p>一个事件源(如按钮)可以有多个监听器。下图显示了事件源、事件监听器和事件对象之间的交互。</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/sixteen.jpg" alt="sixteen"></p>
+<p>与部分按钮组件相关的API如下：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/seventeen.jpg" alt="seventeen"></p>
+<p>当程序用户试图关闭一个窗口时，JFrame对象就是WindowEvent的事件源。指定一个合适的监听器对象，并将它添加到窗体的窗口监听器列表中。窗口监听器必须是实现WindowListener接口的类的一个对象。WindowListener接口中实际上包含7个方法，窗体将调用这些方法响应7个不同的窗口事件。下图显示了完整的WindowListener接口。</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/eighteen.jpg" alt="eighteen"></p>
+<p>为了简化编程任务，每个含有多个方法的AWT监听器接口都配有一个<strong>适配器</strong>(adapter)类，这个类实现了接口中的所有方法，但每个方法并不做任何事情。可以扩展适配器类来指定对某些事件的响应动作，而不必实现接口中的每一个方法。WindowListener相关的API如下：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/nineteen.jpg" alt="nineteen"></p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twenty.jpg" alt="twenty"></p>
+<p>Swing提供了Action接口，<strong>动作</strong>是封装以下内容的<strong>一个对象</strong>：</p>
+<p>1）命令的说明(一个文本字符串和一个可选的图标)。</p>
+<p>2）执行命令所需要的参数。</p>
+<p>Action接口包含以下方法：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyOne.jpg" alt="twentyOne"></p>
+<p>实际上Action扩展了ActionListener接口，因此在任何需要ActionListener对象的地方可以使用Action对象。第二和第三两个方法允许启用或禁用这个动作，并检查这个动作当前是否启用。后面的两个方法允许存储和获取动作对象中的任意名/值对。有两个重要的预定义字符串：Action.NAME和Action.SMALL_ICON，用于将动作的名字和图标存储到一个动作对象中。下图显示了所有预定义的动作表名：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyTwo.jpg" alt="twentyTwo"></p>
+<p>Action接口的最后两个方法能够让其对象(尤其是触发动作的菜单或工具栏)在动作对象的属性发生变化时得到通知。需要注意，Action是一个接口，而不是一个类。实现这个接口的所有类都必须实现上述的7个方法。幸运的是，有一个AbstractAction类，这个类实现了除actionPerformed方法之外的所有其他方法。这个类负责存储所有名/值对，并管理属性变更监听器。可以直接扩展它，并提供一个actionPerformed方法。</p>
+<p>为了将动作与按键关联，需要生成KeyStroke类对象，这个类封装了对按键的描述。要想生成一个KeyStroke对象，不要调用构造器，而应当调用KeyStroke类中的静态getKeyStroke方法。相关的API如下：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyThree.jpg" alt="twentyThree"></p>
+<p>下图显示了与鼠标事件相关的部分API，同时列出了在Windows环境下使用Cursor类的getPredefinedCursor方法时能够使用的常量以及相对应的光标形状。</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyFour.jpg" alt="twentyFour"></p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyFive.jpg" alt="twentyFive"></p>
+<p>EventObject类有一个子类AWTEvent，它是所有AWT事件类的父类。下图显示了AWT事件的继承关系图。</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentySix.jpg" alt="twentySix"></p>
+<p>事件对象封装了事件源与监听器通信的有关信息。AWT将事件分为<strong>底层(low-level)事件</strong>和<strong>语义(semantic)事件</strong>。语义事件是表示用户动作的事件。底层事件是使语义事件得以发生的事件。下图显示了java.awt.event包中最常用的语义事件类和5个常用的底层事件类：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentySeven.jpg" alt="twentySeven"></p>
+<p>下表显示了最重要的AWT监听器接口、事件和事件源：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyEight.jpg" alt="twentyEight"></p>
+<p>下图是java.util.preferences API：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyNine.jpg" alt="twentyNine"></p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/thirty.jpg" alt="thirty"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" data-id="ckn5mhdn8000vf0v31uu03e12" data-title="Java核心技术——卷I-图形用户界面程序设计" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Java核心技术——卷I——Swing用户界面组件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">计算机网络自顶向下方法——应用层</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

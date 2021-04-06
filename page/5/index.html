@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Java核心技术——卷I——Java程序设计概述" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%A6%82%E8%BF%B0/" class="article-date">
+  <time class="dt-published" datetime="2020-11-10T07:17:15.000Z" itemprop="datePublished">2020-11-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%A6%82%E8%BF%B0/">Java核心技术——卷I——Java程序设计概述</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>1996年Java的第一次发布就引起了人们的极大兴趣。Java并不只是一种语言，还是一个完整的平台，拥有一个庞大的库，其中包含了很多可重用的代码，以及一个提供诸如安全性、跨操作系统的可移植性以及自动垃圾收集等服务的执行环境。</p>
+<p>Java白皮书的关键术语：简单性、面向对象、分布式、健壮性、安全性、体系结构中立、可移植性、解释性、高性能、多线程、动态性。</p>
+<p>面向对象设计是一种程序设计技术。它将重点放在数据(即对象)和对象的接口上。Java与C++的一个主要不同点在于多重继承。Java与C/C++最大的不同在于Java采用的指针模型可以消除重写内存和损坏数据的可能性。</p>
+<p>虚拟机有一个选项，可以将执行最频繁的字节模序列转换成机器码，这一过程称为即时编译。</p>
+<p>Java中字符串采用标准的Unicode格式存储。</p>
+<p>Java解释器可以在任何移植了解释器的机器上直接执行Java字节码。字节码可以（在运行时）动态地转换成对应运行这个应用的特定CPU的机器码。</p>
+<p>多线程可以带来更快的交互响应和实时行为。</p>
+<p>在网页中运行的Java程序称为applet。</p>
+<p>不仅是Java，任何语言只是实现目标的工具，而不是目标本身。</p>
+<p>Java是一种程序设计语言；HTML是一种描述网页结构的方式。XML是一种描述数据的方式。</p>
+<p>程序设计语言的成功更多地取决于其支撑系统的能力，而不是语法的精巧性。</p>
+<p>早期的Java是解释性的。现在Java虚拟机使用了即时编译器。</p>
+<p>Java是强类型的，编译器能捕获类型滥用导致的很多错误。</p>
+<p>2008年，Java平台的首席工程师Mark Reinhold开始着力分解这个庞大的Java平台，为此引入了模块。模块是提供一个特定功能的自包含的代码单元。</p>
+<p><img src="/2020/11/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%A6%82%E8%BF%B0/one.jpg" alt="one"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%A6%82%E8%BF%B0/" data-id="ckn5mhdn8000xf0v31yjba5qu" data-title="Java核心技术——卷I——Java程序设计概述" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C和指针——预处理器" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8/" class="article-date">
+  <time class="dt-published" datetime="2020-11-05T04:57:03.000Z" itemprop="datePublished">2020-11-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8/">C和指针——预处理器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>C预处理器(preprocessor)在源代码编译之前对其进行一些文本性质的操作。它的主要任务包括删除注释、插入被#include指令包含的文件的内容、定义和替换由#define指令定义的符号以及确定代码的部分内容是否应该根据一些条件编译指令进行编译。</p>
+<p>预定义符号：它们的值或者是字符串、或者是十进制数字常量。_FILE_和_LINE_在确认调试输出的来源方面很有用处。_DATE_和_TIME_常常用于在被编译的程序中加入版本信息。_STDC_用于那些在ANSI环境和非ANSI环境都必须进行编译的程序中结合条件编译。</p>
+<p><img src="/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8/one.png" alt="one"></p>
+<p>#define name stuff。有了这条指令后，每当由符号name出现在这条指令后面时，预处理器就会把它替换成stuff。如果定义中stuff非常长，可以分成几行，除了最后一行之外，每行的末尾都有加上一个反斜杠。</p>
+<p>宏：#define机制包括了一个规定，允许把参数替换到文件中，这种实现通常称为宏(macro)或定义宏(define macro)。声明方式如下：</p>
+<p><img src="/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8/two.png" alt="two"></p>
+<p>其中，parameter-list(参数列表)是一个由逗号分隔的符号列表，它们可能出现在stuff中。参数列表的左括号必须与name紧邻。如果两者之间有任何空白存在，参数列表就会被解释为stuff的一部分。</p>
+<p>当宏被调用时，名字后面是一个由逗号分隔的值的列表，每个值都与宏定义的一个参数相对，整个列表用一对括号包围。当参数出现在程序中时，与每个参数对应的实际值都将被替换到stuff中。宏不可以出现递归。宏和类型无关。宏定义并没有用一个分号结尾，分号出现在调用这个宏的语句中。</p>
+<p>当预处理器搜索#define定义的符号时，字符串常量的内容并不进行检查。</p>
+<p>奇偶效验是一种错误检查机制。在数据被存储或通过通信线路传送之前，唯一给值计算(并添加)一个校验位，使数据的二进制模式中的1的个数为一个偶数。以后，数据可以通过计算它的1的个数来验证其有效性。如果结果是奇数，那么数据就出现了错误。这个技巧被称为偶校验。奇校验的工作原理相同，只是计算并添加校验位之后，数据的二进制模式中1的个数是奇数。</p>
+<p>宏定义(对于绝大多数由#define定义的符号也是如此)一个常见的约定就是把宏名字全部大写。</p>
+<p>宏和函数的不同之处：</p>
+<p><img src="/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8/three.png" alt="three"></p>
+<p>#undef。用于移除一个宏定义。语法如下：</p>
+<p><img src="/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8/four.png" alt="four"></p>
+<p>如果一个现存的名字需要被重新定义，那么它旧定义首先必须用#undef移除。</p>
+<p>命令行定义：许多C编译器提供了一种能力，允许在命令行中定义符号，用于启动编译过程。在UNIX编译器中，-D选项可以完成这项任务。提供符号命令行定义的编译器也提供在命令行中去除符号的定义。在UNIX编译器上，-U选项用于执行这项任务。</p>
+<p>条件编译：可以选择代码的一部分是被正常编译还是完全忽略。用于支持条件编译的基本结构是#if指令和其匹配的#endif指令。语法形式如下：</p>
+<p><img src="/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8/five.JPG" alt="five"></p>
+<p>其中constant-expression(常量表达式)由预处理器进行求值。如果它的值是非零值(真)，那么statements部分就被正常编译，否则预处理器就安静地删除它们。</p>
+<p>注：所谓常量表达式，就是说它是字面值常量，或者是一个由#define定义的符号。如果变量在执行器之前无法获得它们的值，那么它们如果出现在常量表达式中就是非法的，因为它们的值在编译时是不可预测的。</p>
+<p>条件编译的另一个用途是在编译时选择不同的代码部分。为了支持这个功能，#if指令还具有可选的#elif和#else子句。语法形式如下：</p>
+<p><img src="/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8/six.png" alt="six"></p>
+<p>#elif子句出现的次数可以不限。每个constant-expression只有当前面所有常量表达式的值都为假时才会被编译。#else子句中的语句只有当前面所有的常量表达式的值都为假时才会被编译，在其他情况下它都会被忽略。</p>
+<p>是否被定义：#ifedf symbol 测试一个符号是否已经被定义。该语句与#if defined(symbol)等价。但#if形式功能更强。因为常量表达式可能包含额外的条件。</p>
+<p>函数库文件包含：编译器支持两种不同类型的#include文件包含——函数库文件和本地文件。函数库头文件包含使用如下的语法:</p>
+<p><img src="/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8/seven.JPG" alt="seven"></p>
+<p>对于filename，并不存在任何限制，不过根据约定，标准库文件以一个.h后缀结尾。本地文件包含使用如下语法：</p>
+<p><img src="/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8/eight.JPG" alt="eight"></p>
+<p>标准允许编译器自行决定是否把本地形式的#include和函数库形式的#include区别对待。处理本地头文件的一种常见策略就是在源文件所在的当前目录进行查找，如果该头文件并未找到，编译器就像查找函数库头文件一样在标准位置查找本地头文件。UNIX系统和Borland C编译器所支持的一种变体形式就是使用绝对路径名，它不仅指定文件的名字，而且指定了文件的位置。UNIX系统中的绝对路径名以一个斜杠开头，在MS-DOS系统中，它所使用的是反斜杠而非斜杠。</p>
+<p>嵌套文件包含：标准要求编译器必须支持至少8层的头文件嵌套，但它并没有现代嵌套深度的最大值。</p>
+<p>其他指令：预处理器还支持其他一些指令。首先，当程序编译之后,#error指令允许你生成错误信息。语法如下。</p>
+<p><img src="/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8/night.JPG" alt="night"></p>
+<p>#line number “string”  指令通知预处理器number是下一行输入的行号。如果给出了可选部分“string” ，预处理器就把它作为当前文件的名字。要注意的是，这条指令将修改_LINE_符号的值。如果加上可选部分，它还将修改_FILE_符号的值。</p>
+<p>#program 指令是另一种机制，用于支持因编译器而异的特性。它的语法也是因编译器而异。从本质上说，#program是不可移植的。预处理器将忽略它不认识的#program指令，两个不同的编译器可能以两种不同的方式解释同一条#program指令。</p>
+<p>无效指令(null directive)就是一个#符号开头，但后面不跟任何内容的一行。这类指令只是被预处理器简单地删除。</p>
+<p>#argument 结构由预处理器转换为字符串常量“argument”。##操作符用于把它两边的文件粘贴成同一个标识符。</p>
+<p>#fidef和#ifndef指令可以测试某个符号是否已被定义。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8/" data-id="ckn5mhdn6000rf0v3hd9p24wa" data-title="C和指针——预处理器" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C和指针——高级指针话题" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E9%AB%98%E7%BA%A7%E6%8C%87%E9%92%88%E8%AF%9D%E9%A2%98/" class="article-date">
+  <time class="dt-published" datetime="2020-11-05T04:44:24.000Z" itemprop="datePublished">2020-11-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E9%AB%98%E7%BA%A7%E6%8C%87%E9%92%88%E8%AF%9D%E9%A2%98/">C和指针——高级指针话题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>和其他的指针变量一样，一个指向指针的指针在它使用之前必须进行初始化。为了取得目标对象，必须对指针的指针执行双重的间接访问操作。可以创建指向函数和数组的指针，还可以创建包含这类指针的数组。</p>
+<p>C语言中，声明是以推理的形式进行分析的。</p>
+<p>可以使用函数指针来实现回调函数。一个指向回调函数的指针作为参数传递给另一个函数，后者使用这个指针调用回调函数。</p>
+<p>转移表由一个函数指针数组组成(这些函数必须具有相同的原型)。函数通过下标选择某个指针，再通过指针调用对应的函数。</p>
+<p>C程序的main具有两个形参。第1个通常称为argc，它表示命令行参数的数目。第2个通常称为argv，它指向一组参数值。由于参数的数目并没有内在的限制，所以argv指向这组参数值(从本质上说是一个数组)的第一个元素。这些元素的每个都是指向一个参数文本的指针。最后以一个NULL指针作为结束标志。其中第一个参数就是程序的名字。</p>
+<p>注：实际上，有些OS向main函数传递第3个参数，它是一个指向环境变量列表以及它们的值的指针。具体要查看对应编译器或OS文档。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E9%AB%98%E7%BA%A7%E6%8C%87%E9%92%88%E8%AF%9D%E9%A2%98/" data-id="ckn5mhdn7000tf0v33vf0fd5u" data-title="C和指针——高级指针话题" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C和指针——使用结构和指针" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84%E5%92%8C%E6%8C%87%E9%92%88/" class="article-date">
+  <time class="dt-published" datetime="2020-11-05T04:32:00.000Z" itemprop="datePublished">2020-11-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84%E5%92%8C%E6%8C%87%E9%92%88/">C和指针——使用结构和指针</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>链表：链表(linked list)就是一些包含数据的独立数据结构(通常称为节点)的集合。链表中的每个节点通过链或指针连接在一起。程序通过指针访问链表中的节点。</p>
+<p>单链表：在单链表中，每个节点包含一个指向链表下一个节点的指针。链表最后一个节点的指针字段的值为NULL，提示链表后面不再有其他节点。为了记住链表的起始位置，可以使用一个根指针(root pointer)。根指针指向链表的第一个节点。注意根指针只是一个指针，它不包含任何数据。单链表可以通过链从开始位置遍历链表直到结束位置，但链表无法从相反的方向进行遍历。单链表是一种使用指针来存储值的数据结构。</p>
+<p>把一个新节点链接到一个有序的单链表中需要两个步骤：首先，新节点的link字段必须设置为指向它的目标后续节点。其次，前一个节点的link字段必须设置为指向这个新节点。</p>
+<p>双链表：在一个双链表中，每个节点都包含两个指针——指向前一个节点的指针和指向后一个节点的指针。</p>
+<p>为了把一个新节点插入到双链表中，必须修改四个指针。新节点的前向和后向link字段必须被设置，前一个节点的后向link字段和后一个字节的前向link字段必须进行修改，使它们指向这个新节点。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84%E5%92%8C%E6%8C%87%E9%92%88/" data-id="ckn5mhdmg0000f0v39wxh8eyz" data-title="C和指针——使用结构和指针" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C和指针——动态内存分配" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/04/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" class="article-date">
+  <time class="dt-published" datetime="2020-11-04T05:31:09.000Z" itemprop="datePublished">2020-11-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/04/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/">C和指针——动态内存分配</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>malloc和free：C函数库提供了两个函数，malloc和free，分别用于执行动态内存分配和释放。这些函数维护一个可用内存池。当一个程序另外需要一些内存时，调用malloc函数，malloc从内存池中提取一块合适的内存，并向该程序返回一个指向这块内存的指针。当一块以前分配的内存不再使用时，程序调用free函数把它归还给内存池。两个函数都在头文件stdlib.h中声明，函数原型如下:</p>
+<p><img src="/2020/11/04/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/one.png" alt="one"></p>
+<p>malloc的参数就是需要分配的内存字节数。如果内存池中可用内存可以满足这个需求，malloc就返回一个指向被分配的内存块起始位置的指针。malloc所分配的是一块连续的内存。如果内存池是空的，或者它的内存无法满足请求，在这种情况下，malloc函数向操作系统请求，要求得到更多的内存，并在这块新内存上执行分配任务。如果OS无法向malloc提供更多的内存，malloc就返回一个NULL指针。</p>
+<p>free的参数必须要么是NULL，要么是一个先前从malloc，calloc或realloc返回的值，向free传递一个NULL参数不会产生任何效果。malloc返回一个类型为void*的指针，正式缘于这个原因，标准表示一个void*类型的指针可以转换为其他任何类型的指针。</p>
+<p>calloc和realloc：函数原型如下</p>
+<p><img src="/2020/11/04/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/two.png" alt="two"></p>
+<p>calloc也用于分配内存。它和malloc之间的主要区别是calloc函数在返回指向内存的指针之前把它初始化为0。两个函数之间另一个较小的区别是它们请求内存数量的方式不同，calloc的参数包括所需要元素的数量和每个元素的字节数。</p>
+<p>realloc函数用于修改一个原先已经分配的内存块的大小。使用该函数，可以使一个块内存扩大或缩小。如果用于扩大，那么这块内存原先的内容依然保留，新增加的内存添加到原先内存块后面，新的内存并未以任何方式进行初始化。如果用于缩小，内存块尾部的部分内存便被拿掉，剩余部分内存的原先内容依然保留。如果原先的内存块无法改变大小，函数将分配另一块正确大小的内存，并把原先那块内存的内容复制到新的快上。如果realloc函数的第一个参数是NULL，那么它的行为和malloc一摸一样。</p>
+<p>NULL定义于stdio.h，它实际上是字面值常量0。</p>
+<p>分配内存但在使用完毕后不释放将引起内存泄漏(memory lead)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/04/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" data-id="ckn5mhdmq0003f0v31wo0h4zs" data-title="C和指针——动态内存分配" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C和指针——结构和联合" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/04/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%92%8C%E8%81%94%E5%90%88/" class="article-date">
+  <time class="dt-published" datetime="2020-11-04T04:43:18.000Z" itemprop="datePublished">2020-11-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/04/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%92%8C%E8%81%94%E5%90%88/">C和指针——结构和联合</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> 结构基础知识：聚合数据类型能够同时存储超过一半的单独数据。C提供了两种类型的聚合数据类型，数组和结构体。数组是相同类型的元素的集合，它的每个元素是通过下标引用或指针间接访问来选择的。结构是一些值的集合，这些值称为它的成员，但一个结构的各个成员可能具有不同的类型。</p>
+<p>数组元素可以通过下标访问。结构体中的成员可以通过名字访问。</p>
+<p>结构并不是一个它自身成员的数组。和数组名不同，当一个结构变量在表达式中使用时，它并不被替换成一个指针。结构变量也无法使用下标来选择特定的成员。</p>
+<p>结构变量属于标量类型。结构可以传递给函数的参数，也可以作为返回值从函数返回，相同类型的结构变量相互之间可以赋值。可以声明一个指向结构的指针，取一个结构变量的地址，也可以声明结构数组。</p>
+<p>结构声明：在声明结构时，必须列出它所包含的所有成员。这个列表包括每个成员的类型和名字。语法如下：</p>
+<p><img src="/2020/11/04/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%92%8C%E8%81%94%E5%90%88/one.png" alt="one"></p>
+<p>标签字段允许为成员列表提供一个名字，这样它就可以在后续的声明中使用。标签允许多个声明使用同一个成员列表并且创建同一种类型的结构。如：</p>
+<p><img src="/2020/11/04/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%92%8C%E8%81%94%E5%90%88/two.png" alt="two"></p>
+<p>该声明并没有提供变量列表，所以它并未创建任何变量。标签标识了一种模式，用于声明未来的变量，但无论是标签还是模式本身都不是变量。</p>
+<p>一个结构的成员的名字可以和其他结构的成员名字相同。</p>
+<p>结构成员的直接访问：结构变量的成员是通过点操作符 (.) 来访问的。点操作符接受这两个操作数，左操作数就是结构变量的名字，右操作数就是需要访问的成员的的名字。这个表达式的结果就是指定的成员。点操作符的结合性是从左向右。</p>
+<p>结构成员的间接访问：-&gt;操作符(也称箭头操作符)。和点操作符一样，箭头操作符接受两个操作数，但左操作数必须是一个指向结构的指针。箭头操作符都对左操作符执行间接访问取得指针所指向的结构，然后和点操作符一样，根据右操作数选择一个指定的结构成员。</p>
+<p>结构的自引用：一个结构内部可以包含一个指向该结构本身的指针，不能包含该结构自身。该结构本身的指针事实上它所指向的是同一种类型的不同结构。</p>
+<p>不完整的声明：声明一个作为结构标签的标识符。然后，可以把这个标识符用在不需要知道这个结构的长度的声明中，如声明指向这个结构的指针。</p>
+<p>结构的初始化：结构的初始化方式和数组的初始化很相似。一个位于一对花括号内部、右逗号分隔的初始值列表可用于结构各个成员的初始化。这些值根据结构成员列表的顺序写出。如果初始列表值不够，剩余的结构成员将使用缺省值进行初始化。结构中如果包含数组或结构成员，其初始化方式类似于多为数组的初始化。一个完整的聚合类型成员的初始值列表可以嵌套于结构的初始值列表内部。</p>
+<p>C语言没有定义结构和整型值之间的加法运算。</p>
+<p>sizeof操作符能够得出一个结构的整体长度，包括因边界对齐而跳过的那些字节。如果必须确定结构某个成员的实际位置，应该考虑边界对齐因素，可以使用offsetof宏(定义于stddef.h)。</p>
+<p><img src="/2020/11/04/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%92%8C%E8%81%94%E5%90%88/three.png" alt="three"></p>
+<p>如上所示，type是结构的类型，member就是需要的那个成员名。表达式的结果是一个size_t值，表示这个指定成员开始存储的位置距离结果开始存储的位置偏移几个字节。</p>
+<p>位段：位段的声明和结构类似，但它的成员是一个或多个位的字段。这些不同长度的字段实际上存储于一个或多个整型变量中。位段的声明和任何普通的结构成员声明相同，但有两个例外。首先，位段成员必须声明为int、signed或unsigned int类型。其次，在成员名的后面是一个冒号和一个整数。这个整数指定该位段所占用的位的数目。</p>
+<p>位段是结构的一种，但它的成员长度以位为单位指定。位段声明在本质上是不可移植的，因为它涉及许多与实现有关的因素。但是，位段允许把长度为奇数的值包装在一起节省存储空间。</p>
+<p>联合：联合的所有成员引用的是内存中相同的位置。</p>
+<p>如果联合的各个成员具有不同的长度，联合的长度就是它最长成员的长度。联合变量可以被初始化，但这个初始值必须是联合第1个成员的类型，而且它必须是位于一对花括号里面。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/04/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E5%92%8C%E8%81%94%E5%90%88/" data-id="ckn5mhdn3000jf0v3247j8nnj" data-title="C和指针——结构和联合" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C和指针——字符串-字符和字节" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E8%8A%82/" class="article-date">
+  <time class="dt-published" datetime="2020-11-03T08:52:28.000Z" itemprop="datePublished">2020-11-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E8%8A%82/">C和指针——字符串,字符和字节</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>字符串基础：字符串就是一串零个或多个字符，并且以一个模式为全0的NULL字节结尾。因此，字符串所包含的字符内部不能出现NULL字节。NULL字节是字符串的终止符，但它本身不是字符串的一部分，所以<strong>字符串的长度并不包括NULL字节。</strong></p>
+<p>字符串的长度：字符串的长度就是它所包含的字符个数。</p>
+<p>CUE: size_t 这个类型是在头文件stddef.h中定义的，它是一个无符号整数类型。</p>
+<p>复制字符串：<strong>函数strcpy</strong>原型如下：</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E8%8A%82/one.png" alt="one"></p>
+<p>该函数把参数src字符串复制到dst参数。如果参数src和dst在内存中重叠，其结果是未定义的。参数dst必须是个字符数组或者是一个指向动态分配内存的数组的指针，不能是字符串常量。</p>
+<p><strong>注</strong>：必须保证目标字符数组的空间足以容纳需要复制的字符串。如果字符串比数组长，多余的字符仍被复制，它们将覆盖原型存储与数组后面的内存空间的值。</p>
+<p>连接字符串：<strong>函数strcat</strong>原型如下：</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E8%8A%82/two.png" alt="two"></p>
+<p>函数要求dst参数原先已经包含一个字符串(可以是空字符串)。函数找到这个字符串的末尾，并把src字符串的<strong>一份拷贝</strong>添加到这个位置。如果src和dst的位置发生重叠，其结果是未定义的。</p>
+<p>注：同样必须保证目标字符数组剩余的空间足以保存整个源字符串。</p>
+<p>函数的返回值：strcpy和strcat都返回它们第1个参数的<strong>一份拷贝</strong>，就是一个指向目标字符数组的指针。</p>
+<p>字符串比较：<strong>函数strcmp</strong>原型如下：</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E8%8A%82/three.png" alt="three"></p>
+<p>如果s1小于s2，函数返回一个小于零的值。如果s1大于s2，函数返回一个大于零的值。如果两个字符串相等，函数就返回零。</p>
+<p>长度受限的字符串函数：函数原型如下：</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E8%8A%82/four.png" alt="four">****</p>
+<p>和strcpy一样，strncpy把源字符串的字符复制到目标数组。然后，它总是正好向dst写入len个字符。如果srtlen(src)的值小于len，dst数组就用额外的NULL字节填充答len长度。如果strlen(scr)的值大于或等于len，那么只有len个字符复制到dst中。注意！它的结果将不会以NULL字节结尾。</p>
+<p>strncat函数从src中最多复制len个字符到目标数组的后面，<strong>但strncat总是在结果字符串后面添加一个NULL字节</strong>，而且它不会像strncpy那样对目标数组用NULL字节进行填充。</p>
+<p>strncmp函数也用于比较两个字符串，但它最多比较len个字节。其比较结果和strcmp函数一致。</p>
+<p>查找一个字符：最容易的方法是使用<strong>strchr和sttrchr函数</strong>。原型如下：</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E8%8A%82/five.png" alt="five"></p>
+<p>两个函数的第2个参数是一个整数。但是，它包含了一个字符值。strchr在字符串str中查找字符ch第1次出现的位置，找到后函数返回一个指向该位置的指针。如果该字符并不存在于字符串中，函数就返回一个NULL指针。sttrchr的功能和strchr基本一致，只是它所返回的是一个指向字符串中该字符最后一次出现的位置(最右边那个)。</p>
+<p>查找任何几个字符：<strong>函数strpbrk</strong>原型如下:</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E8%8A%82/six.png" alt="six"></p>
+<p>函数返回一个指向str中的第1个匹配group中任何一个字符的字符位置。如果未找到匹配，函数就返回一个NULL指针。</p>
+<p>查找一个子串：<strong>函数strstr</strong>原型如下：</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E8%8A%82/seven.png" alt="seven"></p>
+<p>函数在s1中查找整个s2第1次出现的起始位置，并返回一个指向该位置的指针。如果s2并没有完整地出现在s1的任何地方，函数将返回一个NULL指针。如果第2个参数是一个空字符串，函数就返回s1。</p>
+<p>查找一个字符串前缀：函数strspn和strcspn用于在字符串的起始位置对字符计数。原型如下：</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E8%8A%82/eight.png" alt="eight"></p>
+<p>group字符串指定一个或多个字符。strspn返回str起始部分匹配group中任意字符的字符数。strcspn函数和strspn函数正好相反，它对str字符串起始部分中不与group中任何字符匹配的字符进行计数。</p>
+<p>查找标记：strtok函数从字符串中隔离各个单独的称为标记(token)的部分，并丢弃分隔符。函数原型如下：</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E8%8A%82/night.png" alt="night"></p>
+<p>sep参数是个字符串，定义了用作分隔符的字符集合。第1参数指定一个字符串，它包含零个或多个由sep字符串中一个或多个分隔符分隔的标记。strtok找到str的下一个标记，并将其用NULL结尾，然后返回一个指向这个标记的指针。</p>
+<p>注：当strtok函数执行任务时，它将会修改它所处理的字符串。如果字符串不能被被修改，那么就复制一份，将这份拷贝传递个strtok函数。同时，如果strtok函数的第1个参数不是NULL，函数将找到字符串的第1个标记。strtok同时将保存它在字符串中的位置。如果strtok函数的第1个参数是NULL，函数就在同一个字符串中从这个被保存的位置开始像前面一样查找下一个标记。如果字符串内不存在更多的标记，strtok函数就返回一个NULL指针。</p>
+<p>错误信息：strerror函数把其中一个错误代码作为参数，并返回一个指向用于描述错误的字符串的指针。函数原型如下：</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E8%8A%82/ten.png" alt="ten"></p>
+<p>字符分类：每个分类函数接受一个包含字符值的整型参数。函数测试这个字符并返回一个整型值，表示真或假。</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E8%8A%82/eleven.png" alt="eleven"></p>
+<p>转换函数进行大小写字母互换。函数原型如下：</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E8%8A%82/twelve.png" alt="twelve"></p>
+<p>toupper函数返回对应大写，tolower函数返回其对应小写。如果函数的参数并不是一个个处于适当大小写状态的字符，函数将不修改参数直接返回。</p>
+<p>内存操作：下列函数的操作与字符串函数类似，但这些函数能够处理任意的字节序列。原型如下：</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E8%8A%82/thirteen.png" alt="thirteen"></p>
+<p>它们在遇到NULL字节时并不会停止操作。</p>
+<p>memcpy从src的起始位置复制length个字节到dst的内存起始位置。第3个参数指定复制值的长度(以字节计)。如果src和dst以任何形式出现重叠，它的结果是未定义的。</p>
+<p>memmove函数的行为和memcpy差不多，只是它的源和目标操作数可以覆盖。</p>
+<p>memcmp对两段内存的内容进行比较，这两段内存分别起始于a和b，共比较length个字节。这些值按照无符号字节逐字节进行比较，函数返回负值表示a小于b,正值表示a大于b，零表示a等于b。</p>
+<p>注意：由于这些值是根据一串无符号字节进行比较的，所以如果函数用于比较不是单字节的数据如整数或浮点数时就可能出现不可预料的结果。</p>
+<p>memchr函数从a的起始位置开始查找字符ch第1次出现的位置，并返回一个指向该位置的指针，它共查找length个字节。如果在这length个字节中未找到该字符，函数就返回一个NULL指针。最后memset函数把从a开始的length个字节都设置为字符值ch。</p>
+<p>strlen函数用于计算一个字符串的长度，它返回值是一个无符号整数。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E8%8A%82/" data-id="ckn5mhdmr0004f0v3g8923e64" data-title="C和指针——字符串,字符和字节" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C和指针——数组" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E7%BB%84/" class="article-date">
+  <time class="dt-published" datetime="2020-11-03T05:28:38.000Z" itemprop="datePublished">2020-11-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E7%BB%84/">C和指针——数组</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在C中，在几乎所有使用数组名的表达式中，<strong>数组名的值是个指针常量</strong>，也就是数组第1个元素的地址。它的类型取决于数组元素的类型：如果它们是int类型，那么数组名的类型就是“指向int的常量指针”；如果它们是其他类型，那么数组名的类型就是“指向其他类型的常量指针”。<strong>注意这个值是指针常量，而不是指针变量</strong>，不能修改常量的值。只有在两种场合下，数组名并不用指针常量来表示——就是当数组名作为sizeof操作符或单目操作符&amp;的操作数时。sizeof返回整个数组的长度，而不是指向数组的指针的长度。取一个数组名的地址所产生的是一个指向数组的指针，而不是一个指向某个指针常量值的指针。</p>
+<p>指针和数组并不是相等。</p>
+<p>数组的初始化：数组的初始化需要一系列的值。这些值位于一对花括号中，每个值之间用逗号分隔。如果数组未被初始化，数组元素的初始值将会自动设置为零。</p>
+<p>在C中，多维数组的元素的存储顺序按照最右边的下标率先变化的原则，称为行主序。</p>
+<p>下标：要标识一个多维数组的某个元素，必须按照与数组声明时相同的顺序为每一维提供一个下标，而且每个下标的都单独位于一对方括内。下标引用实际上只是间接访问表达式的一种伪装形式，即使在多为数组中也是如此。</p>
+<p>指向数组的指针(即指针数组)：int(*p)[数组长度]</p>
+<p>作为函数参数的多维数组：与一维数组相同，但是两者之间的区别在于多维数组的每个元素本身是另外一个数组，编译器需要知道它的维数，以便为函数形参的下标表达式进行求值。</p>
+<p>数组长度自动计算：多维数组中，只有第1维才能根据初始化列表缺省地提供。剩余的几个维必须显式地写出，这样编译器就能推断出每个子数组维数的长度。</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E7%BB%84/one.png" alt="one"></p>
+<p>如上所示：前者初始化一个字符数组的元素，而后者则是一个真正的字符串常量。这个指针变量初始化为指向这个字符串常量的存储位置。如下所示：</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E7%BB%84/two.JPG" alt="two"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E7%BB%84/" data-id="ckn5mhdn2000hf0v3hqkma4yr" data-title="C和指针——数组" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C和指针——函数" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0/" class="article-date">
+  <time class="dt-published" datetime="2020-11-03T04:53:04.000Z" itemprop="datePublished">2020-11-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0/">C和指针——函数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>函数的定义：函数的定义就是函数体的实现。函数体就是一个代码块，它在函数被调用时执行。语法如下:</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0/one.png" alt="one"></p>
+<p>形式参数列表包括变量名和它们的类型声明。代码块包含了局部变量的声明和函数调用时需要执行的语句。</p>
+<p>在K&amp;C 中，形式参数的类型以单独的列表进行声明，并出现在参数列表和函数体的左花括号之间，如下所示：</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0/two.png" alt="two"></p>
+<p>return语句：该语句允许从函数体的任何位置返回，并不一定要在函数体的末尾。语法如下：</p>
+<p>return  expression;</p>
+<p>expression是可选的。如果函数无需向调用程序返回一个值，它就被省略。这种没有返回值的函数在声明时应该给把函数的类型声明为void。</p>
+<p>在C中，子程序不论是否存在返回值，均被称为函数。调用一个真函数(即返回一个值的函数)但不在任何表达式中使用这个返回值是完全可能的。在这种情况下，返回值被丢弃。但是，从表达式内部调用一个过程类型的函数(无返回值)是一个严重的错误，因为这样一来在表达式的求值过程中会使用一个不可预测的值(垃圾)。</p>
+<p>原型：第一种 K&amp;R C：如果函数是以旧式风格定义的，也就是用一个单独的列表给出参数的类型，那么编译器就只记住函数的返回值类型，但不保存函数的参数数量和类型方面的信息。第二种使用函数原型。函数原型总结了函数定义的起始部分的声明，向编译器提供有关该函数如何调用的完整信息。分号“ ：” 它区分了函数原型和函数定义的起始部分。</p>
+<p>关键字void提示没有任何参数，而不是表示它有一个类型为void的参数。</p>
+<p>函数的缺省认定：当程序调用一个无法见到原型的函数时，编译器便认为该函数返回一个整型值。</p>
+<p>函数的参数：C函数的所有参数均以”传值调用”方式进行传递，这意味着函数将获得参数值的一份拷贝。但是，如果被传递的参数是一个数组名，并且在函数中使用下标引用该数组的参数，那么在函数中对数组元素进行修改实际上修改的是调用程序中的数组元素。函数将访问调用程序的数组元素，数组并不会复制，这个行为称为“传址调用”。数组参数的这种行为似乎与传值调用规则相悖。但是，并不是这样——数组名的值实际上是一个指针，传递给函数的就是这个指针的一份拷贝。但是因为是指针的缘故所以在这份拷贝上执行间接访问操作所访问的是原先的数组。</p>
+<p>ADT和黑盒：C可以用于设计和实现抽象数据类（ADT,abstract data type），因为它可以限制函数和数据定义的作用域。这个技巧也被称为黑盒设计。</p>
+<p>递归：C通过运行时堆栈支持递归函数的实现。递归函数就是直接或间接调用自身的函数。</p>
+<p>stdarg宏：可变参数列表是通过宏来实现的，这些宏定义于stdarg.h头文件，他是标准库的一部分。这个头文件声明一个类型va_list和三个宏——va_start、va_arg和va_end。</p>
+<p>可变参数的限制：注意可变参数必须从头到尾按照顺序逐个访问。如果在访问了几个可变参数后想中途终止，这是可以的。但是，如果像一个开始就访问参数列表中间的参数，那是不行的。另外，由于参数列表中的可变参数部分并没原型，所以，所有作为可变参数传递给函数的值都将执行缺省参数类型提升。</p>
+<p>如果函数体内没有任何语句，那么该函数就称为存根，它在测试不完整的程序时非常有用。</p>
+<p>如果一个递归函数内部所执行的最后一条语句就是调用自身时，那么它就被称为尾部递归。尾部递归可以很容易地改写为循环的形式，它的效率通常更高一些。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0/" data-id="ckn5mhdmm0001f0v38u6mg4vx" data-title="C和指针——函数" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C和指针——指针" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/" class="article-date">
+  <time class="dt-published" datetime="2020-11-03T04:20:55.000Z" itemprop="datePublished">2020-11-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/">C和指针——指针</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>内存和地址：计算机的内存由数以万计的位(bit)组成，每个可以容纳值0或1。由于一个位所能表示的值的范围太有限，所以单独的位用处不大，通常许多位合成一组作为一个单位，这样就可以存储范围较大的值。如下所示：</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/one.png" alt="one"></p>
+<p>这些位置的每一个都被称为字节(byte)，每个字节都包含了存储一个字符所需要的位数。在许多现代的机器上，每个字节包含8位，可以存储无符号值0到255，或有符号值-128到127。每个字节通过地址来标识，如上图方框上面的数字所示。</p>
+<p>为了存储更大的值，可以把两个或多个字节组合在一起作为一个更大的内存单位字。如下图表示的内存位置与上图相同，但它是以4个字节的字来表示。</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/two.png" alt="two"></p>
+<p>由于包含了更多的位，每个字可以容纳的无符号整数的范围是0到4294967295(<img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/clip_image002.png" alt="img">)，可以容纳的有符号整数的范围是从-2147483648(<img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/clip_image002-1604377668230.png" alt="img">)至2147483648(<img src="file:///C:/Users/廖本焰/AppData/Local/Temp/msohtmlclip1/01/clip_image004.png" alt="img">)。注意，尽管一个字包含了4个字节，它仍然只有一个地址。至于它的地址是它最左边的那个字节的位置还是最右边那个字节的位置，不同的机器有不同的规定。另一个要注意的硬件事项是边界对齐。在要求边界对齐的机器上，整型值存储的起始位置只能是某些特定的字节，通常是2或4的倍数。</p>
+<p>内存中的每个位置由一个独一无二的地址标识。</p>
+<p>内存中的每个位置都包含一个值。</p>
+<p>名字和内存位置之间的关联不是硬件所提供的，它是由编译器实现的。变量给了一种更为方便的方法来记住地址——硬件仍然通过地址访问内存位置。</p>
+<p>不能简单地通过检查一个值的位来判断它的类型。为了判断值的类型(以及它的值)，必须观察程序中这个值的使用方式。显然，值的类型并非值本身所固有的一种特性，而实取决于它的使用方式。</p>
+<p>指针变量的内容：指针的初始化是用&amp;操作符完成的，它用于产生操作数的内存地址。</p>
+<p>间接访问操作符：通过一个指针访问它所指向的地址的过程称为间接访问或解引用指针。这个用于执行间接访问的操作符是单目操作符。</p>
+<p>NULL指针：标识定义了NULL指针，它作为一个特殊的指针变量，表示不指向任何东西。要使一个指针变量为NULL，可以给它赋一个零值。NULL指针的概念是非常有用的，因为它提供一种方法，表示某个特定的指针目前并未指向任何东西。同时因为NULL指针未指向任何东西，因此对一个NULL指针进行解引用操作是非法的。在对指针进行解引用操作之前，必须确定该指针并非NULL指针。</p>
+<p>指针运算：指针加上一个整数的结果是另一个指针。当一个指针和一个整数指向算术运算时，整数在执行加法运算前始终会根据合适的大小进行调整。这个“合适的大小”就是指针所指向类型的大小，“调整”就是把整数值和“合适的大小”相乘。</p>
+<p>C的指针算术运算只限于把两种形式：加减。标准定义这种形式只能用于指向数组中某个元素的指针。</p>
+<p>指针 - 指针：只有当两个指针都指向同一个数组中的元素时，才允许一个指针减去另一个指针。两个指针相减的结果类型是pridiff_t，它是一个有符号整数类型。减法运算的值是两个指针在内存中的距离(以数组元素的长度为单位，而不是以字节为单位)，因为减法运算的结果将除以数组元素类型的长度。</p>
+<p>关系运算：对指针指向关系运算也是有限制的。用以下关系操作符对两个指针进行比较是可能的：&lt;     &lt;=          &gt;          &gt;= 。前提是它们都指向同一个数组中的元素。</p>
+<p>注：标准允许指向数组元素的指针与指向数组最后一个元素后面的那个内存位置的指针进行比较，但不允许与指向数组第1个元素之前的那个内存位置的指针进行比较。同时，如果一个指针减去一个整数后，运算结果产生的指针所指向的位置在数组第一个元素之前，那么它是非法的。加法运算稍有不同，如果结果指针指向数组最后一个元素后面的那个内存位置仍是合法的(但不能对这个指针指向间接访问操作)，不过再往后就不合法了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/" data-id="ckn5mhdmw000af0v3bpgcgb7l" data-title="C和指针——指针" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

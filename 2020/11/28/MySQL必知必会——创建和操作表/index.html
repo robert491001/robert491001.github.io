@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>MySQL必知必会——创建和操作表 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="一般有以下两种创建表的方法： 1）使用具有交互式创建和管理表的工具。 2）表也可以直接用MySQL语句操纵。 利用create table创建表，必须给出以下信息： 1）新表的名字，在关键字create table之后给出。 2）表列的名字和定义，用逗号分隔。 表名紧跟在create table关键字后面。实际的表定义(所有列)括在圆括号之中。各列之间用逗号分隔。每列的定义以列名(它在表中是唯一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL必知必会——创建和操作表">
+<meta property="og:url" content="http://example.com/2020/11/28/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E5%88%9B%E5%BB%BA%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一般有以下两种创建表的方法： 1）使用具有交互式创建和管理表的工具。 2）表也可以直接用MySQL语句操纵。 利用create table创建表，必须给出以下信息： 1）新表的名字，在关键字create table之后给出。 2）表列的名字和定义，用逗号分隔。 表名紧跟在create table关键字后面。实际的表定义(所有列)括在圆括号之中。各列之间用逗号分隔。每列的定义以列名(它在表中是唯一">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-11-28T02:28:50.000Z">
+<meta property="article:modified_time" content="2020-11-28T03:43:39.422Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="MySQL笔记">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-MySQL必知必会——创建和操作表" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/28/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E5%88%9B%E5%BB%BA%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/" class="article-date">
+  <time class="dt-published" datetime="2020-11-28T02:28:50.000Z" itemprop="datePublished">2020-11-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      MySQL必知必会——创建和操作表
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> 一般有以下两种创建表的方法：</p>
+<p>1）使用具有交互式创建和管理表的工具。</p>
+<p>2）表也可以直接用MySQL语句操纵。</p>
+<p>利用create table创建表，必须给出以下信息：</p>
+<p>1）新表的名字，在关键字create table之后给出。</p>
+<p>2）表列的名字和定义，用逗号分隔。</p>
+<p>表名紧跟在create table关键字后面。实际的表定义(所有列)括在圆括号之中。各列之间用逗号分隔。每列的定义以列名(它在表中是唯一的)开始，后跟列的数据类型。表的主键可以在创建表时用primary key关键字指定。整条语句由右圆括号后的分号结束。</p>
+<p>在创建新表时，指定的表名必须不存在，否则将出错。如果要防止意外覆盖已有的表，SQL要求首先手工删除该表。然后再重建它，而不是简单的用创建表语句覆盖它。如果仅想在一个表不存在时创建它，应该在表名后给出 if not exists。这样做不检查已有表的模式是否与打算创建的表模式相匹配。它只是查看表名是否存在，并且仅在表名不存在时创建它。</p>
+<p>null值就是没有值或缺值。允许null值的列也允许在插入行时不给出该列的值。不允许null值的列不接受该列没有值的行。换句话说，在插入或更新时，该列必须有值。null为默认设置，如果不指定not null，则认为指定的是null。</p>
+<p>不要把null值与空串相混淆。null值是没有值，它不是空串。如果指定“”(两个单引号，其间没有字符)，这在not null列是允许的。空串是一个有效的值，它不是无值。null值用关键字null而不是空串指定。</p>
+<p>主键必须唯一。即表中的每个行必须具有唯一的主键值。如果主键使用单个列，则它的值必须唯一。如果使用多个列，则这些列的组合值必须唯一。为创建由多个列组成的主键，应该以逗号分隔的列表给出各列名，主键可以在创建表时定义或者创建之后定义。主键为其值唯一标识表中每个行的列。主键只能使用不允许null值的列。允许null值的列不能作为唯一标识。</p>
+<p>auto_increment通知MySQL本列每当增加一行时自动增量。每次执行一个insert操纵时，MySQL自动对该列增量(从而才有这个关键字auto_increment)，给该列赋予下一个可用的值。每个表只允许一个auto_increment列，而且它必须被索引(如，通过使它成为主键)。</p>
+<p>覆盖auto_increment：当一个列被指定为auto_increment时，如果要覆盖自动增量，可以简单地在insert语句中指定一个值，只要它是唯一的(至今尚未使用过)即可，该值将被用来替代自动生成的值。后续的增量将开始使用该手工插入的值。</p>
+<p>确定auto_increment的值：让MySQL生成(通过自动增量)主键的一个缺点就是无法知道这些值都是谁。那么可以使用last_insert_id()函数来获得这个值。select last_insert_id() 该语句返回最后一个auto_incremen值，然后可以将它用于后面的的MySQL语句中。</p>
+<p>如果在插入行时没有给出值，MySQL允许指定此时使用默认值。默认值用create table语句的列定义中default关键字指定。与大多数DBMS不一样，MySQL不允许使用函数作为默认值，它只支持常量。许多数据库开发人员使用默认值而不是null列，特别是对于计算或数据分组的列更是如此。</p>
+<p>与其他DBMS一样，MySQL有一个具体管理和处理数据的内部引擎。在使用create table语句时，该引擎具体创建表；在使用select语句进行其他数据处理时，该引擎在内部处理请求。多数时候，此引擎都隐藏在DBMS内，不需要太过多的关注它。但MySQL于其他DBMS又有些不一样，它是具有多种引擎的。它打包多个引擎，这些引擎都隐藏在MySQL服务器内，全都能执行create table和select等命令。</p>
+<p>当然，完全可以忽略这些数据库引擎。如果省略engine=语句，则使用默认引擎(很可能是MyISAM)，多数MySQL语句都会默认使用它。除此之外，还有以下几个常见的引擎：</p>
+<p>1）InnoDB是一个可靠的事务处理引擎，它不支持全文本搜索。</p>
+<p>2）MEMORY在功能等同于MyISAM，但由于数据存储在内存(不是在磁盘)中，速度很快(特别适合于临时表)。</p>
+<p>3）MyISAM是一个性能极高的引擎，它支持全文本搜索，但不支持事务处理。</p>
+<p>引擎类型可以混用。但混用引擎有一个大缺陷。就是外键(用于强制实施引用完整性)不能跨引擎，即用一个引擎的表不能引用具有使用不同引擎的表的外键。</p>
+<p>为了更新表定义，可使用alter table语句。为了使用alter table更该表结构，必须给出以下信息：</p>
+<p>1）在alter table之后给出要更改的表名(该表必须存在，否则将出错)。</p>
+<p>2）所做更改的列表。</p>
+<p>alter table一种常见用途是定义外键。为了对单个表进行多个更改，可以使用单条alter table语句，每个更改用逗号分隔。复杂的表结构更改一般需要手动删除过程，它涉及以下步骤：</p>
+<p>1）用新的列布局创建一个新表。</p>
+<p>2）使用insert select语句从旧表复制数据到新表。如果有必要，可以使用转换函数和计算字段。</p>
+<p>3）检验包含所需要数据的新表。</p>
+<p>4）重命名旧表(如果确定，可以删除它)。</p>
+<p>5）用旧表原来的名字重新命名新表。</p>
+<p>6）根据需要，重新创建触发器、存储过程、索引和外键。</p>
+<p>使用alter table要极为小心，应该在进行改动前做一个完整的备份(模式和数据的备份)。数据库表的更改不能撤销，如果增加了不需要的列，可能不能删除它们。类似地，如果删除了不应该删除的列，可能会丢失该列中的所有数据。</p>
+<p>删除表(整个表而不是其内容)非常简单，使用drop table语句即可。</p>
+<p>使用rename table语句可以重命名一个表。rename可以对多个表重命名，用逗号分隔。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/28/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E5%88%9B%E5%BB%BA%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/" data-id="ckn5mhdnt0027f0v3hdbs6ek9" data-title="MySQL必知必会——创建和操作表" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/30/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E8%A7%86%E5%9B%BE/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MySQL必知必会——视图
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/28/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%9B%B4%E6%96%B0%E5%92%8C%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MySQL必知必会——更新和删除数据</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/6/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-C和指针——操作符和表达式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="article-date">
+  <time class="dt-published" datetime="2020-11-02T05:32:59.000Z" itemprop="datePublished">2020-11-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/">C和指针——操作符和表达式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>C提供了所有常用的算术操作符，如下所示：</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/one.png" alt="one"></p>
+<p>除了%操作符，其他操作符都是既适用于浮点类型又适用于整数类型。当/操作符的两个操作数都是整数时，它执行整除运算，在其他情况下则执行浮点数除法。%为取模操作符，它接受两个整型操作数，它左边操作数除以右边操作数，但它返回的值是余数而不是商。</p>
+<p>移位操作只是简单把一个值的位向右或向左移动。在左移位中，值最左边的几位被丢弃，右边多出来的几个空位则由0补齐。</p>
+<p>右移位操作存在一个左移位操作不曾面临的问题：从左边移入新位时，可以选择两种方案。第一种是逻辑移位。左边移入的位用0填充；第二种是算法移位，左边移入的位由原先该值的符号位决定，符号位为1则移入的为均为1，符号位为0则移入的位均为0，这样能保存原数的正负形式不变。算术左移和逻辑左移是相同的，只在右移时不同，而且只有当操作数是负值时才不一样。</p>
+<p>左移位操作符&lt;&lt;，右移位操作符&gt;&gt;。左操作数的值将移动由右操作数指定的位数。两个操作符都必须是整型类型。</p>
+<p>CUE:标准说明无符号值所执行的所有移位操作都逻辑移位，但对于有符号值，到底是采用逻辑移位还是算术移位取决于编译器。</p>
+<p>位操作符：位操作符对它们的操作数的各个位执行and、or和xor(异或)等逻辑操作。</p>
+<p>当两个位进行and操作时，如果两个位都1，结果位1，否则结果为0。当两个位进行or操作时，如果两个位都是0，结果为0，否则结果为1。当两个位进行xor操作时，如果两个位不同，结果为1，如果两个位相同，结果为0。</p>
+<p>​                                                 位操作符：</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/two.png" alt="two"></p>
+<p>它们分别执行and、or和xor操作。它们要求操作数为整数类型，对操作数对应的位进行指定的操作，每次对左右操作数的各一位进行操作。</p>
+<p>单目操作符：~  。它用于对其操作数进行求补运算，即1变0，0变1。</p>
+<p>赋值操作符，用一个等号表示。赋值是表达式的一种，而不是某种类型的语句。赋值操作符的结合性(求值的顺序)是从右到左。</p>
+<p>​                                                   复合赋值符：</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/three.png" alt="three"></p>
+<p>​                                                   单目操作符：</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/flour.png" alt="flour"></p>
+<p>CUE:单目操作符只接受一个操作数。</p>
+<p>！ 操作符对它的操作数执行逻辑反操作；如果操作数位真，其结果为假，如果操作数为假，其结果为真。和关系操作符一样，这个操作符实际上产生一个整型结果，0或1。- 操作符产生操作数的负值，&amp; 操作符产生它的操作数的地址。* 操作符是间接访问操作符，它与指针一起使用，用于访问指针所指向的值。</p>
+<p>sizeof操作符判断它的操作数的类型长度，以字节为单位表示。操作数既可以是表达式(常常是单个变量)，也可以是两边加上括号的类项名。当sizeof的操作数是个数组名时，它返回该数组的长度，以字节为单位。</p>
+<p>(类型) 操作符被称为强制类型转换，它用于显示地把表达式的值转换为另外的类型。</p>
+<p>增值操作符++和减值操作符– 都需要一个变量而不是表达式作为它的操作数，该操作符实际上只要求操作数必须是一个“左值”。</p>
+<p>​                                                C常见的关系操作符</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/five.png" alt="five"></p>
+<p>！= 操作符用于测试不相等，而==操作数用于测试相等。这些操作符产生的结果都是一个整型值，而不是布尔值。如果两端的操作数符合操作符指定的关系，表达式结果是1，相反为0。</p>
+<p>逻辑操作符有&amp;&amp;和||，它们用于对表达式求值。&amp;&amp;操作符的左操作数总是首先进行求值，如果它的值为真，然后就紧接着对右操作数进行求值。如果左操作数的值为假，那么右操作数便不再进行求值，因为整个表达式的值肯定是假的，右操作数的值已经无关紧要。||操作符也具有相同的特点，它首先对左操作数进行求值，如果它的值是真，右操作数便不再求值。因为整个表达式的值此时已经确定。这个行为常常被称为“短路求值”。</p>
+<p>条件操作符接受三个操作数，它也会控制子表达的求值顺序。语法如下：</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/six.png" alt="six"></p>
+<p>逗号操作符将两个或多个表达式分割开来。这些表达式自左向右逐个进行求值，整个逗号表达式的值就是最后那个表达式的值。</p>
+<p>下标引用操作符是一对方括号。下标引用操作符接受两个操作数：一个数组名和一个索引值。C的下标值总是从零开始，并且不会对下标值进行有效性检查。同时下表引用操作和间接访问表达式是等价的，如：array[下标]&lt;==&gt;*(array+(下标))，二者等价。</p>
+<p>函数调用操作符接受一个或多个操作数。它的第1个操作数是希望调用的函数名剩余的操作数是传递给函数的参数。</p>
+<p><strong>. 和-&gt;</strong> 操作符用于访问一个结果的成员。</p>
+<p>C并不具备显示的布尔类型，所以使用整数来代替。其规则是：零是假，任何非零值皆为真。</p>
+<p>左值(L-value)和右值(R-value)：左值就是那些能够出现在赋值符号左边的东西，右值就是那些可以出现在赋值符号右边的东西。</p>
+<p>表达式求值——隐式类型转换：C的整型算术运算总是至少以缺省整数类型的精度来进行的。为了获得这个精度，表达式中的字符型和短整型操作数在使用之前被转换为普通整型，这种转换称为整型提升。</p>
+<p>表达式求值——算术转换：如果某个操作符的各个操作数属于不同的类型，那么除非其中一个操作数转换为另一个操作数的类型，否则操作就无法进行。下面的层次体系称为寻常算术转换。</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/seven.png" alt="seven"></p>
+<p>如果某个操作数的类型在上面这个列表中排名较低，那么它首先将转换为另一个操作数的类型然后执行操作。</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/eight.png" alt="eight"></p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/eight_1.png" alt="eight_1"></p>
+<p>优先级和求值的顺序：两个相邻操作符的执行顺序由它们的优先级决定。如果它们的优先级相同，它们的执行顺序由它们的结合性决定。除此之外，编译器可以自由决定使用任何顺序对表达式进行求值，只要它们不违反逗号、&amp;&amp;、||和?:操作符所施加的限制。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/" data-id="ckn5mhdn0000ff0v3e76m5ki6" data-title="C和指针——操作符和表达式" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C和指针——语句" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%AF%AD%E5%8F%A5/" class="article-date">
+  <time class="dt-published" datetime="2020-11-02T04:49:48.000Z" itemprop="datePublished">2020-11-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%AF%AD%E5%8F%A5/">C和指针——语句</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>空语句：C最简单的语句就是空语句，<strong>它本身只是包含一个分号</strong>。空语句本身并不执行任何任务，但有时还是有用的。所适用的场合就是语法要求出现一条完整的语句，但不需要它指向任何任务。</p>
+<p>C并不具备专门的赋值语句，而是统一用”表达式语句”代替。</p>
+<p>所谓语句”没有效果”只是表示表达式的值被忽略。printf函数所执行的是有用的工作，这类作用称为”副作用”(side effect)。</p>
+<p>代码块就是位于一对花括号之内的可选的声明和语句列表。</p>
+<p>C不具备布尔类型，而是用整型来代替——**零值表示”假”，非零值表示”真”**。</p>
+<p>当if语句嵌套出现时，else子句从属于最靠近它的不完整的if语句。</p>
+<p>在while循环中可以使用break语句，用于永久终止循环。在执行完break语句之后，执行流下一条执行的语句就是循环正常结束后应该执行的那条语句。</p>
+<p>在while循环中也可以使用continue语句，它用于永久终止<strong>当前</strong>的那次循环。在执行完continue语句之后，执行流下来就是重新测试表达式的值，决定是否继续执行循环。</p>
+<p>这两条语句的任何一条如果出现于嵌套的循环内部，它只对最内层的循环起作用，你无法使用break或continue语句影响外层循环的执行。</p>
+<p>流程图简要说明：菱形表示判断，方框表示需要执行的动作，箭头表示它们之间的控制流。</p>
+<p>​                                                          for语句</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%AF%AD%E5%8F%A5/one.png" alt="one"></p>
+<p>statement为循环体，expression1为初始化部分，它只在循环开始时执行一次。expression2为条件部分，它在循环体每次执行前都要执行一次，都像while语句的表达式一样。expression3为调整部分，它在循环体每次执行完毕，在条件部分即将执行之前执行。所有三个表达式都是可选的，都可以省略。如果省略条件部分，表示测试的值始终为真。</p>
+<p>​                                                           do语句</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%AF%AD%E5%8F%A5/two.png" alt="two"></p>
+<p>它的测试在循环体执行之后才进行，而不是先于循环体执行。所以，这种循环的循环体至少执行一次。</p>
+<p>​                                                            do语句执行流</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%AF%AD%E5%8F%A5/three.png" alt="three"></p>
+<p>​                                                    switch语句</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%AF%AD%E5%8F%A5/flour.png" alt="flour"></p>
+<p>其中expression的结果必须是整型值。贯穿于语句列表之间的是一个或多个case标签。形式如下所示：</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%AF%AD%E5%8F%A5/five.png" alt="five"></p>
+<p>每个case标签必须具有一个唯一的值。常量表达式(constant-expression)是指在编译期间进行求值的表达式，它不能是任何的变量。</p>
+<p>switch语句的执行过程：首先是计算expression的值；然后，执行流转到语句列表其中其case标签值与expression的值匹配的语句。从这条语句起，直到语句列表的结束也就是switch语句的底部，它们之间所有的语句均被执行。</p>
+<p>switch语句的执行中遇到了break语句，执行流就会立即跳到语句列表的末尾。在switch语句中，continue语句没有任何效果。</p>
+<p>default语句：<strong>写在任何一个case标签可以出现的位置</strong>。当switch表达式的值并不匹配所有case标签的值时，这个default子句后面的语句就会被执行。所以，每个switch语句只能出现一条default子句。</p>
+<p>​                                                 goto语句</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%AF%AD%E5%8F%A5/six.png" alt="six"></p>
+<p>要使用goto语句，必须在希望跳转的语句前面加上语句标签。语句标签就是标识符后面加上个冒号。包含这些标签的goto语句可以出现在同一个函数中的任何位置。goto语句较为适用的场景就是跳出多层嵌套的循环。如下所示：</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%AF%AD%E5%8F%A5/seven.png" alt="seven"></p>
+<p>C并不具备任何输入/输出语句；I/O是通过库函数实现的。C也不具备任何异常处理语句，它们也是通过调用库函数来完成的。</p>
+<p>switch语句中，如果没有default子句，当表达式的值与所有case标签的值均不匹配时，整个switch语句将被跳过，不会执行。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%AF%AD%E5%8F%A5/" data-id="ckn5mhdn4000lf0v3hlqtc843" data-title="C和指针——语句" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C和指针——数据" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/" class="article-date">
+  <time class="dt-published" datetime="2020-11-01T04:35:09.000Z" itemprop="datePublished">2020-11-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/">C和指针——数据</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>基本数据类型：在C语言中，仅有4中基本数据类型——整型、浮点型、指针和聚合类型(如数组和结构等)。所有其他的类型都是从这4中基本类型的某种组合派生而来的。</p>
+<p>整型家族：包括字符、短整型、整型和长整型。它们都分为有符号(signed)和无符号(unsigned)两种版本。规定整型值相互之间大小的规则很简单：长整型至少应该和整型一样长，而整型只是应该和短整型一样长。</p>
+<p><img src="/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/one.JPG" alt="one"></p>
+<p>头文件limits.h说明了各种不同的整数类型的特点。它定义了下表所示的各个名字。limits.h同时定义了下列名字：CHAR_BIT是字符型的位数(至少8位)；CHAR_MIN和CHAR_MAX定义了缺省字符类型的范围，它们或者应该于SCHAR_MIN和SCHAR_MAX相同。或者应该于0和UCHAR_MAX相同；最后MB_LEN_MAX规定了一个多字节字符最多允许的字符数量。</p>
+<p><img src="/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/two.png" alt="two"></p>
+<p>尽管设计char类型变量目的是为了让它们容纳字符型值，但字符的本质上是小整型值。字面值(literal)这个术语是字面值常量的缩写——这是一种实体，指定了自身的值，并且不允许发生改变。这个特点非常重要，因为ANSI C允许命名常量(named constant，声明为const的变量)的创建，它于普通变量极为类似，区别在于，当它被初始化后，它的值便不能改变。</p>
+<p>整数也可以用八进制表示，只要数值前面以0开头。也可以用十六进制表示，它以0x开头。</p>
+<p>另外还有字符常量。它们的类型总是int。字符常量就是一个用单引号包围起来的单个字符(字符转义序列或三字母词)例如：‘\n’，’??(‘，等等。</p>
+<p>最后，如果一个多字节字符常量的前面有一个L，那么它就是宽字符常量。如：L‘X’。</p>
+<p>枚举类型：枚举(enumerated)类型就是指它的值为符号常量而不是字面值的类型。</p>
+<p>浮点类型：浮点数家族包括了float、double和long double类型。通常，这些类型分别提供单精度、双精度以及在某些支持扩展精度的机器上提供扩展精度。ANSI标准仅仅规定long double至少和double一样长，而double至少和float一样长。标准同时规定了一个最小范围：所有浮点类型至少能够容纳从10的负37次方到10的正37次方之间的任何值。</p>
+<p>头文件float.h定义了名字FLT_MAX、DBL_MAX和LDBL_MAX，分别表示float、double和long double能够存储的最小值。浮点数字面值在缺省情况下都是double类型，除非它的后面跟一个L或l表示是一个long double类型的值，或者跟一个F或f表示它是一个float类型的值。</p>
+<p>指针：变量的值存储在计算机的内存中，每个变量都占据一个特定的位置。每个内存位置都由地址唯一确定并引用。指针只是地址的另一个名字罢了。指针变量就是一个其值为另一个(一些)内存地址的变量。</p>
+<p>C语言对字符串的概念：它就是一串以NULL字节结尾的零个或多个字符。字符串通常存储在字符数组中，字符串常量的书写方式是用一对双引号包围一串字符。字符串常量可以是空的，即为空字符串，它依然存在作为终止符的NULL字节。</p>
+<p>程序在使用字符串常量时会产生一个”指向字符的常量指针”。当一个字符常量出现于一个表达式中，表达式所使用的值就是这些字符所存储的地址，而不是这些字符本身。因此，可以把字符串常量赋值给一个”指向字符的指针”，后者指向这些字符所存储的地址。但<strong>是不能把字符串常量赋值给一个字符数组，因为字符串常量的直接值是一个指针，而不是字符本身。</strong></p>
+<p>基本声明：变量声明的基本形式是：说明符(一个或多个)  声明表达式列表。对于简单的类型，声明表达式列表就是被声明的标识符的列表。对于更为复杂的类型，声明表达式列表中的每个条目实际上是一个表达式，显示被声明的名字的可能用途。</p>
+<p>说明符(specifier)包含了一些关键字，用于描述被声明的标识符的基本类型。说明符也可以用于改变标识符的缺省存储类型和作用域。下表显示了所有这些变量声明的变型。用一个框内的所有声明都是等同的。signed关键字一般用于char类型，因为其他整型类型在缺省情况下都是有符号数。至于char是否是signed，则因编译器而异。</p>
+<p><img src="/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/three.png" alt="three"></p>
+<p>在一个声明中，可以给一个标量变量指定一个初始值，方法是在变量名后面跟一个等号(赋值号)，后面跟赋给变量的值。</p>
+<p>声明简单数组：声明一个一维数组，在数组名后面要跟一对方括号，方括号里面是一个整数，指定数组中元素的个数。数组的下标总是从0开始，最后一个元素的下标是元素的数目减1。</p>
+<p>CUE:编译器并不检查程序对数组下标的引用是否在数组的合法范围之内。一个良好的经验法则是：如果下标值是从那些已知正确的值计算得来，那么就无需检查它的值。如果一个用作下标的值是根据某种方法从用户输入的数据产生而来的，那么在使用它之前必须进行检测，确保位于有效的范围之内。</p>
+<p>声明指针：声明表达式也可用于声明指针。先给出一个基本类型，紧随其后的是一个标识符列表，这些标识符组成表达式，用于产生基本类型的变量。</p>
+<p>隐式声明：函数如果不显示地声明返回值的类型，它就默认返回整型。如果使用旧风格声明函数的形式参数时，如果省略了参数的类型。编译器就是默认它们为整型。最后，如果编译器可以得到充足的信息，推断出一条语句实际上是一个声明时，如果它缺少类型名、编译器会假定它为整型。</p>
+<p>typedef：C语言支持一种叫作typedef的机制，它允许你为各种数据类型定义新名字。typedef声明的写法和普通的声明基本相同，只是把typedef这个关键字出现在声明的前面。</p>
+<p>常量：ANSI C允许声明常量，常量的样子和变量完全一样，只是它们的值不能修改。可以使用const关键字来声明常量。</p>
+<p>int const *pci; 是一个指向整型常量的指针。可以修改指针的值，不能修改它所指向的值</p>
+<p>int *const pci; 是一个指向整型的常量指针。此时指针是常量，它的值无法修改，但可以修改它所指向的整型的值。</p>
+<p>int  const *const pci; 无论是指针本身还是它所指向的值都是常量，都不允许修改。</p>
+<p>#define指令是另一种创建名字常量的机制</p>
+<p>作用域：标识符的作用域就是程序中标识符可以被使用的区域。编译器可以确认4中不同类型的作用域——文件作用域、函数作用域、代码块作用域和原型作用域。标识符声明的位置决定它的作用域。</p>
+<p>代码块作用域：位于一对花括号之间的所有语句称为一个代码块。任何在代码块的开始位置声明的标识符都具有代码块作用域(block scope)，表示它们可以被这个代码块中的所有语句访问。函数定义的形式参数在函数体内部也具有代码块作用域。</p>
+<p>当代码块处于嵌套状态时，声明于内层代码块的标识符的作用域到达该代码块的尾部便告终止。然后，如果内层代码块有一个标识符的名字与外层代码块中一个标识符同名，内层的那个标识符就将隐藏外层的标识符——外层的那个标识符无法在内层代码块中通过名字访问。声明于每个代码块的变量无法被另一个代码块访问，因为它们的作用域并无重叠之处。</p>
+<p>在K&amp;R C中，函数形参的作用域开始于形参的声明处，位于函数体之外。如果在函数体内部声明了名字与形参相同的局部变量，它们就将隐藏形参。这样一来，形参便无法被函数的任何部分访问。当然，没人会有意隐藏形参。因为如果不想让调用函数使用参数的值，那么向函数传递这个参数就毫无道理。ANSI C遏止了这种错误的可能性，它把形参的作用域设定为函数最外层的那个作用域(也就是整个函数体)。这样，声明于函数最外层作用域的局部变量无法和形参同名，因为它们的作用域相同。</p>
+<p>文件作用域：任何在所有代码块之外声明的标识符都具有文件作用域，它表示这些标识符从它们的声明之处直到它所在的源文件结尾处都是可以访问的。在文件中定义的函数名也具有文件作用域。</p>
+<p>原型作用域：该作用域只适用于在函数原型中声明的参数名。在原型中(与函数的定义不同)，参数的名字并非必须。原型作用域防止参数名与程序其他部分的名字冲突。</p>
+<p>函数作用域：函数作用域它只适用于语句标签，语句标签用于goto语句。函数作用域可以简化为一条规则——一个函数中的所有语句标签必须唯一。</p>
+<p>链接属性：标识符的链接属性一共有3种——external(外部)、internal(内部)和none(无)。没有链接属性的标识符(none)总是当作单独的个体，也就是说该标识符的多个声明被当作独立不同的实体。属于internal链接属性的标识符在同一个源文件内的所有声明中都指同一个实体，但位于不同源文件的多个声明则分属于不同的实体。最后，属于external的链接属性的标识符不论声明多少次，位于几个源文件都表示同一个实体。</p>
+<p>关键字external和static用于在声明中修改标识符的链接属性。如果某个声明在正常情况下具有external链接属性，在它前面加上static关键字可以使它的链接属性变为internal。static只对缺省链接属性为external的声明才有改变链接属性的效果。external关键字一般而言，它为一个标识符指定external的链接属性，这样就可以访问在其他任何位置定义的这个实体。当external关键字用于源文件中的一个标识符的第1次声明时，它指定该标识符具有external链接属性。但是，如果它用于该标识符的第2次或以后声明时，它并不会更改由第1次声明所指定的链接属性。</p>
+<p>存储类型：变量的存储类型(storage class)是指存储变量值的内存类型。变量的存储类型决定变量何时创建、何时销毁以及它的值将保存多久。有三个地方可用于存储变量：普通内存、运行时堆栈，硬件寄存器。</p>
+<p>变量的缺省存储类型取决于它的声明位置。凡是在任何代码块之外声明的变量总是存储于静态内存中，也就是不属于堆栈的内存，这类变量称为静态变量，静态变量在程序运行之前创建，在程序的整个执行期间始终存在。</p>
+<p>在代码块内部声明的变量的缺省类型是自动的，也就是说它存储于堆栈中。称为自动变量，有一个关键字auto就是用于修饰这种存储类型的。在程序执行到声明自动变量代码块时，自动变量才被创建，当程序的执行流离开该代码块时，这些自动变量便自行销毁。因此，可以说自动变量在代码块执行完毕后就消失。当代码块再次执行时，它们的值一般并不是上次执行时的值。</p>
+<p>对于在代码块内部声明的变量，如果加上关键字static，可以使它的存储类型从自动变为静态。具有静态存储类型的变量在程序执行过程中一直存在，而不仅仅在声明它的代码块的执行时存在。<strong>注意修改变量的存储类型并不是修改该变量的作用域</strong>。函数的形式参数不能声明为静态，因为实参总是在堆栈中传递给函数，用于支持递归。</p>
+<p>最后关键字register可以用于自动变量的声明，提示它们应该存储于机器的硬件寄存器而不是内存中，这类变量称为寄存器变量。寄存器变量通常比存储于内存的变量访问起来效率更高。</p>
+<p>static总结：当它用于函数定义时，或用于代码块之外的变量声明时，static关键字用于修改标识符的链接属性，从external改为internal，但标识符的存储类型和作用域不受影响。用这种方式声明的函数或变量只能在声明它们的源文件中访问；当它用于代码块内部的变量声明时，static关键字用于修改变量的存储类型，从自动变量修改为静态变量，单变量的链接属性和作用域不受影响。用这种方法声明的变量在程序执行之前创建，并在程序的整个执行期间一直存在，而不是每次在代码块开始执行时创建，在代码块执行完毕后销毁。</p>
+<p>具有external链接属性的实体在其他语言的术语里称为全局实体，所有源文件中的所有函数均可以访问它。只要变量并非声明于代码块或函数定义内部，它在缺省情况下的链接属性即为external。如果一个变量声明于代码块内部，在它前面添加external关键字将使它所引用的是全局变量而非局部变量。具有external链接属性的实体总是具有静态存储类型。</p>
+<p><img src="/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/four.png" alt="four"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/" data-id="ckn5mhdmy000df0v3d9vi3c1k" data-title="C和指针——数据" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C和指针——基本概念" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/10/25/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="article-date">
+  <time class="dt-published" datetime="2020-10-25T08:24:26.000Z" itemprop="datePublished">2020-10-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/10/25/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">C和指针——基本概念</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>环境</strong>：在ANSI C的任何一种实现中，存在两种不同的环境。第1种翻译环境(translation environment)，在这个环境里源代码被转换为可执行的机器指令。第2种是执行环境(execution environment)，它用于实际执行代码。</p>
+<p><strong>翻译</strong>：组成一个程序的每个(或是多个)源文件通过编译过程分别转换为目标代码，然后各个文件由链接器(linker)捆绑在一起，形成一个单一而完整的可执行程序。链接器同时也会引入标准C函数库中任何被程序所用到的函数。</p>
+<p><strong>编译</strong>：编译过程本身也由几个阶段完成。第一步是预处理器(preprocessor)处理，第二步是源代码解析，第三步便是产生目标代码。目标代码是机器指令的初步形式，用于实现程序的语句。如果在编译程序的命令行中加入了要求进行优化的选项，优化器(optimizer)就会对目标代码进一步进行处理，使它效率更高。编译过程如下所示：</p>
+<p><img src="/2020/10/25/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/one.png" alt="one"></p>
+<p><strong>文件名约定</strong>：C源代码通常保存于以.c扩展名命名的文件中。由#include指令包含到C源代码的文件被称为头文件通常具有扩展名.h。目标文件名在不同的环境中可能具有不同的约定。如在UNIX系统中扩展名为.o，但是MS-DOS系统中扩展名为.obj。</p>
+<p><strong>编译和链接</strong>：在大多数的UNIX系统中，C编译器被称为cc，它可以用多种不同的方法来调用。</p>
+<p><strong>执行</strong>：程序的执行过程也需要经历几个阶段。首先，程序必须载入到内存中，然后程序的执行便开始。在大多数机器里，程序将使用一个运行时堆栈(stack)，它用于存储函数的局部变量和返回地址。程序同时也可以使用静态(static)内存，存储于静态内存的变量在程序的整个执行过程中将一直保留它们的值。程序执行的最后一个阶段就是程序的终止，它可以由多种不同的原因引起。</p>
+<p><strong>词法规则</strong>：一个ANSI C程序由声明和函数组成。函数定义了需要执行的工作，而声明则描述了函数和(或)函数将要操作的数据类型(有时候是数据本身)。注释可以散步于源文件的各个地方。</p>
+<p><strong>字符</strong>：标准并没有规定C环境必须使用哪种特定的字符集，但它规定字符集必须包括英语所有的大写和小写字母，数字0到9，以及如下这些符号：</p>
+<p><img src="/2020/10/25/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/two.png" alt="two"></p>
+<p>换行符用于标识源代码每一行的结束。标识还定义了几个三字母词(trigrph)，三字母词就是几个字符的序列合起来表示另一个字符。如下是一些三字母词以及它们所代表的字符：</p>
+<p><img src="/2020/10/25/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/three.png" alt="three"></p>
+<p>K&amp;R C定义了几个转义序列(escape sequence)或字符转义(character escape)，ANSI C在它的基础上又增加了几个转义序列。转义序列由一个反斜杠\加上一或多个其他字符组成。如下列出了部分：</p>
+<p><img src="/2020/10/25/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/four.JPG" alt="four"></p>
+<p><strong>标识符</strong>：标识符(identifier)就是变量，函数，类型等的名字。它们由大小写字母、数字和下划线组成，但不能以数字开头。C区分大小写。标识符的长度没有限制，但标准允许编译器忽略第31个字符以后的字符，标准同时允许编译器对用于表示外部名字(也就是由链接器操作的名字)的标识符进行限制，只识别前六位不区分大小写的字符。</p>
+<p><img src="/2020/10/25/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/five.png" alt="five"></p>
+<p>程序的形式：一个C程序可能保存于一个或多个源文件中，虽然一个源文件可以包含超过一个的函数，但每个函数都必须完整的出现于同一个源文件中</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/10/25/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" data-id="ckn5mhdmr0005f0v3e3mff64i" data-title="C和指针——基本概念" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C和指针——快速上手" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/10/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/" class="article-date">
+  <time class="dt-published" datetime="2020-10-05T02:21:00.000Z" itemprop="datePublished">2020-10-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/10/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/">C和指针——快速上手</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>注释</strong>：注释以符号/*开始，以符号*/结束。在C程序中，凡是可以插入空白的地方都可以插入注释。然后，注释不能嵌套，也就是说，第一个/*符号和在第一个*/之间的内容都被看作是注释，不管里面右多少给/*符号。</p>
+<p>在有些语言中，注释有时用于把一段代码“注释掉”，也就是这段代码在程序中不起作用，但并不将其真正从源文件中删除。在C中，要从逻辑上删除一段C代码，更好的办法是使用#if指令。如下列所示</p>
+<p>​                                         #if()</p>
+<p>​                                                         Statements</p>
+<p>​                                         #endif</p>
+<p>在#if和#endif之间的程序段就可以有效地从程序中删除，即使这段代码之间原先存在注释亦无妨，所以这是一种更为安全的方法。</p>
+<p>预处理指令(preprocessor directives)：它们是由预处理(preprocessor)解释的。预处理读入源代码，根据预处理指令对其进行修改，然后把修改过的源代码交给编译器。</p>
+<p>1)stdio.h头文件使我们可以访问标准I/O库(Standard I/O)中的函数，这组函数用于执行输入和输出。stdlib.h定义了EXIT_SUCCESS和EXIT_FAILURE符号。string.h头文件提供了函数来操作字符串。</p>
+<p>2）如果有一些声明需要用于几个不同的源文件，这个技巧也是一种方便的方法——在一个单独的文件中编写这些声明，然后指令用#include指令把这个文件包含到需要使用这些声明的源文件中。这样，就只需要这些声明的一份拷贝，用不着在许多不同的地方进行复制，避免了在维护这些代码时出现错误的可能性。</p>
+<p>3）另一种预处理指令是#define，它把名字MAX_COLS定义为20，把名字MAX_INPUT定义为 1000。当这个名字以后出现在源文件的任何地方时，它就会被替换为定义的值。由于它们被定义为 字面值常量，所以这些名字不能出现于有些普通变量可以出现的场合（比如赋值符的左边）。这些 名字一般都大写，用于提醒它们并非普通的变量。</p>
+<p><img src="/2020/10/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/One.png" alt="One"></p>
+<p>这些声明被称为<strong>函数原型</strong>(function prototype)。它们告诉编译器这些以后将在源文件中定义的函数的特征。这样，当这些函数被调用时，编译器就能对它们进行准确性检查。每个原型以一个类型名开头，表示函数返回值的类型。跟在返回类型名后面的是函数的名字，再后面是函数期望接受的 参数。所以，函数read_column__numbers返回一个整数，接受两个类型分别是整型数组和整型标量的参数。函数原型中参数的名字并非必需，这里给出参数名的目的是提示它们的作用。</p>
+<p>指针指定一个存储于计算机内存中的值的地址，类似于门牌号码指定某个特定的家庭位于街道的何处</p>
+<p>参数被声明为const，这表示函数将不会修改函数调用者所传递的这两个参数。关键字void表示函数并不返回任何值，在其他语言里，这种无返回值的函数被称为过程(procedure)。</p>
+<p>每个C程序都必须有一个main函数，因为它是程序执行的起点。main函数的函数体包括左花括号和与之相匹配的右花括号之间的任何内容。</p>
+<p>在C语言中，数组参数是以<strong>引用(<strong>reference)形式进行传递的，也就是</strong>传址调用</strong>，而标量和常量则是<strong>按值</strong>(value)传递的（分别类似于Pascal和Modula中的var参数和值参数）。 在函数中对标量参数的任何修改都会在函数返回时丢失，因此，被调用函数无法修改调用函数以传值形式传递给它的参数。然而，当被调用函数修改数组参数的其中一个元素时，调用函数所传递的数组就会被实际地修改。事实上，关于C函数的参数传递规则可以表述如下：</p>
+<p><strong>所有传递给函数的参数都是按值传递的。但是，当数组名作为参数时就会产生按引用传递的效果。</strong></p>
+<p>gets函数从标准输入读取一行文本并把它存储于作为参数传递给它的数组中。一行输入由一串字符组成，以一个换行符(newline)结尾。gets函数丢弃换行符，并在该行的末尾存储一个NULL字节 (一个NUL字节是指字节模式为全0的字节，类似’\0’这样的字符常量)。然后，gets函数返回一个非NULL 值，表示该行已被成功读取。当gets函数被调用但事实上不存在输入行时，它就返回NULL值，表示它到达了输入的末尾（文件尾)。</p>
+<p>C语言中存在一项规定：字符串是一串以NULL字节结尾的字符。NULL是作为字符串终止符，它本身并不被看作是字符串的一部分。字符串常量(string literal)就是源程序中被双引号括起来的一串字符。</p>
+<p>printf函数执行格式化的输出。printf函数接受多个参数，其中第一个参数是一个字符串，描述输出的格式，剩余的参数就是需要打印的值。格式常常以字符串常量的形式出现。</p>
+<p><img src="/2020/10/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/two.JPG" alt="two"></p>
+<p>1）NULL是ASCII字符串中‘\0’字符的名字，它的字节模式是全0。NULL指一个其值为0的指针。它们都是整型值，其值也相同，所以它们可以互相使用。然而，应该还是使用适当的常量，因为它能告诉阅读程序的人不仅使用0这个值，而且告诉她使用这个值的目的。</p>
+<p>2）符号NULL在头文件stdio.h中定义。另一方面，并不存在预定的符号NULL，所以如果要使用它而不是字符常量’\0’，必须自行定义。</p>
+<p>scanf函数的返回值是函数成功转换并储存于参数中值的个数。</p>
+<p><img src="/2020/10/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/three.png" alt="three"></p>
+<p>&amp;&amp;是“逻辑与”操作符。要使整个表达式为真，&amp;&amp;操作符两边的表达式都必须为真。</p>
+<p>1）使用&amp;&amp;操作符时，千万不要误用了&amp;操作符。&amp;操作符执行“按位与”的操作。虽然有时候它的操作结果和&amp;&amp;操作符相同，但很多情况下都不一样。</p>
+<p>“循坏终止”这句话的意思时循环结束而不是它突然出现了毛病。</p>
+<p>%操作符执行整数的除法，但它给出的结果时除法的余数而不是商。</p>
+<p>puts函数是gets函数输出版本，它把指定的字符串写到标准输出并在末尾添加上一个换行符。</p>
+<p>exit函数，终止程序的运行，EXIT_FALURE这个值被返回给操作系统，提示出现了错误。</p>
+<p>EOF是整型值，它的位数比字符类型要多。</p>
+<p>While语句之后的单独一个分号称为空语句。</p>
+<p>当数组名作为实参时，传给函数的实际上是一个指向数组起始位置的指针，也就是数组在内存中的地址。正因为实际传递的是一个指针而不是一份数组的拷贝，才使数组名作为参数时具备了传址调用的语义。</p>
+<p>for语句包含了3个表达式(顺便说一下，这3个表达式都是可选的)。第一个表达式是初始部分，它只在循环开始前执行一次，第二个表达式是测试部分，它在循环每次执行一次后都要执行一次。第三个表达式是调整部分，它在每次循环执行完毕后都要执行一次，但它在测试部分之前执行。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/10/05/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/" data-id="ckn5mhdmu0008f0v34h5ifd0e" data-title="C和指针——快速上手" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MySQL必知必会——用通配符进行过滤" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/08/17/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E7%94%A8%E9%80%9A%E9%85%8D%E7%AC%A6%E8%BF%9B%E8%A1%8C%E8%BF%87%E6%BB%A4/" class="article-date">
+  <time class="dt-published" datetime="2020-08-17T13:34:52.000Z" itemprop="datePublished">2020-08-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/08/17/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E7%94%A8%E9%80%9A%E9%85%8D%E7%AC%A6%E8%BF%9B%E8%A1%8C%E8%BF%87%E6%BB%A4/">MySQL必知必会——用通配符进行过滤</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>通配符(wildcard)：用来匹配值的一部分的特殊字符。<br>搜索模式(search pattern)：由字面值、通配符或两者组后构成的搜索条件。<br>为在搜索子句中使用通配符，必须使用like操作符。like指示MySQL后跟的搜索模式利用通配符匹配而不是直接相等匹配进行比较。<br>谓词：操作符何时不是操作符？答案是在它作为谓词时。从技术上说，like是谓词而不是操作符。虽然最终的结果是相同的，但应该对此术语有所了解，以免在SQL文档中遇到次术语时不知道<br>百分号(%)通配符。在搜索串中，%表示任何字符出现任意次数。<br>  –&gt;区分大小写。根据MySQL的配置方式，搜索可以是区分大小写的。<br>  –&gt;% 代表搜索模式中给定位置的0个、1个或多个字符。<br>  –&gt;注意尾空格。尾空格可能会干扰通配符匹配。例如，在保存词 anvil时，如果它后面有一个或多个空格，则子句WHERE prod_name LIKE ‘%anvil’将不会匹配它们，因为在最后的l 后有多余的字符。解决这个问题的一个简单的办法是在搜索模 式最后附加一个%。一个更好的办法是使用函数（第11章将会 介绍）去掉首尾空格<br>  –&gt;注意NULL。虽然似乎%通配符可以匹配任何东西，但有一个例外，即NULL。即使是WHERE prod_name LIKE ‘%’也不能匹配 用值NULL作为产品名的行。<br>下划线(_) 通配符：下划线的用途与%一样，但下划线只匹配单个字符而不是多个字符<br>使用通配符的技巧：<br>   –&gt;不用过渡使用通配符。如果其他操作符能达到相同的目的，应该使用其他操作符。<br>   –&gt;在确实需要使用通配符时，除非绝对有必要，否则不用把它们用在搜索模式的开始处。把通配符置于搜索模式的开始处，搜索起来是最慢的。<br>   –&gt;仔细注意通配符的位置。如果放错地方，可能不好返回想要的数据。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/08/17/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E7%94%A8%E9%80%9A%E9%85%8D%E7%AC%A6%E8%BF%9B%E8%A1%8C%E8%BF%87%E6%BB%A4/" data-id="ckn5mhdo6002xf0v30lk3h78w" data-title="MySQL必知必会——用通配符进行过滤" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MySQL必知必会——数据过滤" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/08/17/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E8%BF%87%E6%BB%A4/" class="article-date">
+  <time class="dt-published" datetime="2020-08-17T13:18:21.000Z" itemprop="datePublished">2020-08-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/08/17/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E8%BF%87%E6%BB%A4/">MySQL必知必会——数据过滤</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>MySQL允许给出多个where子句。这些子句可以用两种方式使用：以and子句的方式或or子句的方式使用。<br>  –&gt;操作符(operator) 用来联结或改变where子句中子句的关键字。也称为逻辑操作符。<br>and ：用在where子句的关键字，用来指示检索满足所有给定条件的行。<br>or 操作符与and操作符不同，它指示MySQL检索匹配任一条件的行。<br>where可包含任意数目的and和or操作符。允许两者结合以进行复杂和高级的过滤。<br>在where子句中使用圆括号：任何时候使用具有and和or操作符的where子句，都应该使用圆括号明确地分组操作符。不用过分依赖默认计算次序，即使它确实是你想要的东西也是如此。使用圆括号也没有什么坏处，它能消除歧义(and的优先级比or的优先级要高)<br>圆括号在where子句中还有另外一种用法。in操作符用来指定条件范围，范围中的每个条件都可以进行匹配。in取合法值的由逗号分隔的清单，全部括在圆括号中。<br>  –&gt;in操作符完成与or相同的功能<br>使用in操作符的优点：<br>  –&gt;在使用长的合法选项清单时，in操作符的语法更清楚更直观<br>  –&gt;在使用in时，计算的次序更容易管理(因为使用的操作符更少)<br>  –&gt;in操作符一般比or操作符清单执行更快<br>  –&gt;in的最大优点是可以包含其他select语句，使得能够更动态地建立where子句。where子句中not操作符有且只有一个功能，那就是否定它之后所跟的任何条件。<br>  –&gt;not ：where子句中用来否定后跟条件的关键字。<br>MySQL中not：MySQL支持使用not对in，between和exists子句取反，这与多数其他DBMS允许使用not对各种条件取反有很大的差别。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/08/17/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E8%BF%87%E6%BB%A4/" data-id="ckn5mhdo2002nf0v3cldp4nvo" data-title="MySQL必知必会——数据过滤" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MySQL必知必会——过滤数据" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/08/16/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E8%BF%87%E6%BB%A4%E6%95%B0%E6%8D%AE/" class="article-date">
+  <time class="dt-published" datetime="2020-08-16T10:42:49.000Z" itemprop="datePublished">2020-08-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/08/16/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E8%BF%87%E6%BB%A4%E6%95%B0%E6%8D%AE/">MySQL必知必会——过滤数据</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>数据库只检索所需数据需要指定搜索条件，搜索条件也被称为过滤条件，在select语句中，数据根据where子句中指定的搜索条件进行过滤。<br>where子句在表名(from子句)之后给出。</p>
+<p><img src="/2020/08/16/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E8%BF%87%E6%BB%A4%E6%95%B0%E6%8D%AE/one.png" alt="one"></p>
+<p>where子句的位置：在同时使用order by和where子句时，应该让order by位于where之后，否则将会产生错误<br>何时使用引号：单引号用来限定字符串。如果将值与串类型的列进行比较，则需要限定引号。用来与数值进行比较的值不用引号。<br>为了检查某个范围的值，可使用between操作符。它需要两个值，即范围的开始值和结束值，两个值必须用and关键字分隔。between匹配范围中所有的值，包括指定的开始值和结束值。<br>在创建表时，表设计人员可以指定其中的列是否可以不包含值。在一个列不包含值时，称其为包含空值NULL<br>  –&gt;NULL 无值(no value),它与字段包含0、空字符串或仅仅包含空格不同。<br>  –&gt;select语句有一个特殊的where子句，可用来检查具有NULL值的列，这个where子句就是 is null 子句。<br>  –&gt;NULL与匹配：在通过过滤选择出不具有特定值的行时，可能希望返回具有NULL值的行，但是不行。因为未知具有特殊的含有，数据库不知道它们是否匹配，所以在匹配过滤，或不匹配过滤时不返回它们。<br>  因此，在顾虑数据时，一定要验证返回数据中确实给出了被过滤列具有NULL的行。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/08/16/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E8%BF%87%E6%BB%A4%E6%95%B0%E6%8D%AE/" data-id="ckn5mhdoc0039f0v3fof9ambx" data-title="MySQL必知必会——过滤数据" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MySQL必知必会——排序检索数据" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/08/16/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%8E%92%E5%BA%8F%E6%A3%80%E7%B4%A2%E6%95%B0%E6%8D%AE/" class="article-date">
+  <time class="dt-published" datetime="2020-08-16T10:33:11.000Z" itemprop="datePublished">2020-08-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/08/16/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%8E%92%E5%BA%8F%E6%A3%80%E7%B4%A2%E6%95%B0%E6%8D%AE/">MySQL必知必会——排序检索数据</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>子句(clause)SQL语句由子句组成，有些子句是必需的，而有的是可选的。一个子句通常是由一个关键字和所提供的数据组成。<br>  –&gt;为了明确地排序用select语句检索出的数据，可使用order by子句。order by子句取一个或多个列的名字，据此对输出进行排序。<br>  –&gt;通过非选择进行排序：通常，order by子句中使用的列将是为显示所选择的列。但是实际上并不一定是要这样，用非检索的列排序的数据是完全合法的。<br>  –&gt;按多个列排序，只有指定列名，列名之间用逗号分开即可。重要的是理解在按多个列排序时，排序安全按照规定的顺序进行。<br>指定排序方向：数据排序不限于升序排序(从A到Z)。这只是默认的排序顺序，还可以使用order by子句以降序(从Z到A)顺序排序。为了进行降序排序，必需指定DESE关键字。<br>  –&gt;DESC关键字只应用到直接位于前面的列名。<br>  –&gt;在多个列上降序排序，如果想在多个列上进行降序排序，必须对每个列指定DESE关键字。<br>  –&gt;与DESC相反的关键字是ASC(ASCENDING)，在升序排序时可以指定它。<br>  –&gt;order by子句的位置：在给出order by子句时，应该保证它位于form子句之后，如果使用limit，它必须位于order by之后。使用子句的次序不对将产生错误信息。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/08/16/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%8E%92%E5%BA%8F%E6%A3%80%E7%B4%A2%E6%95%B0%E6%8D%AE/" data-id="ckn5mhdny002ff0v30ikf502c" data-title="MySQL必知必会——排序检索数据" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MySQL必知必会——检索数据" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/08/16/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%A3%80%E7%B4%A2%E6%95%B0%E6%8D%AE/" class="article-date">
+  <time class="dt-published" datetime="2020-08-16T09:20:08.000Z" itemprop="datePublished">2020-08-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/08/16/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%A3%80%E7%B4%A2%E6%95%B0%E6%8D%AE/">MySQL必知必会——检索数据</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>select语句，用途是从一个或多个表中检索信息。为了使用select检索表数据，必须至少给出两天信息——想选择什么，以及从什么地方选择。所需的列名在select关键字之后给出，from关键字指出从其中检索数据的表名。<br>结束SQL语句：多条SQL语句必须以分号(;)分隔。如果使用的是MySQL命令行，必须加上分号来结束SQL语句。<br>SQL语句不区分大小写。<br>在处理SQL语句时，其中所有空格都被忽略。<br>检索多个列：使用相同的select语句，唯一的不同是必须在select关键字后给出多个列名，列名之间必须以逗号分隔。<br>  –&gt;在选择多个列时，一定要在列名之间加上逗号，但最后一个列名后不加。如果在最后一个列名后加了逗号，将出现错误。<br>检索所有列:给定一个通配符(*)则返回表中所有列。<br>DISTINCT关键字，顾名思义，此关键字指示MySQL 只返回不同的值。使用 DISTINCT关键字，它必须直接放在列名的前面。<br>限制结果：SELECT语句返回所有匹配的行，它们可能是指定表中的每个行。为了返回第一行或前几行，可使用LIMIT子句。<br>  –&gt;一个值的LIMIT总是从第一行开始，给出的数为返回的行数。 带两个值的LIMIT可以指定从行号为第一个值的位置开始.。<br>  –&gt;行0 :检索出来的第一行为行0而不是行1。因此，LIMIT 1, 1 将检索出第二行而不是第一行<br>  –&gt;在行数不够时  LIMIT中指定要检索的行数为检索的最大行 数。如果没有足够的行（例如，给出LIMIT 10, 5，但只有13 行） ，MySQL将只返回它能返回的那么多行。<br>  –&gt;MySQL 5支持LIMIT的另一种替代语法。LIMIT 4 OFFSET 3意为从行3开始取4行，就像LIMIT 3, 4一样。<br>使用完全限定的表名：SQL也可能会使用完全限定的名字来引用列（同时使用表名和列字）。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/08/16/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%A3%80%E7%B4%A2%E6%95%B0%E6%8D%AE/" data-id="ckn5mhdo4002rf0v3hvladsj5" data-title="MySQL必知必会——检索数据" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

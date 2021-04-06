@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>计算机网络自顶向下方法——应用层 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="应用程序体系结构(application architecture)有应用程序研发者设计，规定了如果在各种端系统上组织该应用程序。现代网络应用程序中所使用的两种主流体系结构：客户-服务器体系结构和**对等(P2P)**体系结构。注意，应用程序的体系结构是明显不同于网络的体系结构。 在客户-服务器体系结构(client-server architecture)中，有一个总是打开的主机称为服务器，它">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络自顶向下方法——应用层">
+<meta property="og:url" content="http://example.com/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="应用程序体系结构(application architecture)有应用程序研发者设计，规定了如果在各种端系统上组织该应用程序。现代网络应用程序中所使用的两种主流体系结构：客户-服务器体系结构和**对等(P2P)**体系结构。注意，应用程序的体系结构是明显不同于网络的体系结构。 在客户-服务器体系结构(client-server architecture)中，有一个总是打开的主机称为服务器，它">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/one.jpg">
+<meta property="og:image" content="http://example.com/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/two.jpg">
+<meta property="og:image" content="http://example.com/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/three.jpg">
+<meta property="og:image" content="http://example.com/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/four.jpg">
+<meta property="og:image" content="http://example.com/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/five.jpg">
+<meta property="og:image" content="http://example.com/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/six.jpg">
+<meta property="og:image" content="http://example.com/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/seven.jpg">
+<meta property="article:published_time" content="2020-12-10T01:22:02.000Z">
+<meta property="article:modified_time" content="2020-12-12T09:37:39.603Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="计网笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/one.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-计算机网络自顶向下方法——应用层" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/" class="article-date">
+  <time class="dt-published" datetime="2020-12-10T01:22:02.000Z" itemprop="datePublished">2020-12-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      计算机网络自顶向下方法——应用层
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> <strong>应用程序体系结构(application architecture)<strong>有应用程序研发者设计，规定了如果在各种端系统上组织该应用程序。现代网络应用程序中所使用的两种主流体系结构：</strong>客户-服务器体系结构</strong>和**对等(P2P)**体系结构。注意，应用程序的体系结构是明显不同于网络的体系结构。</p>
+<p>在<strong>客户-服务器体系结构(client-server architecture)<strong>中，有一个总是打开的主机称为</strong>服务器</strong>，它服务于来自许多其他称为<strong>客户</strong>的主机的请求。值得注意的是利用客户-服务器体系结构，客户相互之间不直接通信。该体系结构的另一个特征是该服务器具有固定的、周知的地址，该地址称为IP地址。示意图如下：</p>
+<p><img src="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/one.jpg" alt="one"></p>
+<p>在**P2P体系结构(P2P architecture)<strong>中，对位于数据中心的专用服务器有最小的(或者没有)依赖。相反，应用程序在间断连接的主机对之间使用直接通信，这些主机称为对等方。该体系结构的最引人入胜的特性之一是它们的</strong>自扩展性(self-scalability)**。示意图如下：</p>
+<p><img src="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/two.jpg" alt="two"></p>
+<p>用操作系统的术语来说，运行在多个端系统上的程序它们之间进行通信的实际上是**进程(process)**而不是程序。一个进程可以被认为是运行在端系统中的一个程序。当多个进程运行在相同的端系统上时，它们使用进程间通信机制相互通信。进程间通信的规则由端系统上的操作系统确定。</p>
+<p>在两个不同端系统上的进程，通过跨越计算机网络交换**报文(message)<strong>而相互通信。对每对通信进程，通常将这两个进程之一标识为</strong>客户(client)<strong>，而另一个进行标识为</strong>服务器(server)**。对于客户和服务器进程的定义如下：在一对进程之间的通信会话场景中，发起通信(即在该会话开始时发起与其他进程的联系)的进程被标识为客户，在会话开始时等待联系的进程是服务器。</p>
+<p>进程通过一个称为套接字(socket)的软件接口向网络发送报文和从网络接受报文。套接字是同一台主机内应用层与运输层之间的接口。由于该套接字是建立网络应用程序的可编程接口，因此套接字也称为应用程序和网络之间的**应用程序编程接口(Application Programming Interface，API)<strong>。在一台主机上运行的进程为了向在另一条主机上运行的进程发送分组，接受进程需要有一个地址。该地址包含两种信息：</strong>主机地址(IP地址)<strong>和在</strong>目的主机中指定接收进程的标识符(端口号)**。</p>
+<p>一个运输层协议能够为调用它的应用程序提供的服务大体可分为<strong>四</strong>个方面：<strong>可靠数据传输、吞吐量、定时和安全性</strong>。</p>
+<p>1）可靠数据传输是指应用程序的一端发送的数据正确、完全地交付给该应用程序的另一端。</p>
+<p>2）可用吞吐量就是发送进程能够向接收进程交付比特的速率。具有吞吐量要求的应用程序被称为<strong>带宽敏感的应用(bandwidth-sensitive application)<strong>，与之对应的</strong>弹性引用</strong>能够根据当时可用的带宽或多或少地利用可供使用的吞吐量。当然，吞吐量越多越好。</p>
+<p>3）运输层也能提供定时保证，同时能够以多种形式实现。</p>
+<p>4）运输协议能够为应用程序提供一种或多种安全性服务。</p>
+<p>因特网(更一般的是TCP/IP网络)为应用程序提供两个运输层协议，即UDP和TCP。<strong>TCP</strong>服务模型包括面向连接服务和可靠数据传输服务。</p>
+<p>1）<strong>面向连接的服务</strong>：在应用层数据报文开始流动之前，TCP让客户机和服务器互相交换运输层控制信息。这个所谓的握手过程提醒客户和服务器，让它们为大量分组的到来做好准备。在握手阶段，一个TCP连接就在两个进程的套接字之间建立了。这条连接是全双工的，即连接双方的进程可以在此连接上同时进行报文收发。当应用程序结束报文发送时，必须拆除该连接。</p>
+<p>2）<strong>可靠的数据传输服务</strong>：通信进程能依靠TCP，无差错、按适当顺序交付所有发送的数据。当应用程序的一端将字节流传进套接字时，它能够依靠TCP将相同的字节流交付给接收方的套接字，而没有字节的丢失和冗余。</p>
+<p>TCP协议还具有<strong>拥塞控制机制</strong>，当发送方和接收方之间的网络出现拥塞时，TCP的拥塞控制会抑制发送进程。因为完全性的问题，因特网界研发了TCP的加强版本，称为**安全套接字层(Secure Sockets Layer，SSL)**。用SSL加强后的TCP不仅能够做传统的TCP所能做的一切，而且提供了关键的进程到进程的安全性服务，包括加密、数据完整性和端点鉴别。</p>
+<p><strong>UDP</strong>是一种不提供不必要服务的轻量级运输协议，它仅提供最小服务。UDP是无连接的，没有拥塞控制机制，提供了一种不可靠数据传输服务。</p>
+<p>**应用层协议(application-layer protocol)**定义了运行在不同端系统上的应用程序进程如何相互传递报文，特别是应用层协议定义了：</p>
+<p>1）交换的报文类型。例如请求报文和响应报文。</p>
+<p>2）各种报文类型的语法。如报文中的各个字段以及这些字段如何描述。</p>
+<p>3）字段的语义，即这些字段中的信息的含义。</p>
+<p>4）确定一个进程何时以及如何发送报文，对报文进行响应的规则。</p>
+<p>Web的应用层协议是**超文本传输协议(HyperText Transfer Protocol，HTTP)**，它是Web的核心。HTTP由两个程序实现：一个客户程序和一个服务器程序。这两个程序都运行在不同的端系统中，通过交换HTTP报文进行会话。HTTP定义了这些报文的结构以及客户和服务器进行报文交换的格式。</p>
+<p><strong>Web页面(Web page)</strong>(也叫文档)是由<strong>对象</strong>组成的。一个对象(object)只是一个文件，诸如一个HTML文件、一个JPE图形这样的文件，且它们可通过一个URL地址寻址。多数Web页面含有一个<strong>HTML基本文件(base HTML file)<strong>以及几个引用对象。HTML基本文件通过对象的URL地址引用页面中的其他对象。URL地址分为两部分组成：</strong>存放对象的服务器主机名和对象的路径名</strong>。Web浏览器(Web browser)(例如Firefox)实现了HTTP的客户端，Web服务器(Web server)实现了HTTP的服务器端，它用于存储Web对象，每个对象由URL寻址。<strong>HTTP使用TCP作为它的支撑运输协议</strong>(而不是在UDP上运行)。因为HTTP服务器并不保存关于客户的任何信息，所以说HTTP是一个**无状态协议(stateless protocol)**。</p>
+<p>当客户发出一系列请求时，每个请求响应如果是经一个<strong>单独</strong>的TCP连接发送，这样的应用程序称为<strong>非持续连接</strong>(non-persistent connection)；如果所有的请求及其响应经过<strong>相同</strong>的TCP连接发送，这样的应用程序称为<strong>持续链接</strong>(persistent connection)。</p>
+<p><strong>非持续连接</strong>的使用，其中每个TCP连接在服务器发送一个对象后关闭，即该连接不为其他的对象而持续下来。值得注意的是每个TCP连接只传输一个请求报文和一个响应报文。**往返时间(Round-Trip Time，RTT)**是指一个短分组从客户到服务器然后再返回客户所花费的时间。RTT包括分组传播时延、分组在中间路由器和交换机上的排队时延以及分组处理时延。</p>
+<p>“<strong>三次握手</strong>”过程：客户向服务器发送一个小TCP报文段，服务器用一个小TCP报文段做出确认和响应，最后，客户向服务器返回确认(其中包含请求报文)。</p>
+<p>非持续连接的缺点：第一，必须为每一个请求的对象建立和维护一个全新的连接。对于每个这样的连接，在客户和服务器中都要分配TCP的缓冲区和保存TCP变量，这给Web服务器带来了严重的负担。第二，每个对象经受两倍RTT的交付时延，即一个RTT用于创建TCP，另一个RTT用于请求和接收一个对象。</p>
+<p><strong>持续链接</strong>的HTTP，服务器在发送响应后保持该TCP连接打开。在相同的客户和服务器之间，后续的请求和响应报文能够通过相同的连接进行传送。</p>
+<p>HTTP报文有两种：请求报文和响应报文。HTTP请求报文的第一行叫作<strong>请求行</strong>(request line)，其后继的行叫作<strong>首部行</strong>(header line)。请求行有<strong>3</strong>个字段：<strong>方法字段</strong>、<strong>URL字段</strong>和<strong>HTTP版本字段</strong>。方法字段可以取不同的值，包括<strong>GET,POST,HEAD,PUT</strong>和<strong>DELETE</strong>。示例如下：</p>
+<p><img src="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/three.jpg" alt="three"></p>
+<p>其中首部行Host的内容指明了对象所在的主机，该首部行提供的信息是Web代理高速缓存所要求的。后面的Connection首部行告诉服务器是否使用持续连接(close即不要使用持续连接)。User-agent首部行用来指明用户代理，即向服务发送请求的浏览器类型。最后的Accept-language首部行表示用户想得到对象的法语版本(如果服务器中有这样的对象的化)；否则，服务器应当发送它的默认版本。Accept-language首部行仅是HTTP中可用的众多内容协商首部之一。</p>
+<p>一个请求报文的通用格式如下：</p>
+<p><img src="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/four.jpg" alt="four"></p>
+<p>注意到在首部行后有一个“实体体”(entity body)，使用GET方法时实体体为空，而使用POST方式时才使用该实体体。当服务器收到一个使用HEAD方法的请求时，将会用一个HTTP报文进行响应，但是并不返回请求对象。PUT方法常与Web发行工具联合使用，它允许用户上传对象到指定的Web服务器上指定的路径(目录)。DELETE方法允许用户或者应用程序删除Web服务器上的对象。</p>
+<p>如下是上述HTTP请求报文示例的对应的HTTP响应报文：</p>
+<p><img src="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/five.jpg" alt="five"></p>
+<p>该响应报文分为<strong>三</strong>个部分：一个初始化<strong>状态行</strong>(status line)，6个<strong>首部行</strong>(header line)，然后是<strong>实体体</strong>(entity body)。实体体部分是报文的主要部分，它包含了所请求的对象本身。状态行有<strong>3个</strong>字段：<strong>协议版本字段，状态码和响应状态信息</strong>。Connection首部行具有与请求报文中相同的含义，表示是否使用持续连接(该例中不使用，服务器将告诉客户发送报文后将关闭该TCP连接)。Date首部行指示服务器产生并发送该响应报文的日期和时间，这个时间不是指对象创建或者最后修改的时间，而是服务器从它的文件系统中检索到该对象，将该对象插入响应报文，并发送响应报文的时间。Server首部行指示该报文由那一台服务器产生的。Last-Modified首部行指示了对象创建或者最后修改的日期和时间。Content-Length首部行指示了被发送对象中的字节数。Content-Type首部行指示了实体体中对象的类型(在该例中是HTML文本)。</p>
+<p>一个HTTP响应报文的通用格式如下：</p>
+<p><img src="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/six.jpg" alt="six"></p>
+<p>一些常见的状态码和相关的短语如下：</p>
+<p>1）200 OK：请求成功，信息在返回的响应报文中。</p>
+<p>2）301 Moved Permanently：请求的对象已经被永久转移了，新的URL定义在响应报文的Location首部行中。客户软件将自动获取新的URL。</p>
+<p>3）400 Bad Request：一个通用差错代码，指示该请求不能被服务器理解。</p>
+<p>4）404 Not Found：被请求的文档不在服务器上。</p>
+<p>5）505 HTTP Version Not Supported：服务器不支持请求报文使用的HTTP协议版本。</p>
+<p>HTTP使用了cookie，它允许站点对用户进行跟踪。如下所示，cookie技术有4个组件：</p>
+<p>1）在HTTP响应报文中的一个cookie首部行。</p>
+<p>2）在HTTP请求报文中的一个cookie首部行。</p>
+<p>3）在用户端系统中保留一个cookie文件，并由用户的浏览器进行管理。</p>
+<p>4）位于Web站点的一个后端数据库。</p>
+<p><img src="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/seven.jpg" alt="seven"></p>
+<p><strong>Web缓存器</strong>(Web cache)也叫<strong>代理服务器(<strong>proxy server)，它是能够代表初始Web服务器来满足HTTP请求的网络实体。Web缓存器有自己的磁盘存储空间，并在存储空间中保存最近请求过的对象的副本。需要注意的是，当Web缓存器接收浏览器的请求并发回响应时，它是一个服务器。当它向初始服务器发送请求并接收响应时，它是一个客户。因此Web缓存器既是服务器又是客户。Web缓存器通常由ISP购买并安装。通过使用</strong>内容分发网络</strong>(Content Distribution Network，CDN)，Web缓存器正在因特网中发挥着越来越重要的作用。</p>
+<p>HTTP协议有一种机制，允许缓存器证实它的对象是最新的。它就是**条件GET(**conditional GET)方法。如果请求报文中使用GET方法，并且请求报文中包含一个“If-Modified-Since:”首部行。那么，这个HTTP请求报文就是一个条件GET请求报文。</p>
+<p><strong>内容分发网络</strong>(Content Distribution Network，CDN)基本思路是尽可能避开互联网上有可能影响传输速度和稳定性的瓶颈和环境，使内容传输得更快更稳定。通过在网络各处放置节点服务器所构成的在现有的互联网基础之上的一层智能虚拟网络，CDN系统能够实时地根据网络流量和各节点的连接，负载状况以及到用户的距离和响应时间等综合信息将用户的请求重新导向最新的服务节点上。使用户就近取得所需内容，解决网络拥挤情况，提供用户访问网站的响应速度。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/" data-id="ckn5mhdod003bf0v3coyc6or0" data-title="计算机网络自顶向下方法——应用层" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Java核心技术——卷I-图形用户界面程序设计
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">计算机网络自顶向下方法——计算机网络和因特网</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

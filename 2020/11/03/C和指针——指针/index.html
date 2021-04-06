@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>C和指针——指针 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="内存和地址：计算机的内存由数以万计的位(bit)组成，每个可以容纳值0或1。由于一个位所能表示的值的范围太有限，所以单独的位用处不大，通常许多位合成一组作为一个单位，这样就可以存储范围较大的值。如下所示：  这些位置的每一个都被称为字节(byte)，每个字节都包含了存储一个字符所需要的位数。在许多现代的机器上，每个字节包含8位，可以存储无符号值0到255，或有符号值-128到127。每个字节通过地">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C和指针——指针">
+<meta property="og:url" content="http://example.com/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="内存和地址：计算机的内存由数以万计的位(bit)组成，每个可以容纳值0或1。由于一个位所能表示的值的范围太有限，所以单独的位用处不大，通常许多位合成一组作为一个单位，这样就可以存储范围较大的值。如下所示：  这些位置的每一个都被称为字节(byte)，每个字节都包含了存储一个字符所需要的位数。在许多现代的机器上，每个字节包含8位，可以存储无符号值0到255，或有符号值-128到127。每个字节通过地">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/one.png">
+<meta property="og:image" content="http://example.com/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/two.png">
+<meta property="og:image" content="http://example.com/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/clip_image002.png">
+<meta property="og:image" content="http://example.com/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/clip_image002-1604377668230.png">
+<meta property="og:image" content="file:///C:/Users/廖本焰/AppData/Local/Temp/msohtmlclip1/01/clip_image004.png">
+<meta property="article:published_time" content="2020-11-03T04:20:55.000Z">
+<meta property="article:modified_time" content="2020-11-03T04:52:17.472Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="C和指针">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/one.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-C和指针——指针" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/" class="article-date">
+  <time class="dt-published" datetime="2020-11-03T04:20:55.000Z" itemprop="datePublished">2020-11-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      C和指针——指针
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>内存和地址：计算机的内存由数以万计的位(bit)组成，每个可以容纳值0或1。由于一个位所能表示的值的范围太有限，所以单独的位用处不大，通常许多位合成一组作为一个单位，这样就可以存储范围较大的值。如下所示：</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/one.png" alt="one"></p>
+<p>这些位置的每一个都被称为字节(byte)，每个字节都包含了存储一个字符所需要的位数。在许多现代的机器上，每个字节包含8位，可以存储无符号值0到255，或有符号值-128到127。每个字节通过地址来标识，如上图方框上面的数字所示。</p>
+<p>为了存储更大的值，可以把两个或多个字节组合在一起作为一个更大的内存单位字。如下图表示的内存位置与上图相同，但它是以4个字节的字来表示。</p>
+<p><img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/two.png" alt="two"></p>
+<p>由于包含了更多的位，每个字可以容纳的无符号整数的范围是0到4294967295(<img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/clip_image002.png" alt="img">)，可以容纳的有符号整数的范围是从-2147483648(<img src="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/clip_image002-1604377668230.png" alt="img">)至2147483648(<img src="file:///C:/Users/廖本焰/AppData/Local/Temp/msohtmlclip1/01/clip_image004.png" alt="img">)。注意，尽管一个字包含了4个字节，它仍然只有一个地址。至于它的地址是它最左边的那个字节的位置还是最右边那个字节的位置，不同的机器有不同的规定。另一个要注意的硬件事项是边界对齐。在要求边界对齐的机器上，整型值存储的起始位置只能是某些特定的字节，通常是2或4的倍数。</p>
+<p>内存中的每个位置由一个独一无二的地址标识。</p>
+<p>内存中的每个位置都包含一个值。</p>
+<p>名字和内存位置之间的关联不是硬件所提供的，它是由编译器实现的。变量给了一种更为方便的方法来记住地址——硬件仍然通过地址访问内存位置。</p>
+<p>不能简单地通过检查一个值的位来判断它的类型。为了判断值的类型(以及它的值)，必须观察程序中这个值的使用方式。显然，值的类型并非值本身所固有的一种特性，而实取决于它的使用方式。</p>
+<p>指针变量的内容：指针的初始化是用&amp;操作符完成的，它用于产生操作数的内存地址。</p>
+<p>间接访问操作符：通过一个指针访问它所指向的地址的过程称为间接访问或解引用指针。这个用于执行间接访问的操作符是单目操作符。</p>
+<p>NULL指针：标识定义了NULL指针，它作为一个特殊的指针变量，表示不指向任何东西。要使一个指针变量为NULL，可以给它赋一个零值。NULL指针的概念是非常有用的，因为它提供一种方法，表示某个特定的指针目前并未指向任何东西。同时因为NULL指针未指向任何东西，因此对一个NULL指针进行解引用操作是非法的。在对指针进行解引用操作之前，必须确定该指针并非NULL指针。</p>
+<p>指针运算：指针加上一个整数的结果是另一个指针。当一个指针和一个整数指向算术运算时，整数在执行加法运算前始终会根据合适的大小进行调整。这个“合适的大小”就是指针所指向类型的大小，“调整”就是把整数值和“合适的大小”相乘。</p>
+<p>C的指针算术运算只限于把两种形式：加减。标准定义这种形式只能用于指向数组中某个元素的指针。</p>
+<p>指针 - 指针：只有当两个指针都指向同一个数组中的元素时，才允许一个指针减去另一个指针。两个指针相减的结果类型是pridiff_t，它是一个有符号整数类型。减法运算的值是两个指针在内存中的距离(以数组元素的长度为单位，而不是以字节为单位)，因为减法运算的结果将除以数组元素类型的长度。</p>
+<p>关系运算：对指针指向关系运算也是有限制的。用以下关系操作符对两个指针进行比较是可能的：&lt;     &lt;=          &gt;          &gt;= 。前提是它们都指向同一个数组中的元素。</p>
+<p>注：标准允许指向数组元素的指针与指向数组最后一个元素后面的那个内存位置的指针进行比较，但不允许与指向数组第1个元素之前的那个内存位置的指针进行比较。同时，如果一个指针减去一个整数后，运算结果产生的指针所指向的位置在数组第一个元素之前，那么它是非法的。加法运算稍有不同，如果结果指针指向数组最后一个元素后面的那个内存位置仍是合法的(但不能对这个指针指向间接访问操作)，不过再往后就不合法了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/" data-id="ckn5mhdmw000af0v3bpgcgb7l" data-title="C和指针——指针" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          C和指针——函数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">C和指针——操作符和表达式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

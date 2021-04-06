@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Java核心技术——卷I——异常、断言和日志 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="当程序在运行期间由于出现错误而使得某些操作没有完成，程序应该做到：返回到一种安全状态，并能够让用户执行其他的命令；或者允许用户保存所有工作的结果，并以妥善的方式终止程序。异常处理的任务就是将控制权从产生错误的地方转移到能够处理这种情况的错误处理器。一般在程序中可能出现的问题有以下几个： 1）用户输入错误。例如输入一个URL，而这个URL语法却不对。如果代码没有对此检查，网路层就会报错。 2）硬件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java核心技术——卷I——异常、断言和日志">
+<meta property="og:url" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="当程序在运行期间由于出现错误而使得某些操作没有完成，程序应该做到：返回到一种安全状态，并能够让用户执行其他的命令；或者允许用户保存所有工作的结果，并以妥善的方式终止程序。异常处理的任务就是将控制权从产生错误的地方转移到能够处理这种情况的错误处理器。一般在程序中可能出现的问题有以下几个： 1）用户输入错误。例如输入一个URL，而这个URL语法却不对。如果代码没有对此检查，网路层就会报错。 2）硬件">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/one.jpg">
+<meta property="og:image" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/two.jpg">
+<meta property="og:image" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/three.jpg">
+<meta property="og:image" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/four.jpg">
+<meta property="og:image" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/five.jpg">
+<meta property="og:image" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/six.jpg">
+<meta property="og:image" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/seven.jpg">
+<meta property="og:image" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/eight.jpg">
+<meta property="og:image" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/nine.jpg">
+<meta property="og:image" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/ten.jpg">
+<meta property="og:image" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/eleven.jpg">
+<meta property="og:image" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/twelve.jpg">
+<meta property="og:image" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/thirteen.jpg">
+<meta property="og:image" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/fourteen.jpg">
+<meta property="og:image" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/fifteen.jpg">
+<meta property="og:image" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/sixteen.jpg">
+<meta property="article:published_time" content="2020-11-26T10:16:46.000Z">
+<meta property="article:modified_time" content="2020-11-30T02:20:49.570Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java核心技术——卷I">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/one.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Java核心技术——卷I——异常、断言和日志" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/" class="article-date">
+  <time class="dt-published" datetime="2020-11-26T10:16:46.000Z" itemprop="datePublished">2020-11-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Java核心技术——卷I——异常、断言和日志
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> 当程序在运行期间由于出现错误而使得某些操作没有完成，程序应该做到：返回到一种安全状态，并能够让用户执行其他的命令；或者允许用户保存所有工作的结果，并以妥善的方式终止程序。异常处理的任务就是将控制权从产生错误的地方转移到能够处理这种情况的错误处理器。一般在程序中可能出现的问题有以下几个：</p>
+<p>1）用户输入错误。例如输入一个URL，而这个URL语法却不对。如果代码没有对此检查，网路层就会报错。</p>
+<p>2）硬件设备错误。例如，打印机在打印过程中可能没纸了。</p>
+<p>3）物理内存限制。例如，磁盘已满，内存空间不够。</p>
+<p>4）代码错误。例如方法出错，而对于方法中的错误，传统的做法是返回一个特殊的错误码，由调用分析。除此之外的还有一种表示错误状况的常用返回值是null引用。</p>
+<p>Java的做法与传统的做法不同，在这种情况下，方法并不会返回值，而是<strong>抛出</strong>(throw)一个封装了错误信息的对象。需要注意的是，这个方法会立即退出，并不会返回正常值(或任何值)。此外，也不会从调用这个方法的代码继续执行，取而代之的是，异常处理机制开始搜索能够处理这种异常状况的<strong>异常处理器</strong>(exception handle)。</p>
+<p>Java程序设计语言中，异常对象都是派生于Throwable类的一个类实例。而且如果Java中内置的异常类不能满足需求，还可以创建自己的异常类。如下是Java异常层次结构的一个简化示意图：</p>
+<p><img src="/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/one.jpg" alt="one"></p>
+<p>需要注意的是，所有的异常都是由Throwable继承而来，但在下一层立即分解为两个分支：Error和Exception。Error类层次结构描述了Java运行时系统的内部错误和资源耗尽错误。而Exception又分解为两个分支：一个分支派生于RuntimeException；另一个分支包含其他异常。一般规则是：由编程错误导致的异常属于RuntimeException；如果程序本身没有问题，但由于像I/O错误这类问题导致的异常属于其他异常。</p>
+<p>派生于RuntimeException的异常包括以下问题：</p>
+<p>1）错误的强制类型转换。</p>
+<p>2）数组访问越界。</p>
+<p>3）访问null指针。</p>
+<p>不是派生于RuntimeException异常包括：</p>
+<p>1）试图超越文件末尾继续读取数据。</p>
+<p>2）试图打开一个不存在的文件。</p>
+<p>3）试图根据给定的字符串查找Class对象，而这个字符串表示的类并不存在。</p>
+<p>Java语言规范将派生于Error类或RuntimeException类的所有异常称为非检查型(unchecked)异常，所有其他的异常称为检查型(checked)异常。C++有两个基本的异常类，一个是runtime_error；另一个是logic_error。logic_error类相当于Java中的RuntimeException，也表示程序中的逻辑错误；runtime_error类是所有由于不可预测的原因所引发的异常的基类。它相当于Java中的非RuntimeException类型的异常。</p>
+<p>如果遇到了无法处理的情况，Java方法可以抛出一个异常。这个道理很简单：方法不仅需要告诉编译器将要返回什么值，还要告诉编译器有可能发生什么错误。当自己编写方法时需要记住在遇到下面4种情况时会抛出异常：</p>
+<p>1）调用了一个抛出检查型异常的方法。</p>
+<p>2）检测到一个错误，并且利用throw语句抛出一个检查型异常。</p>
+<p>3）程序出现错误。</p>
+<p>4）Java虚拟机或运行时库出现内部错误。</p>
+<p>应该通过方法首部的异常规范(exception specification)声明这个方法可能抛出异常。如果一个方法有可能抛出多个检查型异常，那么就必须在方法的首部列出所有的异常类。每个异常类之间用逗号隔开。但是，不需要声明Java内部的错误，即从Error继承的异常。同样，也不应该声明从RuntimeException继承的那些非检查型异常。</p>
+<p>总之，一个方法必须声明所有可能抛出的检查型异常，而非检查型异常要么在控制之外(Error)，要么是由从一开始就应该避免的情况所导致的(RuntimeException)。如果方法没有声明所有可能发生的检查型异常，编译器就会发出一个错误信息。</p>
+<p>如果在子类中覆盖了超类的一个方法，子类方法中声明的检查型异常不能比超类方法中声明的异常更通用(子类方法可以抛出特定的异常，或者根本不抛出任何异常)。特别说明的是，如果超类方法没有抛出任何检查型异常，子类也不能抛出任何检查型异常。</p>
+<p>如果类中的一个方法声明它会抛出一个异常类，而这个异常是某个特定类的实例，那么这个方法抛出的异常可能属于这个类，也可能属于这个类的任意一个子类。<strong>Java</strong>中的<strong>throws</strong>说明符与<em><strong>C++<em><strong>中的</strong></em>throw</strong></em>说明符基本类似，但有一个重要区别。在C++中，throw说明符在运行时执行，而不是在编译时执行。也就是说，C++编译器将不处理任何异常规范。但是，如果函数抛出的异常没有出现在throw列表中，就会调用unexpected函数，默认情况下，程序会终止。另外，在C++中，如果没有给出throw说明，函数可能会抛出任何异常。而在Java中，没有throws说明符的方法将根本不能抛出任何检查型异常。</p>
+<p>如果一个已有的异常类能够满足要求，抛出这个异常就非常容易。在这种情况下：</p>
+<p>1）找到一个合适的异常类。</p>
+<p>2）创建这个类的一个对象。</p>
+<p>3）将对象抛出。</p>
+<p>在C++与Java中，抛出异常的过程基本相同，只有一点微小的差别。Java中，只能抛出Throwable子类的对象，而在C++中，却可以抛出任何类型的值。</p>
+<p>与抛出异常的相关的API 如下：</p>
+<p><img src="/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/two.jpg" alt="two"></p>
+<p>如果发生了某个异常，但没有在任何地方捕获这个异常，程序就会终止，并在控制台上打印一个消息，其中包括这个异常的类型和一个堆栈轨迹。要想捕获一个异常，需要设置<strong>try/catch</strong>语句。最简单的try语句块如下所示：</p>
+<p><img src="/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/three.jpg" alt="three"></p>
+<p>如果try语句块中的任何代码抛出了catch子句中指定的一个异常类，那么：</p>
+<p>1）程序将跳过try语句块的其余代码。</p>
+<p>2）程序将执行catch子句中的处理器代码。</p>
+<p>如果try语句块中的代码没有抛出任何异常，那么程序将跳过catch子句。如果方法中的任何代码抛出了catch子句中没有声明的一个异常类型，那么这个方法就会立即退出(希望它的调用者为这种类型的异常提供了catch子句)。</p>
+<p>如果想传播一个异常，就必须在方法的首部添加一个throws说明符，提醒调用者这个方法可能会抛出异常。编译器会严格地执行throws说明符。如果调用了一个抛出检查型异常的方法，就必须处理这个异常，或者继续传递这个异常。而一般经验是，要捕获那些知道如何处理的异常，而继续传播那些不知道怎么样处理的异常。</p>
+<p>如果编写一个方法覆盖超类的方法，而这个超类方法没有抛出异常，你就必须捕获你的方法代码中出现的每一个检查型异常。不允许在子类的throws说明符中出现超类方法未列出的异常类。</p>
+<p>在一个try语句块中可以捕获多个异常类型，并对不同的类型做出不同的处理。要为每个异常类型使用一个单独的catch子句。异常对象可能包含有关异常性质的信息。要想获得这个对象的更多信息，可以使用getMessage()方法得到详细的错误信息(如果有的话)，或者使用e.getClass().getName()得到异常对象的实际类型。</p>
+<p>在Java 7中，同一个catch子句可以捕获多个异常类型。只有当捕获的异常类型彼此之间不存在子类关系时才需要这个特性。捕获多个异常时，异常变量隐含为final变量。</p>
+<p>可以在catch子句中抛出一个异常。</p>
+<p>不管是否有异常被捕获，finally子句中的任何代码都会执行。try语句可以没有finally子句，而没有catch子句。当finally子句包含return语句时，有可能产生意想不到的结果。假设利用return语句从try语句块中间退出。在方法返回前，会执行finally字句快。如果finally快也有一个return语句，这个返回值将会遮蔽原来的返回值。finally子句的体主要用于清理资源。不要把改变控制流的语句(return,throw,break,continu)放在finally子句中</p>
+<p>try-with-resources语句(带资源的try语句)的最简形式为：</p>
+<p><img src="/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/four.jpg" alt="four"></p>
+<p>try快退出时，会自动调用res.close()。在Java 9中，可以在try首部中提供之前声明的事实最终变量。try-with-resources语句自身也可以有catc子句，甚至还可以有一个finally子句。这些子句会在关闭资源之后执行。</p>
+<p>堆栈轨迹(stack trace)是程序执行过程中某个特定点上所有挂起的方法调用的一个列表。当Java程序因为一个未捕获的异常而终止时，就会显示堆栈轨迹。可以调用Throwable类的printStackTrace方法访问堆栈轨迹的文本描述信息。一个更灵活的方法是使用StackWalker类，它会生成一个StackWalker.StakFrame实例流，其中每个实例分别描述一个栈帧。</p>
+<p>与访问堆栈轨迹的相关API如下：</p>
+<p><img src="/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/five.jpg" alt="five"></p>
+<p><img src="/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/six.jpg" alt="six"></p>
+<p>使用异常的一些技巧如下：</p>
+<p>1）异常处理不能代替简单的测试。因此使用异常的基本规则是：只在异常情况下使用异常</p>
+<p>2）不要过分地细化异常。将正常处理与错误处理分开。</p>
+<p>3）充分利用异常层次结构。</p>
+<p>4）不要压制异常。</p>
+<p>5）在检测错误时，“苛刻”要比放任更好。</p>
+<p>6）不要羞于传递异常。</p>
+<p>其中5，6可以归纳为“早抛出，晚捕获”。</p>
+<p>断言机制允许在测试期间向代码中插入一些检查，而在生产代码中会自动删除这些检查。Java语言引入了关键字assert。改关键字有两种形式：</p>
+<p><img src="/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/seven.jpg" alt="seven"></p>
+<p>这两个语句都会计算条件，如果结果为false，则抛出一个AssertionError异常。在第二个语句中，表达式将传入AssertionError对象的构造器，并转换成一个消息字符串。“表达式”(expression)部分的唯一目的是产生一个消息字符串。</p>
+<p>在默认情况下，断言是禁用的。可以在运行程序时用 -enableassertions 或 -ea选项启用断言。要注意的是，不必重新编译程序来启用或禁用断言。启用或禁用断言是类加载器的功能。禁用断言时，类加载器会去除断言代码，因此，不会降低程序运行的速度。也可以在某个类或整个包中启用断言。也可以用选项 -disableassertions 或 -da 在某个特定类和包中禁用断言。启用和禁用所有断言的 -ea 和 -da 开关不能应用到那些没有类加载器的“系统类”上，对于这些系统类，需要使用 -enablesystemassertions/ -eas开关启用断言。</p>
+<p>在Java语言中，给出了3种处理系统错误的机制：</p>
+<p>1）抛出一个异常。</p>
+<p>2）日志。</p>
+<p>3）使用断言。</p>
+<p>而什么时候应该选择使用断言，要清楚以下几点：</p>
+<p>1）断言失败是致命的、不可恢复的错误。</p>
+<p>2）断言检查只是在开发和测试阶段打开。</p>
+<p>因此，不应该使用断言向程序的其他部分通知发生了可恢复性的错误，或者，不应该利用断言与程序用户沟通问题。断言只应该用于在测试阶段确定程序内部错误的位置。</p>
+<p>与断言内容相关的API如下：</p>
+<p><img src="/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/eight.jpg" alt="eight"></p>
+<p><img src="/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/nine.jpg" alt="nine"></p>
+<p>断言是一种测试和调试阶段使用的战术性工具；与之不同的是，日志是一种在程序整个声明周期都可以使用的战略性工具。</p>
+<p>日志API的主要优点如下：</p>
+<p>1）可以很容易地取消全部日志记录。或者仅仅取消某个级别以下的日志，而且可以很容易地再次打开日志。</p>
+<p>2）可以很简单地禁止日志记录，因此，将这些日志代码留在程序中的开销很小。</p>
+<p>3）日志记录可以被定向到不同的处理器。如在控制台显示、写至文件，等等。</p>
+<p>4）日志记录器和处理器都可以对记录进行过滤。过滤器可以根据过滤器实现器指定的标准丢弃那些无用的记录。</p>
+<p>5）日志记录可以采用不同的方式格式化。如，纯文本或XML。</p>
+<p>6）应用程序可以使用多个日志记录器，它们使用与包名类似的有层次结构的名字。</p>
+<p>7）日志系统的配置由配置文件控制。</p>
+<p>在Java 9种，Java平台有一个单独的轻量级日志系统，它不依赖于java.logging模块(这个模块包含标准Java日志框架)。这个系统只用于Java API。如果有java.logging模块，日志消息会自动地转发给它。</p>
+<p>要生成简单的日志记录，可以使用全局日志记录器(global logger)并调用其info方法。可以调用getLogger方法创建或获取日志记录器。未被任何变量引用的日志记录器可以能会被垃圾回收。为了防止这种情况发生，用静态变量存储日志记录器的引用。</p>
+<p>与包名类似，日志记录器也具有层次结构，而且还更强。日志记录器的父与子之间将共享某些属性。通常，日志有以下7个级别：</p>
+<p>1）SEVERE。</p>
+<p>2）WARNING。</p>
+<p>3）INFO。</p>
+<p>4）CONFIG。</p>
+<p>5）FINE。</p>
+<p>6）FINER。</p>
+<p>7）FINEST。</p>
+<p>默认情况下，实际上只记录前3个级别，也可以设置一个不同的级别。另外，还可以使用Level.ALL开启所有级别的日志记录，或者使用Level.OFF关闭所有级别的日志记录。默认的系统配置会记录INFO或更高级别的所有日志，因此，应该使用CONFIG、FIFE、FINER和FINEST级别来记录那些有助于诊断但对用户意义不大的调试信息。默认的日志记录将显示根据调用堆栈得出的包含日志调用的类名和方法名。记录日志的常见用途是记录那些预料之外的异常。</p>
+<p>可以通过编辑配置文件来修改日志系统的各个属性。默认情况下，配置文件位于:conf/logging.properties(或者在Java 9之前，位于 jre/lib/logging.properties)。</p>
+<p>本地化的应用程序包含资源包中的本地特定信息。资源包包含一组映射，分别对应各个本地环境。一个程序可以包含多个资源包，每个资源包都有一个名字。要想为资源包增加映射，需要对应每个本地环境提供一个文件。请求一个日志记录器时，可以指定一个资源包，然后为日志消息指定资源包的键，而不是实际的日志消息字符串。通常需要在本地化的消息中增加一些参数，因此，消息可能包括占位符{0}、{1}等。或者在Java 9中，可也在logrb方法中指定资源包对象(而不是名字)。</p>
+<p>默认情况下，日志记录器将记录发送到ConsoleHandler，并由它输出到System.err流。与日志记录器一样，处理器也有日志级别。对于一个要记录的日志记录，它的日志级别必须高于日志记录器和处理器二者的阈值。默认情况下，日志记录器将记录发送到自己的处理器和父日志记录器的处理器。日志管理器配置文件中的参数如下:</p>
+<p><img src="/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/ten.jpg" alt="ten"></p>
+<p>日志记录文件的模式变量描述如下：</p>
+<p><img src="/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/eleven.jpg" alt="eleven"></p>
+<p>如果多个应用程序(或者同一个应用程序的多个副本)使用同一个日志文件，就应该开启append标志。另外，应该在文件模式中使用%u，以便每个应用程序创建日志的唯一副本。</p>
+<p>默认情况下，会根据日志记录的级别进行过滤。每个日志记录器和处理器都有一个可选的过滤器来完成附加的过滤。要定义一个过滤器，需要实现Filter接口并定义以下方法:</p>
+<p>boolean isLoggable(LogRecord record)。</p>
+<p>要想将一个过滤器安装到一个日志记录器或处理器中，只需要调用setFilter方法即可。注意，同一时刻最多只能有一个过滤器。</p>
+<p>日志的一些使用技巧如下：</p>
+<p>1）对一个简单的应用，选择一个日志记录器。可以把日志记录器命名为与主应用包一样的名字。</p>
+<p>2）默认的日志配置会把级别等于或高于INFO的所有消息记录到控制台。</p>
+<p>与日志相关的API如下；</p>
+<p><img src="/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/twelve.jpg" alt="twelve"></p>
+<p><img src="/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/thirteen.jpg" alt="thirteen"></p>
+<p><img src="/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/fourteen.jpg" alt="fourteen"></p>
+<p><img src="/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/fifteen.jpg" alt="fifteen"></p>
+<p><img src="/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/sixteen.jpg" alt="sixteen"></p>
+<p>调试的一些技巧如下：</p>
+<p>1）打印或记录任意变量的值。</p>
+<p>2）可以在每一个类中放置一个单独的main方法。这也就可以提供一个单元测试桩(stub)，能够独立地测试类。</p>
+<p>3）善使用JUint。</p>
+<p>4）日志代理是一个子类的对象，它可以截获方法调用，记录日志，然后调用超类中的方法。</p>
+<p>5）利用Throwable类的printStackTrace方法，可以从任意的异常对象获得堆栈轨迹。</p>
+<p>6）将堆栈轨迹捕获到一个字符串中。</p>
+<p>7）将程序错误记入一个文件当中。</p>
+<p>8）将未捕获的异常的堆栈轨迹记录到一个文件中。</p>
+<p>9）观察类的加载过程。</p>
+<p>10）-Xlint选项告诉编译器找出常见的代码问题。</p>
+<p>11）Java虚拟机增加了对Java应用程序的监控和管理支持，允许在虚拟机中安装代理来跟踪内存消耗、线程使用、类加载等情况。</p>
+<p>12）Java任务控制器是一个专业级性能分析和诊断工具，包含在Oracle JDK中,可以免费用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/" data-id="ckn5mhdor003xf0v33oot1uom" data-title="Java核心技术——卷I——异常、断言和日志" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/28/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MySQL必知必会——插入数据
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/26/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E5%85%A8%E6%96%87%E6%9C%AC%E6%90%9C%E7%B4%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MySQL必知必会——全文本搜索</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

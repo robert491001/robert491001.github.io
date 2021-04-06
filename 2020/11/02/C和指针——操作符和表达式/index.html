@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>C和指针——操作符和表达式 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="C提供了所有常用的算术操作符，如下所示：  除了%操作符，其他操作符都是既适用于浮点类型又适用于整数类型。当&#x2F;操作符的两个操作数都是整数时，它执行整除运算，在其他情况下则执行浮点数除法。%为取模操作符，它接受两个整型操作数，它左边操作数除以右边操作数，但它返回的值是余数而不是商。 移位操作只是简单把一个值的位向右或向左移动。在左移位中，值最左边的几位被丢弃，右边多出来的几个空位则由0补齐。 右移位">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C和指针——操作符和表达式">
+<meta property="og:url" content="http://example.com/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="C提供了所有常用的算术操作符，如下所示：  除了%操作符，其他操作符都是既适用于浮点类型又适用于整数类型。当&#x2F;操作符的两个操作数都是整数时，它执行整除运算，在其他情况下则执行浮点数除法。%为取模操作符，它接受两个整型操作数，它左边操作数除以右边操作数，但它返回的值是余数而不是商。 移位操作只是简单把一个值的位向右或向左移动。在左移位中，值最左边的几位被丢弃，右边多出来的几个空位则由0补齐。 右移位">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/one.png">
+<meta property="og:image" content="http://example.com/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/two.png">
+<meta property="og:image" content="http://example.com/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/three.png">
+<meta property="og:image" content="http://example.com/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/flour.png">
+<meta property="og:image" content="http://example.com/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/five.png">
+<meta property="og:image" content="http://example.com/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/six.png">
+<meta property="og:image" content="http://example.com/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/seven.png">
+<meta property="og:image" content="http://example.com/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/eight.png">
+<meta property="og:image" content="http://example.com/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/eight_1.png">
+<meta property="article:published_time" content="2020-11-02T05:32:59.000Z">
+<meta property="article:modified_time" content="2020-11-02T07:23:34.585Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="C和指针">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/one.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-C和指针——操作符和表达式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="article-date">
+  <time class="dt-published" datetime="2020-11-02T05:32:59.000Z" itemprop="datePublished">2020-11-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      C和指针——操作符和表达式
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>C提供了所有常用的算术操作符，如下所示：</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/one.png" alt="one"></p>
+<p>除了%操作符，其他操作符都是既适用于浮点类型又适用于整数类型。当/操作符的两个操作数都是整数时，它执行整除运算，在其他情况下则执行浮点数除法。%为取模操作符，它接受两个整型操作数，它左边操作数除以右边操作数，但它返回的值是余数而不是商。</p>
+<p>移位操作只是简单把一个值的位向右或向左移动。在左移位中，值最左边的几位被丢弃，右边多出来的几个空位则由0补齐。</p>
+<p>右移位操作存在一个左移位操作不曾面临的问题：从左边移入新位时，可以选择两种方案。第一种是逻辑移位。左边移入的位用0填充；第二种是算法移位，左边移入的位由原先该值的符号位决定，符号位为1则移入的为均为1，符号位为0则移入的位均为0，这样能保存原数的正负形式不变。算术左移和逻辑左移是相同的，只在右移时不同，而且只有当操作数是负值时才不一样。</p>
+<p>左移位操作符&lt;&lt;，右移位操作符&gt;&gt;。左操作数的值将移动由右操作数指定的位数。两个操作符都必须是整型类型。</p>
+<p>CUE:标准说明无符号值所执行的所有移位操作都逻辑移位，但对于有符号值，到底是采用逻辑移位还是算术移位取决于编译器。</p>
+<p>位操作符：位操作符对它们的操作数的各个位执行and、or和xor(异或)等逻辑操作。</p>
+<p>当两个位进行and操作时，如果两个位都1，结果位1，否则结果为0。当两个位进行or操作时，如果两个位都是0，结果为0，否则结果为1。当两个位进行xor操作时，如果两个位不同，结果为1，如果两个位相同，结果为0。</p>
+<p>​                                                 位操作符：</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/two.png" alt="two"></p>
+<p>它们分别执行and、or和xor操作。它们要求操作数为整数类型，对操作数对应的位进行指定的操作，每次对左右操作数的各一位进行操作。</p>
+<p>单目操作符：~  。它用于对其操作数进行求补运算，即1变0，0变1。</p>
+<p>赋值操作符，用一个等号表示。赋值是表达式的一种，而不是某种类型的语句。赋值操作符的结合性(求值的顺序)是从右到左。</p>
+<p>​                                                   复合赋值符：</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/three.png" alt="three"></p>
+<p>​                                                   单目操作符：</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/flour.png" alt="flour"></p>
+<p>CUE:单目操作符只接受一个操作数。</p>
+<p>！ 操作符对它的操作数执行逻辑反操作；如果操作数位真，其结果为假，如果操作数为假，其结果为真。和关系操作符一样，这个操作符实际上产生一个整型结果，0或1。- 操作符产生操作数的负值，&amp; 操作符产生它的操作数的地址。* 操作符是间接访问操作符，它与指针一起使用，用于访问指针所指向的值。</p>
+<p>sizeof操作符判断它的操作数的类型长度，以字节为单位表示。操作数既可以是表达式(常常是单个变量)，也可以是两边加上括号的类项名。当sizeof的操作数是个数组名时，它返回该数组的长度，以字节为单位。</p>
+<p>(类型) 操作符被称为强制类型转换，它用于显示地把表达式的值转换为另外的类型。</p>
+<p>增值操作符++和减值操作符– 都需要一个变量而不是表达式作为它的操作数，该操作符实际上只要求操作数必须是一个“左值”。</p>
+<p>​                                                C常见的关系操作符</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/five.png" alt="five"></p>
+<p>！= 操作符用于测试不相等，而==操作数用于测试相等。这些操作符产生的结果都是一个整型值，而不是布尔值。如果两端的操作数符合操作符指定的关系，表达式结果是1，相反为0。</p>
+<p>逻辑操作符有&amp;&amp;和||，它们用于对表达式求值。&amp;&amp;操作符的左操作数总是首先进行求值，如果它的值为真，然后就紧接着对右操作数进行求值。如果左操作数的值为假，那么右操作数便不再进行求值，因为整个表达式的值肯定是假的，右操作数的值已经无关紧要。||操作符也具有相同的特点，它首先对左操作数进行求值，如果它的值是真，右操作数便不再求值。因为整个表达式的值此时已经确定。这个行为常常被称为“短路求值”。</p>
+<p>条件操作符接受三个操作数，它也会控制子表达的求值顺序。语法如下：</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/six.png" alt="six"></p>
+<p>逗号操作符将两个或多个表达式分割开来。这些表达式自左向右逐个进行求值，整个逗号表达式的值就是最后那个表达式的值。</p>
+<p>下标引用操作符是一对方括号。下标引用操作符接受两个操作数：一个数组名和一个索引值。C的下标值总是从零开始，并且不会对下标值进行有效性检查。同时下表引用操作和间接访问表达式是等价的，如：array[下标]&lt;==&gt;*(array+(下标))，二者等价。</p>
+<p>函数调用操作符接受一个或多个操作数。它的第1个操作数是希望调用的函数名剩余的操作数是传递给函数的参数。</p>
+<p><strong>. 和-&gt;</strong> 操作符用于访问一个结果的成员。</p>
+<p>C并不具备显示的布尔类型，所以使用整数来代替。其规则是：零是假，任何非零值皆为真。</p>
+<p>左值(L-value)和右值(R-value)：左值就是那些能够出现在赋值符号左边的东西，右值就是那些可以出现在赋值符号右边的东西。</p>
+<p>表达式求值——隐式类型转换：C的整型算术运算总是至少以缺省整数类型的精度来进行的。为了获得这个精度，表达式中的字符型和短整型操作数在使用之前被转换为普通整型，这种转换称为整型提升。</p>
+<p>表达式求值——算术转换：如果某个操作符的各个操作数属于不同的类型，那么除非其中一个操作数转换为另一个操作数的类型，否则操作就无法进行。下面的层次体系称为寻常算术转换。</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/seven.png" alt="seven"></p>
+<p>如果某个操作数的类型在上面这个列表中排名较低，那么它首先将转换为另一个操作数的类型然后执行操作。</p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/eight.png" alt="eight"></p>
+<p><img src="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/eight_1.png" alt="eight_1"></p>
+<p>优先级和求值的顺序：两个相邻操作符的执行顺序由它们的优先级决定。如果它们的优先级相同，它们的执行顺序由它们的结合性决定。除此之外，编译器可以自由决定使用任何顺序对表达式进行求值，只要它们不违反逗号、&amp;&amp;、||和?:操作符所施加的限制。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F/" data-id="ckn5mhdn0000ff0v3e76m5ki6" data-title="C和指针——操作符和表达式" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/03/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          C和指针——指针
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%AF%AD%E5%8F%A5/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">C和指针——语句</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

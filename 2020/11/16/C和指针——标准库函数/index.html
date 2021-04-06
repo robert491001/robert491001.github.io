@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>C和指针——标准库函数 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="整型函数：该组函数返回整型值。函数分为三类：算术、随机数和字符串转换。 算术：引入头文件为&lt;stdlib.h&gt;。标准函数库包含了4个整型算术函数。函数原型如下：  abs函数返回它的参数的绝对值。如果其结果不能用一个整数表示，该行为是未定义的。labs用于执行相同的任务，但它的作用对象是长整数。div函数把它的第2个参数(分母)除以第一个参数(分子)，产生商和余数，用一个div_t结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C和指针——标准库函数">
+<meta property="og:url" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="整型函数：该组函数返回整型值。函数分为三类：算术、随机数和字符串转换。 算术：引入头文件为&lt;stdlib.h&gt;。标准函数库包含了4个整型算术函数。函数原型如下：  abs函数返回它的参数的绝对值。如果其结果不能用一个整数表示，该行为是未定义的。labs用于执行相同的任务，但它的作用对象是长整数。div函数把它的第2个参数(分母)除以第一个参数(分子)，产生商和余数，用一个div_t结构">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/one.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/two.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/three.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/four.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/five.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/six.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourOne.JPG">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourtyOne.JPG">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourtyTwo.JPG">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/seven.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/eight.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/nine.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/ten.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourtyThree.JPG">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourtyThree1.JPG">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/eleven.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/clip_image002-1605495528686.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twelve.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirteen.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourteen.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fiveteen.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/sixteen.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/seventeen.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/eightteen.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/nineteen.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twenty.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentyOne.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentyTwo.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentyThree.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentyFour.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentyFive.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentySix.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentySeven.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentynine.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirty.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyOne.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyTwo.JPG">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyThree.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyFour.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyFive.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtySix.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtySeven.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyEight.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyNIne.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyNien1.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourty.png">
+<meta property="og:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourFive.png">
+<meta property="article:published_time" content="2020-11-16T02:10:25.000Z">
+<meta property="article:modified_time" content="2020-11-16T06:43:59.685Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="C和指针">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/one.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-C和指针——标准库函数" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/" class="article-date">
+  <time class="dt-published" datetime="2020-11-16T02:10:25.000Z" itemprop="datePublished">2020-11-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      C和指针——标准库函数
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>整型函数：该组函数返回整型值。函数分为三类：算术、随机数和字符串转换。</p>
+<p>算术：引入头文件为&lt;stdlib.h&gt;。标准函数库包含了4个整型算术函数。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/one.png" alt="one"></p>
+<p>abs函数返回它的参数的绝对值。如果其结果不能用一个整数表示，该行为是未定义的。labs用于执行相同的任务，但它的作用对象是长整数。div函数把它的第2个参数(分母)除以第一个参数(分子)，产生商和余数，用一个div_t结构返回。该结构包含以下两个字段。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/two.png" alt="two"></p>
+<p>两个字段可以不一定要以这个顺序出现。如果不能整除，商将是所有小于代数商的整数中最靠近它的那个整数。注意/操作符的除法运算结果并未精确定义。当/操作符的任何一个操作数为负而不能整除时，到底商是最大的那个小于等于代数商的整数还是最小的那个大于等于代数商的整数，这取决于编译器。ldiv所执行的任务和div相同，但作用于长整数，其返回值是一个ldiv_t结构。</p>
+<p>随机数：同样引入头文件为&lt;stdlib.h&gt;。伪随机数，之所以如此称呼是因为它们通过两个合在一起的函数通过计算产生随机数，因此有可能重复，所以并不是真正的随机数。两个函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/three.png" alt="three"></p>
+<p>rand函数返回一个范围在0和RADN_MAX(至少为32767)之间的随机数。如果要得到一个更小范围的伪随机数，首先把这个函数的返回值根据所需范围的大写进行取模，然后通过加上或减去一个偏移量对它进行调整。srand函数用给它的参数值对随机数发生器进行初始化。一个常用的技巧是使用每天的时间作为伪随机数产生器的种子。</p>
+<p>字符串转换：引入头文件为&lt;stdlib.h&gt;。字符串转换函数把字符串转换为数值。其中最简单的函数atoi和atol，执行基数为10的转换。strtol和strtoul函数允许在转换时指定基数。同时还允许访问字符串的剩余部分。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/four.png" alt="four"></p>
+<p>如果任何一个上述函数的第1个参数包含了前导空白字符，它们将被跳过。然后函数把合法的字符转换为指定类型的值。如果存在任何非法缀尾字符，它们也将被忽略。如果这些函数的string参数中并不包含一个合法的数值，函数就返回0.如果被转换的值无法表示，函数便在errno中存储ERANGE这个值，并返回下表中的一个值。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/five.png" alt="five"></p>
+<p>浮点型函数：头文件&lt;math.h&gt;包含了函数库中剩余的数学函数的声明。这些函数的返回值以及绝大多数参数的类型都是double类型。</p>
+<p>如果一个函数的参数不在该函数的定义域之内，称为定义域错误。当出现一个定义域错误时，函数返回一个由编译器定义的错误值，并且在errno中存储EDOM这个值。如果一个函数的结果值过大或过小，无法用double类型表示，这个称为范围错误。当结果值太大时，函数将返回HUGE_VAL，它是一个math.h中定义的double类型的值。如果一个函数的结果值太小，无法用一个double表示，函数将返回0.这种情况也属于范围错误，但errno会不会设置ERANGE取决于编译器。</p>
+<p>标准函数库提供了常见的三角函数，函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/six.png" alt="six"></p>
+<p>前三个函数的参数是一个用弧度表示的角度，这些函数分别返回这个角度的正弦、余弦和正切。后三个函数返回它们的参数的反正弦、反余弦和反正切值。如果第三和第四个函数的参数并不位于-1和1之间，就出现一个定义域错误。asin和atan的返回值是范围在<img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourOne.JPG" alt="fourOne">之间的一个弧度。acos的返回值是一个范围在0和<img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourtyOne.JPG" alt="fourtyOne">之间的一个弧度。最后一个函数返回表达式y/x的反正切值，但它使用这个参数的符号来决定结果值位于那个象限。它的返回值是一个范围在<img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourtyTwo.JPG" alt="fourtyTwo">之间的弧度。</p>
+<p>双曲函数。这些函数分别返回它们的参数的双曲正弦、双曲余弦和双曲正切值。每个函数的参数都是一个以弧度表示的角度。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/seven.png" alt="seven"></p>
+<p>对数和指数函数。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/eight.png" alt="eight"></p>
+<p>第一个函数返回e值的x次幂。第二个函数返回x以e为底的底数，也就是常说的自然对数。第三个函数返回x以10为底的对数。</p>
+<p>注意x以任意一个以b为底的对数可以通过下面公式进行计算。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/nine.png" alt="nine"></p>
+<p>如果它们的参数为负数，两个对数函数都将出现定义域错误。</p>
+<p>浮点表示形式：以下三个函数提供了一种根据一个编译器定义的格式存储一个浮点值的方式。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/ten.png" alt="ten"></p>
+<p>第一个函数计算一个指数(exponent)和小数(fraction)。这样<img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourtyThree.JPG" alt="fourtyThree">=value。其中0.5&lt;=fraction&lt;1，exponent是一个i整数。exponent存储于第2个参数所指向的内存位置。函数返回fraction的值。第二个函数的返回值是<img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourtyThree1.JPG" alt="fourtyThree1">也就是它原型的值。最后一个函数把一个浮点值分成整数和小数两个部分，每个部分都具有和原值一样的符号。整数部分以double类型存储于第2个参数所指向的内存位置，小数部分作为函数的返回值返回。</p>
+<p>幂家族函数：函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/eleven.png" alt="eleven"></p>
+<p>第一个函数返回<img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/clip_image002-1605495528686.png" alt="img">的值。由于在计算这个值时可能要用到对数，所以如果x是一个负数且y不是一个整数，就会出现一个定义域错误。第二个函数返回其参数的平方根。如果参数为负，就会出现一个定义域错误。</p>
+<p>底数、顶数、绝对值和余数：函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twelve.png" alt="twelve"></p>
+<p>第一个函数返回不大于其参数的最大整数值。这个值以double的形式返回。第二个函数返回不下于其参数的最小整数值。第三个函数返回其参数的绝对值。最后一个函数返回x除以y所产生的余数，这个除法的商被限制为一个整数值。</p>
+<p>字符串转换：该函数和整型字符转换函数类似，只不过它们返回浮点值。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirteen.png" alt="thirteen"></p>
+<p>如果任何一个上述函数的第1个参数包含了前导空白字符，它们将被跳过。然后函数把合法的字符转换为指定类型的值；如果存在任何非法缀尾字符，它们也将被忽略；如果两个函数的字符串并不包含任何合法的数值字符，函数就返回0。如果转换的值太大或太小，无法用double表示，那么函数就在errno种存储ERANGE这个值，如果值太大(不论正负)，函数返回HUGE_VAL。如果值太小，函数返回零。</p>
+<p>日期和时间函数：引入头文件&lt;time.h&gt;</p>
+<p>处理时间的函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourteen.png" alt="fourteen"></p>
+<p>该函数返回程序从开始执行起处理器所所消耗的时间。注意该值可能是个近似值。如果机器无法提供处理器时间，或者如果时间值太大，无法用clock_t变量表示，函数就返回-1。该函数返回一个数字，它是由编译器定义的。通常它是处理器时钟滴答的次数。如果要将该值转换为秒，应该把它除以常量CLOCKS_PER_SEC。</p>
+<p>表示当前时间的函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fiveteen.png" alt="fiveteen"></p>
+<p>该函数返回当前的日期和时间。如果参数是一个非NULL的指针。时间值也将通过这个指针进行存储。如果机器无法提供处理器时间，或者时间值太大，无法用time_t变量表示，函数就返回-1。</p>
+<p>日期和时间的转换，函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/sixteen.png" alt="sixteen"></p>
+<p>第一个函数的参数是一个指向time_t的指针，并返回一个指向字符串的指针。字符串格式如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/seventeen.png" alt="seventeen"></p>
+<p>字符串内部空格是固定的。</p>
+<p>第二个函数计算time1-time2的差，并把结果值转换为秒。注意他的返回值是一个double类型的值。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/eightteen.png" alt="eightteen"></p>
+<p>第一个函数把时间转换为世界协调时间(UTC)。第二个函数把一个时间值转换为当地时间。函数返回值均为tm结构。tm结构包含了如下字段：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/nineteen.png" alt="nineteen"></p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twenty.png" alt="twenty"></p>
+<p>第一个函数把参数所表示的时间值转换为一个以下面的格式表示的字符串：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentyOne.png" alt="twentyOne"></p>
+<p>第二个函数把一个tm结构转换为一个根据某个格式字符串而定的字符串。如果转换结果字符串的长度下于maxsize参数，那么该字符串就被复制到第1个参数所指向的数组中，函数返回字符串的长度。否则，函数返回-1且数组的内容是未定义的。</p>
+<p>格式字符串包含了普通字符和格式代码。普通字符被复制到它们原先在字符串中出现的位置。格式代码则被一个日期或时间值代替。格式代码包括一个%字符，后面跟一个表示所需值的字符。下表列出了已经实现的格式代码：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentyTwo.png" alt="twentyTwo"></p>
+<p>如果%字符后面是一个其他任何字符，其结果是未定义的。%U和%W代码基本相同，区别在于前者把当年的第1个星期日作为第1个星期的开始而后者把当年的第1个星期一作为第1个星期的开始。如果无法判断时区，%Z代码就由一个空字符代替。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentyThree.png" alt="twentyThree"></p>
+<p>该函数用于把一个tm结构转换为一个time_t值。tm结构中tm_wday和tm_yday的值被忽略，其他字段的值也无需限制在它们的通常范围内。在转换之后，该tm结构会进行规格化，因此被忽略的两个值将是正确的，其余字段的值也都位于它们通常的范围之内。</p>
+<p>非本地跳转：引入头文件&lt;setjmp.h&gt;</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentyFour.png" alt="twentyFour"></p>
+<p>以上两个函数提供一种类似goto语句的机制，但不局限于一个函数的作用域之内。这些函数常用于深层嵌套的函数调用链中。如果在某个低层的函数中检测到一个错误，就可以立即返回到顶层函数，不必向调用链中的每个中间层函数返回一个错误标志。</p>
+<p>信号：信号表示一种事件，它可能异步地发生，也就是并不与程序执行过程的任何事件同步。头文件&lt;signal.h&gt;。下表列出了标准所定义的信号。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentyFive.png" alt="twentyFive"></p>
+<p>前面几个信号是同步的，因为它们都是在程序内存发生的。最后两个信号则是异步的。它们在程序的外部产生，通常由程序的用户所触发。</p>
+<p>处理信号，函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentySix.png" alt="twentySix"></p>
+<p>该函数用于显式地引发一个信号。调用这个函数将引发它的参数所值的信号。</p>
+<p>当一个信号发生时，程序可以使用三种方式对它作出反应。缺省的反应是编译器定义，通常是终止程序。程序也可以指定其他行为对信号做出反应。信号可以被忽略，或者程序可以设置一个信号处理函数。当信号发生时调用该函数。signal函数用于指定程序希望采取的反应。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentySeven.png" alt="twentySeven"></p>
+<p>signal是一个函数，它返回一个函数指针，后者所指向的函数接受一个整型参数且没有返回值。如果signal调用失败，函数将返回SIG_ERR值。该值是个宏，它在signal.h头文件中定义。该头文件还定义了另外两个宏，SIG_DFI和SIG_IGN，它们可以作为signal函数的第2个参数，SIG_DFI恢复对该信号的缺省反应，SIG_IGN使该信号被忽略。</p>
+<p>volatile数据。volatile关键字告诉编译器防止它一种修改程序含义的方式“优化”程序。从信号处理函数返回：从一个信号处理函数返回导致程序的执行流从信号发生的地点恢复执行。这个规则的例外情况是SIGFPE。由于计算无法完成，从这个信号返回的效果是未定义的。</p>
+<p>警告：如果希望以后捕捉同种类型的信号，从当前这个信号的处理函数返回之前注意要调用signal函数重新设置信号处理函数。否则，只有第1个信号才会被捕捉，接下来的信号将使用缺省反应进行处理。</p>
+<p>打印可变参数列表，引入头文件&lt;stdarg.h&gt;</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/twentynine.png" alt="twentynine"></p>
+<p>这些函数与它们对应的标准函数基本相同，但它们使用了一个可变参数列表。在调用这些函数之前。arg参数必须使用va_start进行初始化。这些函数都不需要调用va_end。</p>
+<p>执行环境：以下函数对程序的执行环境进行通信或者对后者施加影响。引入头文件&lt;stdlib.h&gt;。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirty.png" alt="thirty"></p>
+<p>第一个函数用于不正常终止一个正在执行的程序。由于该函数将引发SIGABRT信号，因此可以在程序中为这个信号设置一个信号处理函数，在程序终止(或干脆不终止)之前采取任何想采取的动作，甚至可以不终止程序。</p>
+<p>atexit函数可以把一些函数注册为退出函数。当程序将要正常终止时(或者由于调用exit，或者用于main函数返回)，退出函数将被调用，退出函数将不能接受任何参数。exit用于终止程序。如果程序以main函数返回一个值结束，那么其效果相当于用这个值作用参数调用exit函数。</p>
+<p>当exit函数被调用时，所有被atexit函数注册为退出函数的函数将按照它们所注册的顺序被反序依次调用。然后，所有用于流的缓冲区被刷新，所有打开的文件将被关闭。同tmpfile函数创建的文件被删除。然后退出状态返回给宿主环境。程序停止执行。</p>
+<p>警告：由于程序停止执行，所有exit函数绝不会返回到它的调用处。但是，如果一个用atexit注册为退出函数的函数再次调用了exit，其结果是未定义的。这个错误可能导致一个无限循环，很可能只有当堆栈的内存耗尽后才会终止。</p>
+<p>断言：断言就是声明某种东西应该为真。ANSI C实现了一个assert宏。引入头文件为&lt;assert.h&gt;。宏的原型如下:</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyOne.png" alt="thirtyOne"></p>
+<p>当它被执行时，这个宏对表达式参数进行测试。如果它的值为假(即零)，它就向标准错误打印一条诊断信息并终止程序。这条信息的格式是由编译器定义的，但它将包含这个表达式和源文件的名字以及断言所在的行号。如果表达式为真(即非零)，它不打印任何东西，程序继续执行。</p>
+<p>当程序被完整地测试完毕后，可以在编译时通过定义NDEBUG消除所有的断言。当NDEBUG被定义后，预处理器将丢弃所有的断言，这样就跟消除了这方面的开销。</p>
+<p>定义NDEBUG方法：在源文件中在头文件&lt;assert.h&gt;被包含之前增加如下定义：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyTwo.JPG" alt="thirtyTwo"></p>
+<p>排序和查找，引入头文件&lt;stdlib.h&gt;。函数原型如下：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyThree.png" alt="thirtyThree"></p>
+<p>该函数在一个数组中以升序的方式对数据进行排序。由于它是和类型无关的，所有可以使用该函数来排序任意类型的数据，数组中元素的长度是固定的。</p>
+<p>函数的第1个参数指向需要排序的数组，第2个参数指定数组中元素的数目，第3个参数指定每个元素的长度(以字节为单位)，第4个参数是一个指针，用于对需要排序的元素类型进行比较。在排序时，qsort调用这个函数对数组中的数据进行比较。</p>
+<p>比较函数接受两个参数，它们是指向两个需要进行比较的值的指针。函数应该返回一个整数，大于零、等于零和小于零分别表示第1个参数大、等于和小于第2个参数。</p>
+<p>由于比较函数与类型无关的性质，参数被声明为void*类型。在比较函数中必须使用强制类型转换，把它们转换为合适的指针类型。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyFour.png" alt="thirtyFour"></p>
+<p>该函数在一个以及排好序的数组中用二分查找一个特定的元素。如果数组尚未排序，其结果是未定义的。函数第1给参数指向需要查找的值，第2个参数指向查找所有数组，第3个参数指定数组中元素的数目，第4个参数是每个元素的长度(以字节为单位)。最后一个参数是和qsort中相同的指向比较函数的指针。bsearch函数返回一个指向查找到的数组元素的指针。如果需要查找的值不存在，函数返回一个NULL指针。注意关键字参数的类型必须与数组元素的类型相同。如果数组中的结果包含了一个关键字字段和其他一些数据，必须创建一个完整的结果并填充关键字字段。其他字段可以留空，因为比较函数只检查关键字字段。</p>
+<p>locale：标准定义了locale，这是一组特定的参数，每个国家可能各不相同。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyFive.png" alt="thirtyFive"></p>
+<p>上述函数用于修改整个或部分locale。函数的第1个参数指定locale的哪个部分需要进行修改。它所允许出现的值如下所示：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtySix.png" alt="thirtySix"></p>
+<p>如果函数的第2个参数为NULL，函数将返回一个指向给定类型的当前locale的名字的指针。这个值可能保存并在后续的setlocale函数中使用，用来恢复以前的locale。如果第2个参数不是NULL，它指定需要使用新的locale。如果函数调用成功，它将返回locale的值。否则，返回一个NULL指针，原来的locale不受影响。</p>
+<p>数值和货币格式&lt;locale.h&gt;</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtySeven.png" alt="thirtySeven"></p>
+<p>该函数用于获得根据当前的locale对非货币值和货币值进行合适的格式化所需要的信息。注意这个函数并不实际执行格式化任务，它只是提供一些如何进行格式化的信息。</p>
+<p>lconv结构包含两种类型的参数：字符和字符指针。字符参数为非负值。如果一个字符参数为CHAR_MAX，那么这个值就在当前的locale中不可用(或不使用)。对于字符指针参数，如果它指向一个空字符串，它表示的意义和上述相同。</p>
+<p>数值格式化：下表列出的参数用于格式化非货币的数值量。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyEight.png" alt="thirtyEight"></p>
+<p>grouping字符串按照以下方式进行解释。该字符串的第1个值指定小数点左边多是个数字组成一组。第2个值指定再往左边一组数字的个数，以下依次类推。有两个值具有特别的意义：CHAR_MAX表示剩余的数字并不分组。0表示前面的值适用于数值中剩余的各组数字。</p>
+<p>货币格式化：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyNIne.png" alt="thirtyNIne"></p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/thirtyNien1.png" alt="thirtyNien1"></p>
+<p>当按照国际化的用途格式化货币值时，字符串int-curr_symbol替代了currency_symbol，字符int_frac_digits替代了frac_digits。国际货币符合是根据ISO 4217:1987标准形成的。这个字符串的头三个字符是字母形式的国际货币符号， 第4个字符用于分隔符合和值。</p>
+<p>字符串和locale&lt;string.h&gt;</p>
+<p>一台机器的字符集的对照序列是固定的，但locale提供了一种方法指定不同的序列。当必须要使用一个并非缺省的对照序列时，可以使用下列两个函数。</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourty.png" alt="fourty"></p>
+<p>第一个函数对两个根据当前locale的LC_COLLATE类型参数指定的字符串进行比较。它返回一个大于、等于或小于零值，分别表示第1个参数大于、等于或小于第2个参数</p>
+<p>注意这个比较可能比较strcmp需要多得多计算量，因为它需要遵循一个并非是本地机器的对照序列。当字符串必须以这种方式反复进行比较时，可以使用第二个strxfm函数减少计算量。它把根据当前的locale解释的第2个参数转换为另一个不依赖于loclae的字符串。尽管转换后的字符串的内容是未确定的，但使用strcmp函数对这种字符串进行比较和使用strcoll函数对原先的字符串进行比较的结果是相同的。</p>
+<p>改变locale的效果：改变locale会产生一些另外的效果。如下所示：</p>
+<p><img src="/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/fourFive.png" alt="fourFive"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/16/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0/" data-id="ckn5mhdon003of0v36j5y28x7" data-title="C和指针——标准库函数" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Java%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%8E%AF%E5%A2%83/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Java核心技术——卷I——Java程序设计环境
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">C和指针——输入函数/输出函数</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

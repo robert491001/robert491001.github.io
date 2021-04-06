@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>C和指针——数据 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="基本数据类型：在C语言中，仅有4中基本数据类型——整型、浮点型、指针和聚合类型(如数组和结构等)。所有其他的类型都是从这4中基本类型的某种组合派生而来的。 整型家族：包括字符、短整型、整型和长整型。它们都分为有符号(signed)和无符号(unsigned)两种版本。规定整型值相互之间大小的规则很简单：长整型至少应该和整型一样长，而整型只是应该和短整型一样长。  头文件limits.h说明了各种不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C和指针——数据">
+<meta property="og:url" content="http://example.com/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="基本数据类型：在C语言中，仅有4中基本数据类型——整型、浮点型、指针和聚合类型(如数组和结构等)。所有其他的类型都是从这4中基本类型的某种组合派生而来的。 整型家族：包括字符、短整型、整型和长整型。它们都分为有符号(signed)和无符号(unsigned)两种版本。规定整型值相互之间大小的规则很简单：长整型至少应该和整型一样长，而整型只是应该和短整型一样长。  头文件limits.h说明了各种不">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/one.JPG">
+<meta property="og:image" content="http://example.com/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/two.png">
+<meta property="og:image" content="http://example.com/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/three.png">
+<meta property="og:image" content="http://example.com/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/four.png">
+<meta property="article:published_time" content="2020-11-01T04:35:09.000Z">
+<meta property="article:modified_time" content="2020-11-01T06:57:28.241Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="C和指针">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/one.JPG">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-C和指针——数据" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/" class="article-date">
+  <time class="dt-published" datetime="2020-11-01T04:35:09.000Z" itemprop="datePublished">2020-11-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      C和指针——数据
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>基本数据类型：在C语言中，仅有4中基本数据类型——整型、浮点型、指针和聚合类型(如数组和结构等)。所有其他的类型都是从这4中基本类型的某种组合派生而来的。</p>
+<p>整型家族：包括字符、短整型、整型和长整型。它们都分为有符号(signed)和无符号(unsigned)两种版本。规定整型值相互之间大小的规则很简单：长整型至少应该和整型一样长，而整型只是应该和短整型一样长。</p>
+<p><img src="/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/one.JPG" alt="one"></p>
+<p>头文件limits.h说明了各种不同的整数类型的特点。它定义了下表所示的各个名字。limits.h同时定义了下列名字：CHAR_BIT是字符型的位数(至少8位)；CHAR_MIN和CHAR_MAX定义了缺省字符类型的范围，它们或者应该于SCHAR_MIN和SCHAR_MAX相同。或者应该于0和UCHAR_MAX相同；最后MB_LEN_MAX规定了一个多字节字符最多允许的字符数量。</p>
+<p><img src="/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/two.png" alt="two"></p>
+<p>尽管设计char类型变量目的是为了让它们容纳字符型值，但字符的本质上是小整型值。字面值(literal)这个术语是字面值常量的缩写——这是一种实体，指定了自身的值，并且不允许发生改变。这个特点非常重要，因为ANSI C允许命名常量(named constant，声明为const的变量)的创建，它于普通变量极为类似，区别在于，当它被初始化后，它的值便不能改变。</p>
+<p>整数也可以用八进制表示，只要数值前面以0开头。也可以用十六进制表示，它以0x开头。</p>
+<p>另外还有字符常量。它们的类型总是int。字符常量就是一个用单引号包围起来的单个字符(字符转义序列或三字母词)例如：‘\n’，’??(‘，等等。</p>
+<p>最后，如果一个多字节字符常量的前面有一个L，那么它就是宽字符常量。如：L‘X’。</p>
+<p>枚举类型：枚举(enumerated)类型就是指它的值为符号常量而不是字面值的类型。</p>
+<p>浮点类型：浮点数家族包括了float、double和long double类型。通常，这些类型分别提供单精度、双精度以及在某些支持扩展精度的机器上提供扩展精度。ANSI标准仅仅规定long double至少和double一样长，而double至少和float一样长。标准同时规定了一个最小范围：所有浮点类型至少能够容纳从10的负37次方到10的正37次方之间的任何值。</p>
+<p>头文件float.h定义了名字FLT_MAX、DBL_MAX和LDBL_MAX，分别表示float、double和long double能够存储的最小值。浮点数字面值在缺省情况下都是double类型，除非它的后面跟一个L或l表示是一个long double类型的值，或者跟一个F或f表示它是一个float类型的值。</p>
+<p>指针：变量的值存储在计算机的内存中，每个变量都占据一个特定的位置。每个内存位置都由地址唯一确定并引用。指针只是地址的另一个名字罢了。指针变量就是一个其值为另一个(一些)内存地址的变量。</p>
+<p>C语言对字符串的概念：它就是一串以NULL字节结尾的零个或多个字符。字符串通常存储在字符数组中，字符串常量的书写方式是用一对双引号包围一串字符。字符串常量可以是空的，即为空字符串，它依然存在作为终止符的NULL字节。</p>
+<p>程序在使用字符串常量时会产生一个”指向字符的常量指针”。当一个字符常量出现于一个表达式中，表达式所使用的值就是这些字符所存储的地址，而不是这些字符本身。因此，可以把字符串常量赋值给一个”指向字符的指针”，后者指向这些字符所存储的地址。但<strong>是不能把字符串常量赋值给一个字符数组，因为字符串常量的直接值是一个指针，而不是字符本身。</strong></p>
+<p>基本声明：变量声明的基本形式是：说明符(一个或多个)  声明表达式列表。对于简单的类型，声明表达式列表就是被声明的标识符的列表。对于更为复杂的类型，声明表达式列表中的每个条目实际上是一个表达式，显示被声明的名字的可能用途。</p>
+<p>说明符(specifier)包含了一些关键字，用于描述被声明的标识符的基本类型。说明符也可以用于改变标识符的缺省存储类型和作用域。下表显示了所有这些变量声明的变型。用一个框内的所有声明都是等同的。signed关键字一般用于char类型，因为其他整型类型在缺省情况下都是有符号数。至于char是否是signed，则因编译器而异。</p>
+<p><img src="/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/three.png" alt="three"></p>
+<p>在一个声明中，可以给一个标量变量指定一个初始值，方法是在变量名后面跟一个等号(赋值号)，后面跟赋给变量的值。</p>
+<p>声明简单数组：声明一个一维数组，在数组名后面要跟一对方括号，方括号里面是一个整数，指定数组中元素的个数。数组的下标总是从0开始，最后一个元素的下标是元素的数目减1。</p>
+<p>CUE:编译器并不检查程序对数组下标的引用是否在数组的合法范围之内。一个良好的经验法则是：如果下标值是从那些已知正确的值计算得来，那么就无需检查它的值。如果一个用作下标的值是根据某种方法从用户输入的数据产生而来的，那么在使用它之前必须进行检测，确保位于有效的范围之内。</p>
+<p>声明指针：声明表达式也可用于声明指针。先给出一个基本类型，紧随其后的是一个标识符列表，这些标识符组成表达式，用于产生基本类型的变量。</p>
+<p>隐式声明：函数如果不显示地声明返回值的类型，它就默认返回整型。如果使用旧风格声明函数的形式参数时，如果省略了参数的类型。编译器就是默认它们为整型。最后，如果编译器可以得到充足的信息，推断出一条语句实际上是一个声明时，如果它缺少类型名、编译器会假定它为整型。</p>
+<p>typedef：C语言支持一种叫作typedef的机制，它允许你为各种数据类型定义新名字。typedef声明的写法和普通的声明基本相同，只是把typedef这个关键字出现在声明的前面。</p>
+<p>常量：ANSI C允许声明常量，常量的样子和变量完全一样，只是它们的值不能修改。可以使用const关键字来声明常量。</p>
+<p>int const *pci; 是一个指向整型常量的指针。可以修改指针的值，不能修改它所指向的值</p>
+<p>int *const pci; 是一个指向整型的常量指针。此时指针是常量，它的值无法修改，但可以修改它所指向的整型的值。</p>
+<p>int  const *const pci; 无论是指针本身还是它所指向的值都是常量，都不允许修改。</p>
+<p>#define指令是另一种创建名字常量的机制</p>
+<p>作用域：标识符的作用域就是程序中标识符可以被使用的区域。编译器可以确认4中不同类型的作用域——文件作用域、函数作用域、代码块作用域和原型作用域。标识符声明的位置决定它的作用域。</p>
+<p>代码块作用域：位于一对花括号之间的所有语句称为一个代码块。任何在代码块的开始位置声明的标识符都具有代码块作用域(block scope)，表示它们可以被这个代码块中的所有语句访问。函数定义的形式参数在函数体内部也具有代码块作用域。</p>
+<p>当代码块处于嵌套状态时，声明于内层代码块的标识符的作用域到达该代码块的尾部便告终止。然后，如果内层代码块有一个标识符的名字与外层代码块中一个标识符同名，内层的那个标识符就将隐藏外层的标识符——外层的那个标识符无法在内层代码块中通过名字访问。声明于每个代码块的变量无法被另一个代码块访问，因为它们的作用域并无重叠之处。</p>
+<p>在K&amp;R C中，函数形参的作用域开始于形参的声明处，位于函数体之外。如果在函数体内部声明了名字与形参相同的局部变量，它们就将隐藏形参。这样一来，形参便无法被函数的任何部分访问。当然，没人会有意隐藏形参。因为如果不想让调用函数使用参数的值，那么向函数传递这个参数就毫无道理。ANSI C遏止了这种错误的可能性，它把形参的作用域设定为函数最外层的那个作用域(也就是整个函数体)。这样，声明于函数最外层作用域的局部变量无法和形参同名，因为它们的作用域相同。</p>
+<p>文件作用域：任何在所有代码块之外声明的标识符都具有文件作用域，它表示这些标识符从它们的声明之处直到它所在的源文件结尾处都是可以访问的。在文件中定义的函数名也具有文件作用域。</p>
+<p>原型作用域：该作用域只适用于在函数原型中声明的参数名。在原型中(与函数的定义不同)，参数的名字并非必须。原型作用域防止参数名与程序其他部分的名字冲突。</p>
+<p>函数作用域：函数作用域它只适用于语句标签，语句标签用于goto语句。函数作用域可以简化为一条规则——一个函数中的所有语句标签必须唯一。</p>
+<p>链接属性：标识符的链接属性一共有3种——external(外部)、internal(内部)和none(无)。没有链接属性的标识符(none)总是当作单独的个体，也就是说该标识符的多个声明被当作独立不同的实体。属于internal链接属性的标识符在同一个源文件内的所有声明中都指同一个实体，但位于不同源文件的多个声明则分属于不同的实体。最后，属于external的链接属性的标识符不论声明多少次，位于几个源文件都表示同一个实体。</p>
+<p>关键字external和static用于在声明中修改标识符的链接属性。如果某个声明在正常情况下具有external链接属性，在它前面加上static关键字可以使它的链接属性变为internal。static只对缺省链接属性为external的声明才有改变链接属性的效果。external关键字一般而言，它为一个标识符指定external的链接属性，这样就可以访问在其他任何位置定义的这个实体。当external关键字用于源文件中的一个标识符的第1次声明时，它指定该标识符具有external链接属性。但是，如果它用于该标识符的第2次或以后声明时，它并不会更改由第1次声明所指定的链接属性。</p>
+<p>存储类型：变量的存储类型(storage class)是指存储变量值的内存类型。变量的存储类型决定变量何时创建、何时销毁以及它的值将保存多久。有三个地方可用于存储变量：普通内存、运行时堆栈，硬件寄存器。</p>
+<p>变量的缺省存储类型取决于它的声明位置。凡是在任何代码块之外声明的变量总是存储于静态内存中，也就是不属于堆栈的内存，这类变量称为静态变量，静态变量在程序运行之前创建，在程序的整个执行期间始终存在。</p>
+<p>在代码块内部声明的变量的缺省类型是自动的，也就是说它存储于堆栈中。称为自动变量，有一个关键字auto就是用于修饰这种存储类型的。在程序执行到声明自动变量代码块时，自动变量才被创建，当程序的执行流离开该代码块时，这些自动变量便自行销毁。因此，可以说自动变量在代码块执行完毕后就消失。当代码块再次执行时，它们的值一般并不是上次执行时的值。</p>
+<p>对于在代码块内部声明的变量，如果加上关键字static，可以使它的存储类型从自动变为静态。具有静态存储类型的变量在程序执行过程中一直存在，而不仅仅在声明它的代码块的执行时存在。<strong>注意修改变量的存储类型并不是修改该变量的作用域</strong>。函数的形式参数不能声明为静态，因为实参总是在堆栈中传递给函数，用于支持递归。</p>
+<p>最后关键字register可以用于自动变量的声明，提示它们应该存储于机器的硬件寄存器而不是内存中，这类变量称为寄存器变量。寄存器变量通常比存储于内存的变量访问起来效率更高。</p>
+<p>static总结：当它用于函数定义时，或用于代码块之外的变量声明时，static关键字用于修改标识符的链接属性，从external改为internal，但标识符的存储类型和作用域不受影响。用这种方式声明的函数或变量只能在声明它们的源文件中访问；当它用于代码块内部的变量声明时，static关键字用于修改变量的存储类型，从自动变量修改为静态变量，单变量的链接属性和作用域不受影响。用这种方法声明的变量在程序执行之前创建，并在程序的整个执行期间一直存在，而不是每次在代码块开始执行时创建，在代码块执行完毕后销毁。</p>
+<p>具有external链接属性的实体在其他语言的术语里称为全局实体，所有源文件中的所有函数均可以访问它。只要变量并非声明于代码块或函数定义内部，它在缺省情况下的链接属性即为external。如果一个变量声明于代码块内部，在它前面添加external关键字将使它所引用的是全局变量而非局部变量。具有external链接属性的实体总是具有静态存储类型。</p>
+<p><img src="/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/four.png" alt="four"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/01/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE/" data-id="ckn5mhdmy000df0v3d9vi3c1k" data-title="C和指针——数据" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/02/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E8%AF%AD%E5%8F%A5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          C和指针——语句
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/10/25/C%E5%92%8C%E6%8C%87%E9%92%88%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">C和指针——基本概念</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

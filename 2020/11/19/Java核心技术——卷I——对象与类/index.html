@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Java核心技术——卷I——对象与类 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="面向对象程序设计(object-oriented-programming,OOP)是当今主流的程序设计范型，它取代了20世纪70年代的“结构化”或过程式编程技术。面向对象程序是由对象组成的，每个对象包含对用户公开的特定功能和隐藏的实现部分。传统的结构化程序设计通过一系列的过程(即算法)来求解问题，即算法是第一位的，数据结构是第二位的。而OOP却相反，将数据放在第一位，然后再考虑操作数据的算法。 类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java核心技术——卷I——对象与类">
+<meta property="og:url" content="http://example.com/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="面向对象程序设计(object-oriented-programming,OOP)是当今主流的程序设计范型，它取代了20世纪70年代的“结构化”或过程式编程技术。面向对象程序是由对象组成的，每个对象包含对用户公开的特定功能和隐藏的实现部分。传统的结构化程序设计通过一系列的过程(即算法)来求解问题，即算法是第一位的，数据结构是第二位的。而OOP却相反，将数据放在第一位，然后再考虑操作数据的算法。 类">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/one.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/two.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/three.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/four.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/five.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/six.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/seven.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/eight.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/nine.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/ten.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/eleven.jpg">
+<meta property="article:published_time" content="2020-11-19T06:21:59.000Z">
+<meta property="article:modified_time" content="2020-11-19T11:37:32.690Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java核心技术——卷I">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/one.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Java核心技术——卷I——对象与类" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/" class="article-date">
+  <time class="dt-published" datetime="2020-11-19T06:21:59.000Z" itemprop="datePublished">2020-11-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Java核心技术——卷I——对象与类
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>面向对象程序设计(object-oriented-programming,OOP)是当今主流的程序设计范型，它取代了20世纪70年代的“结构化”或过程式编程技术。面向对象程序是由对象组成的，每个对象包含对用户公开的特定功能和隐藏的实现部分。传统的结构化程序设计通过一系列的过程(即算法)来求解问题，即算法是第一位的，数据结构是第二位的。而OOP却相反，将数据放在第一位，然后再考虑操作数据的算法。</p>
+<p>类(class)是构造对象的模板或蓝图。由类构造(construct)对象的过程称为创建类的实例(instance)。封装(encapsulation，有时又称为数据隐藏)是将数据和行为组合在一个包中，并对对象的使用者隐藏具体的实现方式。对象中数据称为实例字段，操作数据的过程称为方法。实现封装的关键在于，绝对不能让类中的方法直接访问其他类的实例字段。程序只能通过对象的方法与对象数据进行交互。</p>
+<p>OOP的另一个原则就是：可以通过扩展其他类来构建新类。在扩展一个已有的类时，这个扩展后的新类具有被扩展的类的全部属性和方法。通过扩展一个类来建立另外一个类的过程称为继承(inheritance)</p>
+<p>对象的三个主要特性如下：</p>
+<p>1）对象的行为(behavior)——可以对对象完成哪些操作，或者可以对对象应用哪些方法？</p>
+<p>2）对象的状态(state)——当调用那些方法时，对象会如何相应？</p>
+<p>3）对象的标识(identify)——如何区分具有相同行为与状态的不同对象？</p>
+<p>对象的行为是用可调用的方法来定义的。此外每个对象都保存着描述当前状况的信息，这就是对象的状态。对象的状态可能会随着时间而发生改变，但这种改变不会是自发的。对象状态的改变必须通过调用方法实现。每个对象都有一个唯一的的标识。需要注意的是，作为同一个类的实例，每个对象的标识总是不同的，状态也往往存在着差异。</p>
+<p>传统的过程式程序中，必须从顶部的main函数开始编写程序。而OOP是首先从识别类开始，然后再为各个类添加方法。识别类的一个简单经验是在分析问题的过程中寻找名词，而方法对应着动词。</p>
+<p>在类之间的，最常见的关系有：依赖(“uses-a”)、聚合(“has-a”)、继承(“is-a”)。如果一个类的方法使用或操纵另一个类的对象，就说一个类依赖于另一个类；如果类A的对象包含类B的对象，就说它们是聚合；而继承表示一个更特殊的类与一个更一般的类之间的关系。</p>
+<p>表达类关系的UML符号如下所示：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/one.jpg" alt="one"></p>
+<p>在Java中，要使用构造器(constructtor，或称为构造函数)构造新实例。构造器是一种特殊的方法，用来构造并初始化对象。构造器的名字应该与类名相同。要认识到重要一点：对象变量并没有实际包含一个对象，它只是引用一个对象。在Java中，任何对象变量的值都是存储在另外一个地方的某个对象的引用。new操作符的返回值也是一个引用。所有的对象都存储在堆中。Java中，可以使用clone方法获得对象的完整副本。</p>
+<p>只访问对象而不修改对象的方法被称为<strong>访问器方法</strong>，相反访问对象且改变对象的方法称为<strong>更改器方法</strong>。而在C++中，带有const后缀的方法是访问器方法；没有声明为const的方法默认为更改器方法。</p>
+<p>LocalDate 相关API如下：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/two.jpg" alt="two"></p>
+<p>Java中，最简单的类定义形式为：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/three.jpg" alt="three"></p>
+<p>在一个源文件中，只能有一个公共类，但可以有任意数目的非公共类。</p>
+<p>构造器与类同名。构造器与其他方法有一个重要的不同。构造器总是结合new运算符来调用。不能对一个已经存在的对象调用构造器来达到重新设置实例字段的目的。总结，有关构造器的内容如下：</p>
+<p>1）构造器与类同名</p>
+<p>2）每个类可以有一个以上的构造器</p>
+<p>3）构造器可以有0个、1个或多个参数</p>
+<p>4）构造器没有返回值</p>
+<p>5）构造器总是伴随着new操作符一起调用。</p>
+<p>要特别注意，不要在构造器中定义与实例字段同名的局部变量。</p>
+<p>var关键字只能用于方法中的局部变量。参数和字段的类型必须声明。</p>
+<p>如果对null值应用一个方法，会产生一个NullPointerException异常。</p>
+<p>方法用于操作对象以及存取它们的实例字段。方法一般伴随着两种参数，隐式参数与显示参数。隐式参数是出现在方法名前所引用方法的对象名(有人也把隐式参数称为方法调用的目标或接收者)。显示参数是位于方法名后面括号中的数值。在每一个方法中，关键字this指示隐式参数。</p>
+<p>只返回实例字段值的方法，又称为字段访问器方法。特别注意，不要编写返回可变对象引用的访问器方法。如果实在要返回一个可变对象的引用，应该对它进行克隆。对象克隆是指存放在另一个新位置上的对象副本。</p>
+<p>一个方法可以访问所属类的所有对象的私有数据。</p>
+<p>可以将实例字段定义为final。这样的字段必须在构造对象时初始化。也就是说，必须确保在每一个构造器执行后，这个字段的值已经设置，并且以后不能再修改这个字段。</p>
+<p>静态方法是不在对象上执行的方法，可以认为静态方法是没有this参数的方法(一个非静态方法中，this参数指示这个方法的隐式参数)。可以使用对象调用静态方法，这是合法的。但是建议还是使用类名而不是对象来调用静态方法。以下两种情况可以使用静态方法：</p>
+<p>1）方法不需要访问对象状态，因为它需要的所有参数都通过显示参数提供。</p>
+<p>2）方法只需要访问类的静态字段。</p>
+<p>需要注意，可以调用静态方法而不需要任何对象。那就是说main方法也是一个静态方法。</p>
+<p>CUE：每一个类可以有一个main方法。这是常用于对类进行单元测试的一个技巧。</p>
+<p>Objects相关API 如下：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/four.jpg" alt="four"></p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/five.jpg" alt="five"></p>
+<p>按值调用表示方法接受的是调用者提供的值；按引用调用表示方法接受的是调用者提供的变量地址。方法可以修改按引用传递的变量的值，而不能修改按值传递的变量的值。<strong>Java总是采用按值调用</strong>。Java中对方法参数可以采取何种操作如下所示：</p>
+<p>1）方法可以改变对象参数的状态。</p>
+<p>2）方法不能修改基本数据类型的参数(即数值型和布尔型)</p>
+<p>3）方法不能让一个对象参数引用一个新的对象。</p>
+<p>如果多个方法有相同的名字、不同的参数，这种情况便称为重载。Java允许重载任何方法，而不仅仅是构造器方法。因此，要完整地描述一个方法，需要指定方法名以及参数类型。这叫做方法的签名。注意，返回类型不是方法签名的一部分。也就是，不能有两个名字相同、参数类型也相同却有不同返回类型的方法。</p>
+<p>如果在构造器中没有显式地为字段设置初值，那么就会被自动地赋值为默认值：数值为0、布尔值为false、对象引用为null。这是字段与局部变量的一个重要区别。方法中的局部变量必须明确地初始化。无参构造器会将所有的实例字段设置为默认值。<strong>仅</strong>当类没有任何其他构造器的时候，程序才会得到一个默认的无参数的构造器。</p>
+<p>关键字this除了指示一个方法的隐式参数外，还有另外一个含义：如果构造器的第一个语句形式如this(….)，这个构造器将调用同一个类的另外一个构造器。</p>
+<p>初始化数据字段的方法除了在构造器中设置以及在声明中赋值外，还有第三种机制。称作初始化块。在一个类的声明中，可以包含任意多个代码块。只要构造这个类的对象，这些块就会被执行。可以在初始化块中设置字段，即使这些字段在类后面才定义，这也是合法的。但是，为了避免循环定义，不允许读取在后面初始化的字段。</p>
+<p>Random相关API如下：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/six.jpg" alt="six"></p>
+<p>Java允许使用包(package)将类组织在一个集合中。使用包的主要原因是确保类名的唯一性。事实上，为了保证包名的绝对唯一性要用一个因特网域名以逆序的形式作为包名，然后对于不同的工程使用不同的子包。从编译器的角度来看，嵌套的包之间没有任何关系。每一个包都是独立的类的集合。</p>
+<p>一个类可以使用所属包中所有类，以及其他包中的公共类(public class)。可以采用两种方式访问另一个包中的公共类，第一种方式就是使用完全限定名，就是包名后面跟着类名；第二种方式就是使用import语句。import语句是一种引用包中各个类的简捷方式。一旦使用了import语句，在使用类时，就不必写出类的全名了。import语句应该位于源文件的顶部(但位于package语句的后面)。需要注意的是，可以使用星号(*)导入一个包，但不能使用import java.*或import java.*.*导入以java为前缀的所有包。在包中定位类是编译器的工作。类文件中的字节码总是使用完整的包名引用其他类。import语句的唯一好处就是简捷，可以使用简短的名字而不是完整的包名来引用一个类。有一种import语句运行导入静态方法和静态字段，而不只是类。另外，还可以导入特定的方法或字段。</p>
+<p>要想将类放入包中，就必须将包的名字放在源文件的开头，即放在定义这个包中各个类的代码之前。如果没有在源文件中放置package语句，这个源文件中的类就属于无名包。无名包没有包名。注意，编译器在编译源文件的时候<strong>不检查</strong>目录结构。如果包与目录不匹配，<strong>虚拟机</strong>就找不到类。</p>
+<p>类存储在文件系统的子目录中。类的路径必须与包名匹配。另外，类文件也可以存储在JAR(Java归档)文件中。JAR文件使用ZIP格式组织文件和子目录。类路径是所有包含类文件的路径的集合。在UNIX环境中，类路径中的各项之间用冒汗(:)分隔，而在Windows环境中，则以分号(;)分隔，不管是UNIX还是Windows，都用句点(.)表示当前目录从。从Java 6 开始，可以在JAR文件目录中指定通配符，不过在UNIX中，*必须转义以防止shell扩展。Java编译器总是在当前的目录查找文件，但Java虚拟机仅在类路径中包含”.”目录的时候才查看当前目录。</p>
+<p>最好使用 -classpath(或 -cp，或者Java 9中的 –class-path)选项指定类路径。整个指令必须写在一行中。在Java 9中，还可以从<strong>模块路径</strong>加载类</p>
+<p>一个JAR文件既可以包含类文件，也可以包含诸如图象和声音等其他类型的文件。可以使用jar工具制作JAR文件(在默认的JDK安装下，该工具位于bin目录下)。创建一个新JAR文件最常用的命令使用以下语法：</p>
+<p>jar  cvf  jarFileName  file1  file2 ……</p>
+<p>通常jar命令的格式如下：</p>
+<p>jar options file1 file2 ……</p>
+<p>jar程序所有选项如下所示：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/seven.jpg" alt="seven"></p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/eight.jpg" alt="eight"></p>
+<p>除了类文件以及其他资源文件以外，每个JAR文件还包含一个清单文件(manifest)，用于描述归档文件的特殊特性。清单文件被命名为MANIFEST.MF，它位于JAR文件的一个特殊的META-INF子目录中。符合标准的最小清单文件为：</p>
+<p>Manifest -Version: 1.0</p>
+<p>而复杂的清单文件可能包含更多条目。这些条目被分成更多个节。第一节被称为主节。它作用于整个JAR文件。随后的条目用来指定命名实体的属性。它们都必须以Name条目开始。节于节之间用空行分开。若要编辑清单文件，需要将希望添加到清单文件的行放到文本文件中，然后运行：jar cfm jarFileName manifestFileName ……;而若要更新一个已有的JAR文件的清单，则需要将增加的部分放置到一个文本文件中，然后运行：</p>
+<p>jar ufm MyArchive.jar manifest -additions.mf</p>
+<p>可以使用jar命令中的e选项指定程序的入口点，即通常需要在调用Java程序启动器时指定的类。或者，可以在清单文件中指定程序的主类。但注意，不要为主类名添加扩展名.class。清单文件的最后一行必须以换行符结束。否则，清单文件将无法被正确地读取。</p>
+<p>在控制台端启动jar文件命令为：java -jar MyProgram.jar  。而在OS中采取的操作方式为：</p>
+<p>1）Windows平台下，Java运行时安装程序将为“.jar”扩展名创建一个文件关联，会用javaw -jar命令启动文件(与java命令不同的是该命令不打开shell窗口)</p>
+<p>2）在MAC OS平台下，OS能够识别“.jar”扩展名文件。双击便会执行。</p>
+<p>Java 9引入了多版本JAR(multi-release JAR)，其中可以包含面向不同Java版本的类文件。为了保证向后兼容，额外的类文件放在META-INF/versions目录中。要增加不同版本的类文件，可以使用 –release标志：</p>
+<p>jar uf MyProgram.jar –release 9 Application.class</p>
+<p>要从头构建一个多版本JAR文件，可以使用 -C选项，对应每个版本要切换到一个不同的类文件目录：</p>
+<p>jar cf MyProgram.jar -C bin/8 .  –release 9 -C bin/9 Application.class</p>
+<p>面向不同版本编译时，要使用 –release标志和-d 标志来指定输入目录:</p>
+<p>javac -d bin/8 –release 8 ……</p>
+<p>在Java 9中，-d选项会创建这个目录(如果原先改目录不存在的话)。 –release标志也是Java 9新增的。</p>
+<p>JDK的命令行选项一直以来都使用单个短横线加多字母选项名的形式，但jar命令除外，这个命令遵循经典的tar命令选项格式，而没有短横线。从Java 9开始，Java工具开始转向一种更常用的选项格式，多字母选项名前面加两个短横线，另外对于常用的选项可以使用单字母快捷方式。带 – 和多字母的选项的参数用空格或者一个等于号(=)分隔。单字母选项的参数可以用空格分隔，或者之间跟在选项后面。无参数的单字母选项可以组合在一起，但目前不能使用这种方式，因为这会带来混淆的。jar 命令的长选项：</p>
+<p>jar –create –verbose –file jarFileName file1 file2 ……</p>
+<p>对于单字母选项，不组合的话，也是可以使用：jar -c -v -f jarFileName file1 file2 ……</p>
+<p>JDK中包含一个很有用的工具——javadoc，它可以由源文件生成一个HTML文档。javadoc工具从以下几项中抽取信息：</p>
+<p>1）模块 ；2）包；3）公共类与接口；4）公共和受保护的字段；5）公共的和受保护的构造器及方法。可以(而且应该)为上述各个特性编写注释。注释放置在所描述特性的前面。注释以/**开始，并以*/结束。每个/**……*/文档注释包含标记以及之后紧跟着的自由格式文本。标记以@开始，如@since或@param。自由格式文本的第一句应该是一个概要性的句子。类注释必须放在import语句之后，类定义之前。每个方法注释必须放在所描述的方法之前。除了通用标记外，还可以使用如下标记：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/nine.jpg" alt="nine"></p>
+<p>标记@since text会建立一个“since”(始于)条目。text(文本)可以是引入这个特性的版本的任何描述。如下标记也可以用在类文档注释中：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/ten.jpg" alt="ten"></p>
+<p>通过@see和@link标记，可以使用超链接，链接到javadoc文档的相关部分或外部文档。标记@see reference将在“see also”(参见)部分增加一个超链接。需要注意的是，一定要使用井号(#)，而不要使用句号(.)分隔类名与方法名，或类名与变量名。如果@see标记后面有一个&lt;字符，就需要指定一个超链接。可以超链接到任何URL。如果@see标记后面有一个双引号(“)字符，文本就会显示在“see also”部分。可以为一个特性添加多个@see标记，但必须将它们放在一起。最后，在Java 9中，可以使用{@index entry}标记为搜索框增加一个条目。</p>
+<p>要想产生包注释，就需要在每一个包目录中添加一个单独的文件。有如下两个选择：</p>
+<p><img src="/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/eleven.jpg" alt="eleven"></p>
+<p>类设计技巧：</p>
+<p>1）一定要保证数据私有</p>
+<p>2）一定要对数据进行初始化</p>
+<p>3）不要在类中使用过多的基本类型</p>
+<p>4）不是所有的字段都需要单独的字段访问器和字段更改器。</p>
+<p>5）分解有过多的职责类</p>
+<p>6）类名和方法名要能够体现它们的职责。类名应当是一个名词，或者前面有形容词修饰的名词。或者是有动名词修饰的名词。对于方法来说，要遵循标准惯例：访问器方法用小写get开头，更改器方法用小写的set开头。</p>
+<p>7）优先使用不可变的类。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/19/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/" data-id="ckn5mhdop003uf0v31lwg24i1" data-title="Java核心技术——卷I——对象与类" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/20/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MySQL必知必会——使用数据处理函数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/19/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E5%88%9B%E5%BB%BA%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E6%AE%B5/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MySQL必知必会——创建计算机字段</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>计算机网络自顶向下方法——计算机网络和因特网 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="因特网是一个世界范围内的计算机网络，即它是一个互联了遍及全世界数十亿计算机设备的网络。用因特网术语来说，这些设备都被称为**主机(host)或端系统(end system)**。 端系统通过通信链路(communication link)和分组交换机(packet switch)连接到一起。链路的传输速率(transmission rate)以比特&#x2F;秒(bit&#x2F;s，或bps)度量。当一台端系统要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络自顶向下方法——计算机网络和因特网">
+<meta property="og:url" content="http://example.com/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="因特网是一个世界范围内的计算机网络，即它是一个互联了遍及全世界数十亿计算机设备的网络。用因特网术语来说，这些设备都被称为**主机(host)或端系统(end system)**。 端系统通过通信链路(communication link)和分组交换机(packet switch)连接到一起。链路的传输速率(transmission rate)以比特&#x2F;秒(bit&#x2F;s，或bps)度量。当一台端系统要">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/one.jpg">
+<meta property="og:image" content="http://example.com/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/two.jpg">
+<meta property="og:image" content="http://example.com/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/three.jpg">
+<meta property="og:image" content="http://example.com/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/four.jpg">
+<meta property="og:image" content="http://example.com/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/five.jpg">
+<meta property="article:published_time" content="2020-12-07T01:15:25.000Z">
+<meta property="article:modified_time" content="2020-12-08T07:31:05.027Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="计网笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/one.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-计算机网络自顶向下方法——计算机网络和因特网" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/" class="article-date">
+  <time class="dt-published" datetime="2020-12-07T01:15:25.000Z" itemprop="datePublished">2020-12-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      计算机网络自顶向下方法——计算机网络和因特网
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> 因特网是一个世界范围内的计算机网络，即它是一个互联了遍及全世界数十亿计算机设备的网络。用因特网术语来说，这些设备都被称为**主机(host)<strong>或</strong>端系统(end system)**。</p>
+<p>端系统通过<strong>通信链路(communication link)<strong>和</strong>分组交换机(packet switch)<strong>连接到一起。链路的</strong>传输速率</strong>(transmission rate)以<strong>比特/秒</strong>(bit/s，或bps)度量。当一台端系统要向另一条端系统发送数据时，发送端系统将数据分段，并为每段加上首部字节。由此形成的信息包用计网术语来说称为<strong>分组(packet)<strong>。从发送端系统到接收端系统，一个分组所经历的一系列通信链路和分组交换机被称为通过该网络的</strong>路径</strong>(path或route)。在当今的因特网种，两种最著名的交换机类型是路由器(router)和链路层交换机(link-layer switch)。链路层交换机通常用于接入网中，而路由器通常用于网络核心中。</p>
+<p>端系统通过<strong>因特网服务提供商(Internet Service Provider，ISP)<strong>接入因特网。每个ISP自身就是一个由多台分组交换机和多段通信链路组成的网络。ISP网络都是独立管理的，运行着IP协议，遵从一定的命名和地址规则。</strong>TCP(Transmission Control Protocol，传输控制协议)<strong>和</strong>IP(Internet Protocol，网际协议)<strong>是因特网中两个最为重要的协议。IP协议定义了在路由器和端系统之间发送和接收的分组格式。因特网的主要协议统称为</strong>TCP/IP</strong>。</p>
+<p>因特网标准(Internet standard)由因特网工程任务组(Internet Engineering Task Force，IETF)研发。IETF的标准文档被称为请求评论(Request For Comment，RFC)。当一些应用程序涉及到多个相互交换数据的端系统时，这些应用程序通常称为<strong>分布式应用程序</strong>(distributed application)。</p>
+<p>与因特网相连的端系统提供了一个**套接字接口(socket interface)**，该接口规定了运行在一个端系统上的程序请求因特网基础设施向运行在另一个端系统上的特定目的地程序交付数据的方式。</p>
+<p>**协议(protocol)**定义了在两个或多个通信实体之间交换的报文的格式和顺序，以及报文发送和/或接收一条报文或其他事件所采取的动作。</p>
+<p>主机=端系统。主机有时又被进一步划分为两类：客户机(client)和服务器(server)。</p>
+<p><strong>接入网</strong>，这是指将端系统物理连接到其边**缘路由器(edge router)**的网络。边缘路由器是端系统到任何其他远程端系统的路径上的第一台路由器。</p>
+<p>物理媒体分成两种类型：**导引型媒体(guided media)<strong>和</strong>非导引型媒体(unguided media)**。对于导引型媒体，电波沿着固体媒体前行，如光缆。对于非导引型媒体，电波在空气或外层空间中传播。</p>
+<p>在各种网络应用中，端系统彼此交换<strong>报文(message)<strong>。为了从源端系统向目的端系统发送一个报文，源将长报文划分为较小的数据块，称之为</strong>分组</strong>。在源和目的地之间，每个分组都通过通信链路和<strong>分组交换机</strong>(packet switch)(主要有两类：<strong>路由器</strong>和<strong>链路层交换机</strong>)传送。分组以等于该链路<strong>最大</strong>传输速率的速度传输通过通信链路。</p>
+<p>多数分组交换在链路的输入端使用<strong>存储转发传输</strong>(store-and-forward transmission)机制。存储转发传输是指在交换机能够开始向输出链路传输该分组的第一个比特之前，必须接收到整个分组。</p>
+<p>每台分组交换机有多条链路与之相连。对于每条相连的链路，该分组交换机具有一个**输出缓存(output buffer，也称为输出队列)<strong>，它用于存储路由器准备发往那条链路的分组。当某个到达的分组需要传输到某条链路，但发现该链路正忙于传输其他分组，则该分组必须在输出缓存中等待。因此，除了存储转发时延以外，分组还要承受输出缓存的</strong>排队时延(queuing delay)<strong>。因为缓存空间的大小是有限的，当一个到达分组可能发现该缓存已被其他等待的传输的分组完全充满了，在此情况下，会出现</strong>分组丢失(丢包)(packet loss)**，到达的分组或已经排队的分组之一将被丢弃。</p>
+<p>每台路由器具有一个**转发表(forwarding table)**，用于将目的地址(或目的地址的一部分)(也就是IP地址)映射称为输出俩路。</p>
+<p>通过网络链路和交换机移动数据有两种基本方法：<strong>电路交换(circuit switching)<strong>和</strong>分组交换(packet switching)<strong>。在电路交换网络中，在端系统间通信会话期间，</strong>预留</strong>了端系统间沿路径通信所需要的资源(缓存，链路传输速率)。而在分组交换网络中，这些资源则<strong>不是预留</strong>的。电路交换网络中，在发送方能够发送信息之前，该网络必须在发送发和接收方之间建立一条连接。这是一个名副其实的连接，因为此时沿着发送发和接收方之间的路径上的交换机都将为该连接维护连接状态。用电话的术语讲，该连接称为一条**电路(circuit)**。</p>
+<p>链路中的电路是通过频分复用(Frequency-Division Multiplexing，FDM)或时分复用(Time-Division Multiplexing，TDM)来实现的。对于FDM，链路中的频谱由跨越链路创建的所有连接共享。特别是，在连接期间链路为每条连接专用一个频段，在频段的宽度称为**带宽(band-width)**。对于一条TDM链路，时间被划分为固定期间的帧，并且每个帧又被划分为固定数量的时隙。当网络跨越一条链路创建一条连接时，网络在每个帧中为该连接指定一个时隙。这些时隙专门由该连接单独使用，一个时隙(在每个帧内)可用于传输该连接的数据。</p>
+<p><em><strong>网络结构1</strong></em>：用单一的全球传输ISP互联所有接入ISP。</p>
+<p><em><strong>网络结构2</strong></em>：由数十万接入ISP和多个全球传输ISP组成。需要注意的是，这些全球传输ISP之间必须是互联的。</p>
+<p><em><strong>网络结构3</strong></em>：不仅有多个竞争的第一层ISP，而且在一个区域可能有多个竞争的区域ISP。由多个第一层ISP，多个区域ISP以及数以亿计的底层接入ISP组成。</p>
+<p><em><strong>网络结构4</strong></em>：由接入ISP，区域ISP，第一层ISP，<strong>PoP</strong>，<strong>多宿</strong>，<strong>对等</strong>和<strong>IXP</strong>组成。</p>
+<p>1）PoP存在于等级结构的所有层次，但底层(接入ISP)等级除外。一个PoP只是提供商网络中的一台或多台路由器(在相同位置)群组，其中客户ISP能够与提供商ISP连接。</p>
+<p>2）多宿：任何ISP(除了第一层ISP)可以选择多宿(multi-home)，即可以与两个或更多提供商ISP连接。</p>
+<p>3）位于相同等级结构层次的邻近一对ISP能够对等(peer)，也就是说，能够直接将它们的网络连到一起，使它们之间的所有流量经直接连接而不是通过上游的中间ISP传输。当两个ISP对等时，通常不进行结算，即任一个ISP不向其对等收费。</p>
+<p>4）**因特网交换点(Internet Exchange Point，IXP)**，IXP是一个汇合点，多个ISP能够在这里一起对等。</p>
+<p><em><strong>网络结构5</strong></em>：通过在网络结构4顶部增加内容提供商构建而成。效果图如下所示：</p>
+<p><img src="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/one.jpg" alt="one"></p>
+<p>分组交换网中的<strong>吞吐量</strong>是指每秒能够传送的数据量，而时延又分为**节点处理时延(nodal processing delay)<strong>、</strong>排队时延(queuingdelay)<strong>、</strong>传输时延(transmission delay)<strong>和</strong>传播时延(propagation delay)<strong>，这些时延总体累加起来组成了</strong>节点总时延(total nodal delay)**。效果图如下所示：</p>
+<p><img src="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/two.jpg" alt="two"></p>
+<p>1）节点处理时延：检查分组首部和决定将该分组导向何处所需的时间是<strong>处理时延</strong>的一部分。处理时延能包括其他因素，如检查比特级别的差错。</p>
+<p>2）排队时延：在队列中，当分组在链路上等待传输时，它经受<strong>排队时延</strong>。</p>
+<p>3）传输时延：用L比特表示传输分组的长度，用 R bps(即b/s)表示路由器A到路由器B的链路传输速率。那<strong>传输时延</strong>就是L/R。</p>
+<p>4）传播时延：从该链路的起点到路由器B传播所需要的时间是<strong>传播时延</strong>。该传播时延等于两台路由器之间的距离除以传播速率。</p>
+<p>传输时延和传播时延的比较：传输时延是路由器推出分组所需的时间，它是分组长度和链路传输速率的函数，而与两台路由之间的距离无关。另一方面，传播时延是一个比特从一台路由器传播到另一台路由器所需要的时间，它是两台路由器之间距离的函数，而与分组长度或链路传输率无关。</p>
+<p>令a表示分组到达队列的平均速率(a的单位是分组/秒，即pkt/s)，R表示传输速率，即从队列中推出比特的速率(以bps即b/s为单位)，所有的分组都由L比特组成。则比特到达队列的平均速率是La bps。比率La/R被称为<em><em>流量强度(traffic inten)<strong>。如果La/R&gt;1，则表示比特的到达队列的平均速率超过从该队列的传输出去的速率，那么排队时延会非常大，甚至某种情况下趋向无穷大。因此，流量工程中有一条金科玉律是：</strong></em>设计系统时流量强大不能大于1</em>**。下图说明了这样一个事实：随着流量强大接近于1，平均排队时延迅速增加。该强度的少量增加将导致时延大比例增加。</p>
+<p><img src="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/three.jpg" alt="three"></p>
+<p>丢包：当到达的分组发现队列已经被填满了，没有地方存储这个分组了，那路由器将<strong>丢弃</strong>(drop)该分组，即该分组将会<strong>丢失</strong>(lost)。分组丢失的比例随着流量强度增加而增加。</p>
+<p>考虑从主机A到主机B跨越计算机网络传送一个大文件，在任何时间瞬间的**瞬时吞吐量(instantaneous throughput)<strong>是主机B接受到该文件的速率(以bps计)。如果该文件由F比特组成，主机B接受到所有F比特用去T秒，则文件传送的</strong>平均吞吐量(average throughput)**是F/T bps。吞吐量取决于数据流过的链路的传输速率以及是否存在干扰流量。当没有其他干扰流量时，吞吐量能够近似为沿着源和目的地之间路径的最小传输速率。</p>
+<p>网络设计者以<strong>分层(layer)<strong>的方法组织协议以及实现这些协议的网络硬件和软件，每个协议属于这些层次之一。一个协议层能够用软件、硬件或两者结合来实现。要注意的是，一个第n层协议也分布在构成该网络的端系统、分组交换机和其他组件中。这就是说，第n层协议的不同部分常常位于这些网络组件的各部分中。协议分层具有概念化和结构化的优点。各层的所有协议被称为</strong>协议栈(protocol stack)<strong>。因特网的协议栈由</strong>5</strong>个层次组成：<strong>物理层、链路层、网络层、运输层和应用层</strong>。效果图如下所示：</p>
+<p><img src="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/four.jpg" alt="four"></p>
+<p>1）应用层是网络应用程序及它们的应用层协议存留的地方。应用层协议分布在多个端系统上，而一个端系统中的应用程序使用协议与另一个端系统中的应用程序交换信息分组。通常把这种位于应用层的信息分组称为**报文(message)**。</p>
+<p>2)运输层在应用程序端点之间传送应用层报文。在因特网中，有两种运输协议，即TCP/UDP。TCP向它的应用程序提供了面向连接的服务。这种服务包括了应用层报文向目的地的确保传递和流量控制(即发送/接收方速率匹配)。TCP也将长报文划分为短报文，并提供拥塞控制机制。UDP协议向它的应用程序提供无连接服务，这是一种不提供不必要服务的服务，没有可靠性，没有流量控制，也没有拥塞控制。运输层的分组称为**报文段(segment)**。</p>
+<p>3）网络层负责将称为**数据报(datagram)**的网络层分组从一台主机移动到另一台主机。网络层包括著名的网际协议IP，该协议定义了在数据报中各个字段以及端系统和路由器如何作用于这些字段。</p>
+<p>4）网络层必须依靠<strong>链路层</strong>的服务。特别是在每个节点，网络层将数据包下传给链路层，链路层沿着路径将数据包传递给下一个节点。在该下一个节点，链路层将数据包上传给网络层。由链路层提供的服务取决于应用于该链路的特定链路层协议。链路层的分组称为**帧(frame)**。</p>
+<p>5）物理层的任务是将帧中的一个个比特从一个节点移动到下一个节点。在这层中的协议仍然是链路相关的，并且进一步与该链路的实际传输媒体相关。</p>
+<p>20世纪70年代后期，国际标准化组织(ISO)提出计算机网络围绕7层来组织，称为开放系统互连模型。OSI参考模型的7层分别是：应用层、<strong>表示层、会话层</strong>、运输层、网络层、数据链路层和物理层。效果图如下：</p>
+<p><img src="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/five.jpg" alt="five"></p>
+<p>5层的功能大致和因特网中对应层的功能相同。其中<em><strong>表示层</strong></em> 的作用是<strong>使通信的应用程序能够解释交换数据的含义</strong>。这些服务包括数据压缩和数据加密以及数据描述。<em><strong>会话层</strong></em> 提供了<strong>数据交换的定界和同步功能</strong>，包括了建立检查点和恢复方案的方法。</p>
+<p>一个<strong>应用层报文</strong>(application-layer message)被传送给运输层，在最简单的情况下，运输层收取到报文并附上附加信息(即运输层首部信息)，该首部将被接收端的运输层使用。应用层报文和运输层首部信息一道构成了<strong>运输层报文段(<strong>transport-layer segment)。附加的信息可能包括：允许接收方运输层向上向适当的应用程序交付报文的信息；差错检测位信息，让接收方能够判断报文中的比特是否在途中已被改变。报文段到达网络层后，网络层增加了如源和目的端系统地址等网络层首部信息，生成了</strong>网络层数据包</strong>(network-layer datagram)。该数据包下达到链路层后，链路层增加它的链路层首部信息并生成<strong>链路层帧</strong>(link-layer frame)。因此，在每一层，一个分组具有两种类型的字段，即首部字段和<strong>有效载荷字段</strong>(payload field)。有效载荷通常是来自上一层的分组。这整个过程蕴含了一个重要的概念，<strong>封装</strong>。</p>
+<p><strong>病毒</strong>(virus)是一种需要某种形式的用户交互来感染用户设备的恶意软件。<strong>蠕虫</strong>(worm)是一种无须任何明显用户交互就能进入设备的恶意软件。拒绝服务攻击(Denial-of-Service (DOS) attack)使得网络、主机或其他基础设施部分不能由合法用户使用。大多数因特网DoS攻击属于以下三种类型之一：</p>
+<p>1）弱点攻击：这涉及向一台目标主机上运行的易受攻击的应用程序或OS发送制作精细的报文。如果适当顺序的多个分组发送给一个易受攻击的应用程序或OS，该服务器可能停止运行或直接崩溃。</p>
+<p>2）带宽洪泛：攻击者向目标主机发送大量的分组，分组数量之多使得目标的接入链路变得拥塞，使得合法的分组无法达到服务器。</p>
+<p>3）连接洪泛：攻击者在目标主机中创建大量的半开或全开的TCP连接。该主机因为这些伪造的连接而陷如困境，并停止接受合法的连接。</p>
+<p>在无线传输设备的附近放置一台被动的接收机，该接收机就能得到传输的每个分组的副本。像这种记录每个流经的分组副本的被动接收机被称为<strong>分组嗅探器</strong>(packet sniffer)。嗅探器也能够部署在有线环境中。</p>
+<p>将具有虚假源地址的分组注入因特网的能力称为<strong>IP哄骗</strong>(IP spoofing)。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/" data-id="ckn5mhdod003df0v33wpp7ik8" data-title="计算机网络自顶向下方法——计算机网络和因特网" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          计算机网络自顶向下方法——应用层
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/12/06/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94MySQL%E7%9A%84%E4%BF%9D%E7%95%99%E5%AD%97/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MySQL必知必会——MySQL的保留字</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Java核心技术——卷I——并发" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/" class="article-date">
+  <time class="dt-published" datetime="2020-12-20T10:35:33.000Z" itemprop="datePublished">2020-12-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> 多任务是OS的一种能力，看起来可以在同一时刻运行多个程序。多线程程序在更低一层扩展了多任务的概念：单个程序看起来在同时完成多个任务。每个任务在一个线程(thread)中执行，线程是控制线程的简称。如果一个程序可以同时运行多个线程，则称这个线程是多线程的(multi threaded)。</p>
+<p>多进程与多线程的区别在于每个进程拥有自己的一整套变量，而线程则共享数据。Java中用于创建和启动的线程的几个基础方法的API如下：</p>
+<p><img src="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/one.jpg" alt="one"></p>
+<p>线程可以有6种状态：New(新建)、Runnable(可运行)、Blocked(阻塞)、Waiting(等待)、Timed waiting(计时等待)、Terminated(终止)。当确定一个线程的当前状态时，可以调用getState方法。</p>
+<p>New(新建)：用new操作符创建一个新的线程。当一个线程处于新建状态时，程序还没有开始运行线程中的代码。</p>
+<p>Runnable(可运行)：当调用start方法时，线程就处于可运行(runnable)状态。一个可运行的线程可能正在运行也可能没有运行。要由OS为线程提供具体的运行时间。因为Java规范没有将正在运行作为一个单独的状态，所以一个正在运行的线程仍然处于可运行状态。要记住，在任何给定时刻，一个可运行的线程可能正在运行也可能没有运行(正式因为这样，该状态称为“可运行”而不是“运行”)。</p>
+<p>Blocked(阻塞)：当一个线程试图获取一个内部的对象锁，而这个锁目前被其他线程占有，那么该线程就会被阻塞。当所有其他线程都释放了这个锁，并且线程调度器运行该线程持有这个锁时，它将变成非阻塞状态。</p>
+<p>Waiting(等待)：当线程等待另一个线程通知调度器出现一个条件时，这个线程会进入等待状态。实际上，阻塞状态与等待状态没有太大区别。</p>
+<p>Timed waiting(计时等待)：Java中，有几个方法有超时参数，调用这些方法会让线程进入计时等待状态。这一状态将一直保持到超时期满或者接收到适当的通知。</p>
+<p>Terminated(终止)：线程会因为两个原因而终止。第一，run方法正常退出，线程自然终止。第二，因为一个没有捕获的异常终止了run方法，使线程意外终止。如下展示了线程可能的状态以及从一个状态到另一个可能的转换。</p>
+<p><img src="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/two.jpg" alt="two"></p>
+<p>Java的早期版本中有一个stop方法可以用来终止线程，但现在该方法已被废弃了。处理stop方法外，interrupt方法也可以用来请求终止一个线程。当线程调用interrupt方法时，就会设置线程的中断状态。这是每个线程都有的boolean标志。每个线程都应该不时地检查这个标志，以判断线程是否被中断。但是，如果线程被阻塞，就无法检查中断状态。有关中断线程的方法API如下：</p>
+<p><img src="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/four.jpg" alt="four"></p>
+<p><img src="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/five.jpg" alt="five"></p>
+<p>可以通过setDaemon方法将一个线程转换为守护线程。该方法的API如下所示。守护线程的唯一用途是为其他线程提供服务。当只剩下守护线程时，虚拟机就会退出，因为如果只剩下守护线程，就没必要继续运行程序了。</p>
+<p><img src="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/six.jpg" alt="six"></p>
+<p>可以使用setName方法为线程设置任何名字。线程的run方法不能抛出任何检查型异常，但是，非检查型异常可能会导致线程终止。在这种情况下，线程会死亡。在线程死亡之前，异常会传递到一个用于处理未捕获异常的处理器。这个处理器必须属于一个实现了Thread.UncaughtExecptionHandler接口的类。可以用setUncaughtExecptionHandler方法为任何线程安装一个处理器。也可以用Thread类的静态方法setDefaultUncaughtExecptionHandler为所有线程安装一个默认的处理器。如果没有安装默认处理器，默认处理器则为null。但是，如果没有为单个线程安装处理器，那么处理器就是该线程的ThreadGroup对象。线程组是可以一起管理的线程的集合。默认情况下，创建的所有线程都属于同一个线程组，但是也可以建立其他的组。上述方法的API如下：</p>
+<p><img src="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/seven.jpg" alt="seven"></p>
+<p>Java中，每一个线程有一个优先级。默认情况下，一个线程会继承构造它的那个线程的优先级。每当线程调度器有机会选择新线程时，它首先选择具有较高优先级的线程。但是，线程的优先级高度依赖于系统。有关设置线程优先级的方法API如下：</p>
+<p><img src="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/eight.jpg" alt="eight"></p>
+<p>当两个线程存取同一个对象，并且每个线程分别调用了一个修改该对象状态的方法。这时两个线程回互相覆盖，取决于线程访问数据的次序，可能会导致对象被破坏。这种情况被称为竟态条件。Java 5引入了ReentrantLockle类用来保护代码块以防止并发地访问代码块。它的基本结构如下：</p>
+<p><img src="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/nine.jpg" alt="nine"></p>
+<p>这个结构确保任何时刻只有一个线程进入临界区。一旦一个线程锁定了锁对象，其他任何线程都无法通过lock语句。当其他线程调用lock时，它们会暂停，直到第一个线程释放这个锁对象。要把unlock操作包括在finally子句中，这一点非常重要。万一在临界区的代码抛出一个异常，锁必须释放。否则，其他线程将永远阻塞。这个锁称为重入(reentrant)锁，因为线程可以反复获得已拥有的锁。锁有一个持有计数来跟踪对lock方法的嵌套调用。线程每一次调用lock后都要调用unlock来释放锁。由于这个特性，被一个锁保护的代码可以调用另一个使用相同锁的方法。要注意确保临界区中的代码不要因为抛出异常而跳出临界区。如果在临界区代码结束之前抛出了异常，finally子句将释放锁，但是对象可能处于被破坏的状态。相关方法的API如下：</p>
+<p><img src="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/ten.jpg" alt="ten"></p>
+<p>可以使用一个条件对象(条件变量)来管理那些已经获得了一个锁却不能做有用工作的线程。一个锁可以有一个或多个相关联的条件对象。可以用newCondition方法获得一个条件对象。死锁现象是指当所有其他线程都被阻塞，最后一个活动线程调用了await方法但没有先解除另外某个线程的阻塞，因为最后一个活动线程也阻塞了，此时没有线程可以解除其他线程的阻塞状态，程序便会永远挂起。相关方法的API如下：</p>
+<p><img src="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/eleven.jpg" alt="eleven"></p>
+<p>从1.0版本开始，Java中的每个对象都有一个内部锁。如果一个方法声明时有synchronized关键字，那么对象的锁将保护整个方法。也就是说，要调用这个方法，线程必须获得内部对象锁。内部对象锁只有一个关联条件。wait方法将一个线程增加到等待集中，notifyAll/notify方法可以解除等待线程的阻塞。除此之外，还可以使用synchronized声明一个代码块使之成为同步块。进入一个同步块，一样可以获得锁。Java虚拟机对同步方法提供了内置支持。不过，同步块会编译为很长的字节码序列来管理内部锁。相关方法的API如下：</p>
+<p><img src="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/twelve.jpg" alt="twelve"></p>
+<p>出与锁和条件不是面向对象的原因的，20世纪70年代Per Brinch Hansen和Tony Hoare提出了一种面向对象的概念使其用于同步，那就是监视器。用Java术语来讲，监视器具有如下特性：</p>
+<p>1）监视器是只包含私有字段的类。</p>
+<p>2）监视器类的每个对象有一个关联的锁。</p>
+<p>3）所有方法由这个锁锁定。</p>
+<p>4）锁可以有任意多个相关联的条件。</p>
+<p>volatile关键字为实例字段的同步访问提供了一种免锁机制。如果声明一个字段为volatile，那么编译器和虚拟机就知道该字段可能被另一个线程并发更新。volatile变量不能提供原子性。</p>
+<p>可以使用ThreadLocal辅助类为各个线程提供了各自的实例。常用方法的API如下：</p>
+<p><img src="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/thirteen.jpg" alt="thirteen"></p>
+<p>阻塞队列是一个在协调多个线程之间合作时的一个工具。工作线程可以周期性地将中间结果存储在阻塞队列中。其他工作线程移除中间结果，并进一步进行修改。队列会自动平衡负载。下表显示是阻塞队列的方法：<br><img src="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/fourteen.jpg" alt="fourteen"></p>
+<p>java.util.concurrent包提供了阻塞队列的几个变体。相关的API如下：</p>
+<p><img src="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/fifteen.jpg" alt="fifteen"></p>
+<p><img src="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/sixteen.jpg" alt="sixteen"></p>
+<p>java.util.concurrent包同时也提供了映射、有序集和队列的高效实现。相关的API如下：</p>
+<p><img src="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/seventeen.jpg" alt="seventeen"></p>
+<p><img src="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/eighteen.jpg" alt="eighteen"></p>
+<p>Java API为并发散列映射提供了批操作，即使有其他线程在处理映射，这些操作也能安全地执行。有3中不同的操作：</p>
+<p>1）search(搜索)为每个键或值应用一个函数，直到函数生成一个非null的结果。然后搜索终止，返回这个函数的结果。</p>
+<p>2）reduce(归约)组合所有键或值，这里要使用所提供的一个累加函数。</p>
+<p>3）forEach为所有键或值应用一个函数。</p>
+<p>每个操作都有4个版本：operationKeys:处理键；operationValues:处理值；operation:处理键和值；operationEntries:处理Map.Entry对象。对于上述各个操作，需要指定一个参数化阈值。如果映射包含的元素多余这个阈值，就会并行完成批操作。如果希望批操作在一个线程中运行，可以使用阈值Long.MAX_VALUE。如果希望用尽可能多的线程运行批操作，可以使用阈值1。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/" data-id="ckn5mhdnb0014f0v3hr76bx7p" data-title="Java核心技术——卷I——并发" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Java核心技术——卷I——Swing用户界面组件" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/" class="article-date">
+  <time class="dt-published" datetime="2020-12-16T09:03:56.000Z" itemprop="datePublished">2020-12-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> 构成用户界面的组件有三个特征：</p>
+<p>1）内容，如，文本域中的文本。</p>
+<p>2）外观(颜色、大小等)。</p>
+<p>3）行为(对事件的反应)。</p>
+<p>模型——视图——控制器(model——view——controller)模式，要求我们提供三个不同的对象：</p>
+<p>1）模型：存储内容。</p>
+<p>2）视图：显示内容。</p>
+<p>3）控制器：处理用户输入。</p>
+<p>模型存储内容，它没有用户界面。模型必须实现改变内容和查找内容的方法，模型是完全不可见的。显示存储在模式中的数据是视图的工作。控制器负责处理用户输入事件，然后决定是否把这些事件转化成对模型或视图的更改。</p>
+<p>模型——视图——控制器模式的一个优点是：一个模型可以有多个视图，其中每个视图可以显示全部内容的不同部分或不同方面。下图显示了模型、视图和控制器之间的交互：</p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/one.jpg" alt="one"></p>
+<p>流布局管理器(flow layout manager)是面板的默认布局管理器。通常，组件放置在容器中，布局管理器决定容器中组件的位置和大小。容器本身也可以放置在另一个容器中。下图显示了Component的继承层次结构。</p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/two.jpg" alt="two"></p>
+<p>Container类中用于设置布局管理器的部分API如下所示：</p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/three.jpg" alt="three"></p>
+<p>边框布局管理器(border layoutmanager)是每个JFrame的内容窗格的默认布局管理器。它允许为每个组件选择一个位置。添加组件时可以指定BorderLayout类的CENTER，NORTH，SOUTH，EAST和WEST常量。如果没有提供值，系统默认为CENTER。边框布局会扩展所有组件的尺寸以便填满可用空间。</p>
+<p>使用面板(panel)首先需要创建一个新的JPanel对象，然后逐一将组件添加到面板中。面板的默认布局管理器是FlowLayout。边框布局管理器的部分相关API如下：</p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/four.jpg" alt="four"></p>
+<p>网格布局，按行排列所有的组件。不过所有的组件大小都是一样的。在网格布局对象的构造器中，需要指定所需的行数和列数。添加组件时，从第一行的第一项开始，然后是第一行的第二项，以此类推。网格布局的相关部分API如下：</p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/five.jpg" alt="five"></p>
+<p>可以使用文本域(JTextField)和文本区(JTextArea)组件输入文本。文本域只能接收单行文本，而文本区能接受多行文本。JPasswordField也只能接收单行文本的输入，但不会将输入的内容显示出来。这三个类都继承自JTextComponent类。由于JTextComponent是一个抽象类，所以不能够构造这个类的对象。相关API如下：</p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/six.jpg" alt="six"></p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/seven.jpg" alt="seven"></p>
+<p>标签是容纳文本的组件，它们没有任何的修饰，也不能响应用户输入。可以利用标签标识组件。与其他组件一样，标签也可以放在容器中。相关的API如下：</p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/eight.jpg" alt="eight"></p>
+<p>密码域是一种特殊类型的文本域，用户输入的字符不真正显示出来。每个输入的字符都是回显字符(echo character)表示，典型的回显字符是星号(*)。Swing提供了JPasswordField类来实现这样的文本域。相关的API如下：</p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/nine.jpg" alt="nine"></p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/ten.jpg" alt="ten"></p>
+<p>当程序中放置一个文本区(JTextAera)组件时，用户就可以输入多行文本，并用回车键换行。每行都以一个“\n”结尾。在Swing中文本区没有滚动条。如果需要滚动条，可以将文本区放在滚动窗格中。同时，这是一种适用于所有组件的通用机制，而不是文本区特有的。也就是说，要想为组件添加滚动条，只需将它们放入一个滚动窗格中即可。相关的API如下：</p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/eleven.jpg" alt="eleven"></p>
+<p>与组件复选框相关的API如下：</p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/twelve.jpg" alt="twelve"></p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/thirteen.jpg" alt="thirteen"></p>
+<p>与组件单选按钮相关的API如下：</p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/fourteen.jpg" alt="fourteen"></p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/fifteen.jpg" alt="fifteen"></p>
+<p>下图显示了与组件边框相关的API，同时在调用BorderFactory的静态方法创建方框时，有这几种可选的风格：凹斜面，凸斜面，蚀刻，直线，蒙版，空(只是在组件外围创建一些空白空间)。</p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/sixteen.jpg" alt="sixteen"></p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/seventeen.jpg" alt="seventeen"></p>
+<p>组合框。当用户点击这个组件时，会下拉一个选择列表，用户可以从中选择一项。如果下拉列表被设置成可编辑，就可以像这是一个文本域一样编辑当前的选项内容，它将文本域的灵活性与一组预定义的选项组合起来。JComboBox类提供了组合框组件。注意，编辑只会影响选择的项，而不会改变选择列表的内容。相关的API如下：</p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/eighteen.jpg" alt="eighteen"></p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/nineteen.jpg" alt="nineteen"></p>
+<p>混动条允许从连续值中选择，在构造滑动条时，如果省略最小值、最大值和初始值，其默认值分别为0，100和50。可以通过显示刻度对滑动条进行修饰。相关的API如下：</p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/twentyOne.jpg" alt="twentyOne"></p>
+<p><img src="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/twenty.jpg" alt="twenty"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/" data-id="ckn5mhdna0012f0v3gylz4pcs" data-title="Java核心技术——卷I——Swing用户界面组件" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Java核心技术——卷I-图形用户界面程序设计" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" class="article-date">
+  <time class="dt-published" datetime="2020-12-14T04:41:47.000Z" itemprop="datePublished">2020-12-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> 在Java1.0刚刚出现的时候，它包含了一个用于基本GUI程序设计的类库，名为<strong>抽象窗口工具包(Abstract Window Toolkit，AWT)<strong>。基本AWT库将处理用户界面元素的任务委托给各个目标平台(如Windows，Solaris等)上的原生GUI工具包，由原生GUI工具包负责用户界面元素的创建和行为。1996年，Netscape创建了一种称为</strong>IFC(Internet Foundation Class)<strong>的GUI库，它将按钮、菜单等用户界面元素绘制在窗口上。底层系统所需的唯一功能就是能够显示一个窗口，并在这个窗口中绘制。Sun公司与Netscape合作完善了这种方法，创建了一个名为</strong>Swing</strong>的用户界面库。Swing作为Java 1.1的一个扩展，现已成为Java 1.2标准库的一部分。Swing现在是不基于对等元素的GUI工具包的官方名字。Swing不是完全替代AWT，而是构建在AWT架构之上。Swing只是提供了更加强大的用户界面组件。编写Swing程序时，还是在使用AWT的基本机制，特别是事件处理。Swing必须努力绘制用户界面的每一个像素。</p>
+<p>在Java中，**顶层窗口(就是没有包含在其他窗口中的窗口)称为窗体(frame)**。AWT库中有一个称为Frame的类，用于描述这个顶层窗口。这个类的Swing版本名为JFrame，它扩展了Frame类(Java中组件类中，绝大多数Swing组件类都以“J”开头，没有J开头的类是属于AWT组件的，不属于Swing)。JFrame是极少数几个不绘制在画布上的Swing组件之一，它的修饰部件(如按钮、标题栏等)由用户的窗口系统绘制，而不是由Swing。</p>
+<p>所有的Swing组件必须由**事件分派线程(event dispatch thread)**配置，这是控制线程，它将鼠标点击和按键等事件传递给用户接口组件。代码形式如下：</p>
+<p><strong>EventQueue.invokeLater(()-&gt;</strong></p>
+<p><strong>{</strong></p>
+<p><strong>statements;</strong></p>
+<p><strong>});</strong></p>
+<p>窗体<strong>起初是不可见的</strong>，为了显示窗体，main方法中需要调用窗体的<strong>setVisible</strong>方法。当使用事件分派线程时需要注意，退出main并没有终止程序，终止的只是主线程。事件分派线程会保持程序处于激活状态，直到关闭窗体或调用System.exit方法终止程序。</p>
+<p>JFrame类本身只包含若干改变窗体外观的方法，大多数处理窗体大小和位置的方法都来自JFrame的各个超类。其中最重要的有以下方法：</p>
+<p>1）setLocation方法和setBounds方法用于设置窗体的位置。</p>
+<p>2）setIconImage方法用于告诉窗口系统在标题栏、任务切换窗口等位置显示那个图标。</p>
+<p>3）setTitle方法用于改变标题栏的文字。</p>
+<p>4）setResizable利用一个boolean值确定是否允许用户改变窗体的大小。</p>
+<p>JFrame类的继承层次如下图所示：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/one.jpg" alt="one"></p>
+<p>组件类的很多方法是以获取/设置(get/set)方法对形式出现的，这样的一对获取/设置方法被称为<strong>属性</strong>(property)。属性有一个名和一个类型。将get或set之后的第一个字母改为小写字母就可以得到相应的属性名。关于get/set约定，有一个例外：对于类型为boolean的属性，获取方法以is开头。JFrame类中重要方法的相关API如下所示：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/two.jpg" alt="two"></p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/three.jpg" alt="three"></p>
+<p>JFrame的结构相当复杂，下图给出了JFrame的组成。可以看到，在JFrame中有四层窗格，其中Swing程序员最关心的是<strong>内容窗格</strong>。添加到窗体的所有组件都会自动添加到内容窗格中。</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/four.jpg" alt="four"></p>
+<p>要在一个组件上绘制，需要定义一个扩展JComponent的类，并覆盖其中的paintComponent方法。paintComponent方法有一个Graphics类型的参数，Graphics对象保存着用于绘制图像和文本的一组设置。在Java中，所有的绘制都必须通过Graphics对象完成，其中包括了绘制图案、图像和文本的方法。对于屏幕来说，Graphics对象的度量单位是像素。坐标(0,0)指示绘制组件的左上角。相关的API如下所示：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/five.jpg" alt="five"></p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/six.jpg" alt="six"></p>
+<p>在遇到需要绘制图像的操作时，可以使用Java 2D库的图形类。要想使用Java 2D库绘制图形，需要获得Graphics2D类的一个对象。这个类是Graphics类的子类。自从Java 1.2 版本以来，paintComponent等方法会自动地接收一个Graphics2D对象，只需要使用一个类型强制转换。Java 2D库采用面向对象的方法组织几何图形。具体来说，它提供了表示<strong>直线、矩形</strong>和<strong>椭圆</strong>的类：<strong>Line2D,Rectangle2D,Ellipse2D</strong>。这些类都实现了Shape接口。Java 2D库还支持更加复杂的图形，如圆弧，二次曲线和通用路径。Java 2D库针对像素采用的是浮点坐标，而不是整数坐标。内部计算都采用单精度float，但由于在Java语言中将double值转换为float值时必须进行强制类型转换的原因，2D库的设计者为每个图形类提供了两个版本：一个是float类型的；另一个是double类型的。下图显示了图形类之间的关系，其中灰色填充的部分是从Java 1.0遗留下来的两个类。</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/seven.jpg" alt="seven"></p>
+<p>相关的API如下：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/eight.jpg" alt="eight"></p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/nine.jpg" alt="nine"></p>
+<p>使用Graphics2D类的setPaint方法可以为图形上下文上的所有后续的绘制操作选择颜色。Color类用于定义颜色，在java.awt.Color类中提供了13个预定的常量，它们分别表示13种标准颜色。BLACK,BLUE,CYAN,DARK_GRAY,GRAY,GREEN,LIGHT_GRAY,MAGENTA,ORANGE,PINK,RED,WHITE,YELLOW。可以提供三色分量来创建Color对象，从而指定一个定制颜色。红，绿和蓝三种颜色取值为0~255之间的整数。相关API如下：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/ten.jpg" alt="ten"></p>
+<p>可以通过字体名(font face name)指定一种字体。字体名由字体族名和一个可选的后缀组成。AWT定义了5个逻辑字体名：SansSerif，Serif，Monospaced，Dialog，DialogInput。另外Oracle JDK总是包含3个字体族，名为“Lucida Sans”，“Lucida  Bright”和“Lucida Sans Typewriter”。要想使用某种字体绘制字符，必须首先创建一个Font类的对象。需要指定字体名、字体风格和字体大小。在Font构造器中，提供字体名的位置也可以给出逻辑字体名。可以把Font构造器的第二个参数设置为以下值来指定字体的风格(常规，加粗，斜体和加粗斜体):</p>
+<p>Font.PLAIN；Font.BOLD；Font.ITALIC；Font.BOLD+Font.ITALIC。常规字体的字体大小为1点。</p>
+<p>下图解释了几个基本的排版术语：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/eleven.jpg" alt="eleven"></p>
+<p>基线(baseline)是一条虚构的线(如字母e的底线)，上坡度(ascent)是从基线到坡顶的距离，下坡度是从基线到坡低的距离。行间距是某一行的坡底与其下一行的坡顶之间的空隙，字体的高度是连续两个基线之间的距离，它等于下坡度+行间距+上坡度。相关API如下：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twelve.jpg" alt="twelve"></p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/thirteen.jpg" alt="thirteen"></p>
+<p>可以使用ImageIcon类从文件读取图像，相关API如下：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/fourteen.jpg" alt="fourteen"></p>
+<p>在Java AWT中，事件源(如按钮或滚动条)有一些方法，允许注册事件监听器，这些对象会对事件做出所需的响应。通知一个事件监听器发生了某个事件时，这个事件的相关信息会封装在一个事件对象(event object)中。在Java中，所有的事件对象最终都派生于java.util.EventObject类。不同的事件源可以产生不同类型的事件。综上所述，关于AWT事件处理机制的概要说明如下：</p>
+<p>1）事件监听器是一个实现了监听器接口的类实例。</p>
+<p>2）事件源对象能够注册监听器对象并向其发送事件对象。</p>
+<p>3）当事件发生时，事件源将事件对象发送给所有注册的监听器。</p>
+<p>4）监听器对象再使用事件对象中的信息决定如何对事件做出响应。</p>
+<p>下图显示了事件处理类和接口之间的关系：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/fifteen.jpg" alt="fifteen"></p>
+<p>一个事件源(如按钮)可以有多个监听器。下图显示了事件源、事件监听器和事件对象之间的交互。</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/sixteen.jpg" alt="sixteen"></p>
+<p>与部分按钮组件相关的API如下：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/seventeen.jpg" alt="seventeen"></p>
+<p>当程序用户试图关闭一个窗口时，JFrame对象就是WindowEvent的事件源。指定一个合适的监听器对象，并将它添加到窗体的窗口监听器列表中。窗口监听器必须是实现WindowListener接口的类的一个对象。WindowListener接口中实际上包含7个方法，窗体将调用这些方法响应7个不同的窗口事件。下图显示了完整的WindowListener接口。</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/eighteen.jpg" alt="eighteen"></p>
+<p>为了简化编程任务，每个含有多个方法的AWT监听器接口都配有一个<strong>适配器</strong>(adapter)类，这个类实现了接口中的所有方法，但每个方法并不做任何事情。可以扩展适配器类来指定对某些事件的响应动作，而不必实现接口中的每一个方法。WindowListener相关的API如下：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/nineteen.jpg" alt="nineteen"></p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twenty.jpg" alt="twenty"></p>
+<p>Swing提供了Action接口，<strong>动作</strong>是封装以下内容的<strong>一个对象</strong>：</p>
+<p>1）命令的说明(一个文本字符串和一个可选的图标)。</p>
+<p>2）执行命令所需要的参数。</p>
+<p>Action接口包含以下方法：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyOne.jpg" alt="twentyOne"></p>
+<p>实际上Action扩展了ActionListener接口，因此在任何需要ActionListener对象的地方可以使用Action对象。第二和第三两个方法允许启用或禁用这个动作，并检查这个动作当前是否启用。后面的两个方法允许存储和获取动作对象中的任意名/值对。有两个重要的预定义字符串：Action.NAME和Action.SMALL_ICON，用于将动作的名字和图标存储到一个动作对象中。下图显示了所有预定义的动作表名：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyTwo.jpg" alt="twentyTwo"></p>
+<p>Action接口的最后两个方法能够让其对象(尤其是触发动作的菜单或工具栏)在动作对象的属性发生变化时得到通知。需要注意，Action是一个接口，而不是一个类。实现这个接口的所有类都必须实现上述的7个方法。幸运的是，有一个AbstractAction类，这个类实现了除actionPerformed方法之外的所有其他方法。这个类负责存储所有名/值对，并管理属性变更监听器。可以直接扩展它，并提供一个actionPerformed方法。</p>
+<p>为了将动作与按键关联，需要生成KeyStroke类对象，这个类封装了对按键的描述。要想生成一个KeyStroke对象，不要调用构造器，而应当调用KeyStroke类中的静态getKeyStroke方法。相关的API如下：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyThree.jpg" alt="twentyThree"></p>
+<p>下图显示了与鼠标事件相关的部分API，同时列出了在Windows环境下使用Cursor类的getPredefinedCursor方法时能够使用的常量以及相对应的光标形状。</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyFour.jpg" alt="twentyFour"></p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyFive.jpg" alt="twentyFive"></p>
+<p>EventObject类有一个子类AWTEvent，它是所有AWT事件类的父类。下图显示了AWT事件的继承关系图。</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentySix.jpg" alt="twentySix"></p>
+<p>事件对象封装了事件源与监听器通信的有关信息。AWT将事件分为<strong>底层(low-level)事件</strong>和<strong>语义(semantic)事件</strong>。语义事件是表示用户动作的事件。底层事件是使语义事件得以发生的事件。下图显示了java.awt.event包中最常用的语义事件类和5个常用的底层事件类：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentySeven.jpg" alt="twentySeven"></p>
+<p>下表显示了最重要的AWT监听器接口、事件和事件源：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyEight.jpg" alt="twentyEight"></p>
+<p>下图是java.util.preferences API：</p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/twentyNine.jpg" alt="twentyNine"></p>
+<p><img src="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/thirty.jpg" alt="thirty"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" data-id="ckn5mhdn8000vf0v31uu03e12" data-title="Java核心技术——卷I-图形用户界面程序设计" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-计算机网络自顶向下方法——应用层" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/" class="article-date">
+  <time class="dt-published" datetime="2020-12-10T01:22:02.000Z" itemprop="datePublished">2020-12-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> <strong>应用程序体系结构(application architecture)<strong>有应用程序研发者设计，规定了如果在各种端系统上组织该应用程序。现代网络应用程序中所使用的两种主流体系结构：</strong>客户-服务器体系结构</strong>和**对等(P2P)**体系结构。注意，应用程序的体系结构是明显不同于网络的体系结构。</p>
+<p>在<strong>客户-服务器体系结构(client-server architecture)<strong>中，有一个总是打开的主机称为</strong>服务器</strong>，它服务于来自许多其他称为<strong>客户</strong>的主机的请求。值得注意的是利用客户-服务器体系结构，客户相互之间不直接通信。该体系结构的另一个特征是该服务器具有固定的、周知的地址，该地址称为IP地址。示意图如下：</p>
+<p><img src="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/one.jpg" alt="one"></p>
+<p>在**P2P体系结构(P2P architecture)<strong>中，对位于数据中心的专用服务器有最小的(或者没有)依赖。相反，应用程序在间断连接的主机对之间使用直接通信，这些主机称为对等方。该体系结构的最引人入胜的特性之一是它们的</strong>自扩展性(self-scalability)**。示意图如下：</p>
+<p><img src="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/two.jpg" alt="two"></p>
+<p>用操作系统的术语来说，运行在多个端系统上的程序它们之间进行通信的实际上是**进程(process)**而不是程序。一个进程可以被认为是运行在端系统中的一个程序。当多个进程运行在相同的端系统上时，它们使用进程间通信机制相互通信。进程间通信的规则由端系统上的操作系统确定。</p>
+<p>在两个不同端系统上的进程，通过跨越计算机网络交换**报文(message)<strong>而相互通信。对每对通信进程，通常将这两个进程之一标识为</strong>客户(client)<strong>，而另一个进行标识为</strong>服务器(server)**。对于客户和服务器进程的定义如下：在一对进程之间的通信会话场景中，发起通信(即在该会话开始时发起与其他进程的联系)的进程被标识为客户，在会话开始时等待联系的进程是服务器。</p>
+<p>进程通过一个称为套接字(socket)的软件接口向网络发送报文和从网络接受报文。套接字是同一台主机内应用层与运输层之间的接口。由于该套接字是建立网络应用程序的可编程接口，因此套接字也称为应用程序和网络之间的**应用程序编程接口(Application Programming Interface，API)<strong>。在一台主机上运行的进程为了向在另一条主机上运行的进程发送分组，接受进程需要有一个地址。该地址包含两种信息：</strong>主机地址(IP地址)<strong>和在</strong>目的主机中指定接收进程的标识符(端口号)**。</p>
+<p>一个运输层协议能够为调用它的应用程序提供的服务大体可分为<strong>四</strong>个方面：<strong>可靠数据传输、吞吐量、定时和安全性</strong>。</p>
+<p>1）可靠数据传输是指应用程序的一端发送的数据正确、完全地交付给该应用程序的另一端。</p>
+<p>2）可用吞吐量就是发送进程能够向接收进程交付比特的速率。具有吞吐量要求的应用程序被称为<strong>带宽敏感的应用(bandwidth-sensitive application)<strong>，与之对应的</strong>弹性引用</strong>能够根据当时可用的带宽或多或少地利用可供使用的吞吐量。当然，吞吐量越多越好。</p>
+<p>3）运输层也能提供定时保证，同时能够以多种形式实现。</p>
+<p>4）运输协议能够为应用程序提供一种或多种安全性服务。</p>
+<p>因特网(更一般的是TCP/IP网络)为应用程序提供两个运输层协议，即UDP和TCP。<strong>TCP</strong>服务模型包括面向连接服务和可靠数据传输服务。</p>
+<p>1）<strong>面向连接的服务</strong>：在应用层数据报文开始流动之前，TCP让客户机和服务器互相交换运输层控制信息。这个所谓的握手过程提醒客户和服务器，让它们为大量分组的到来做好准备。在握手阶段，一个TCP连接就在两个进程的套接字之间建立了。这条连接是全双工的，即连接双方的进程可以在此连接上同时进行报文收发。当应用程序结束报文发送时，必须拆除该连接。</p>
+<p>2）<strong>可靠的数据传输服务</strong>：通信进程能依靠TCP，无差错、按适当顺序交付所有发送的数据。当应用程序的一端将字节流传进套接字时，它能够依靠TCP将相同的字节流交付给接收方的套接字，而没有字节的丢失和冗余。</p>
+<p>TCP协议还具有<strong>拥塞控制机制</strong>，当发送方和接收方之间的网络出现拥塞时，TCP的拥塞控制会抑制发送进程。因为完全性的问题，因特网界研发了TCP的加强版本，称为**安全套接字层(Secure Sockets Layer，SSL)**。用SSL加强后的TCP不仅能够做传统的TCP所能做的一切，而且提供了关键的进程到进程的安全性服务，包括加密、数据完整性和端点鉴别。</p>
+<p><strong>UDP</strong>是一种不提供不必要服务的轻量级运输协议，它仅提供最小服务。UDP是无连接的，没有拥塞控制机制，提供了一种不可靠数据传输服务。</p>
+<p>**应用层协议(application-layer protocol)**定义了运行在不同端系统上的应用程序进程如何相互传递报文，特别是应用层协议定义了：</p>
+<p>1）交换的报文类型。例如请求报文和响应报文。</p>
+<p>2）各种报文类型的语法。如报文中的各个字段以及这些字段如何描述。</p>
+<p>3）字段的语义，即这些字段中的信息的含义。</p>
+<p>4）确定一个进程何时以及如何发送报文，对报文进行响应的规则。</p>
+<p>Web的应用层协议是**超文本传输协议(HyperText Transfer Protocol，HTTP)**，它是Web的核心。HTTP由两个程序实现：一个客户程序和一个服务器程序。这两个程序都运行在不同的端系统中，通过交换HTTP报文进行会话。HTTP定义了这些报文的结构以及客户和服务器进行报文交换的格式。</p>
+<p><strong>Web页面(Web page)</strong>(也叫文档)是由<strong>对象</strong>组成的。一个对象(object)只是一个文件，诸如一个HTML文件、一个JPE图形这样的文件，且它们可通过一个URL地址寻址。多数Web页面含有一个<strong>HTML基本文件(base HTML file)<strong>以及几个引用对象。HTML基本文件通过对象的URL地址引用页面中的其他对象。URL地址分为两部分组成：</strong>存放对象的服务器主机名和对象的路径名</strong>。Web浏览器(Web browser)(例如Firefox)实现了HTTP的客户端，Web服务器(Web server)实现了HTTP的服务器端，它用于存储Web对象，每个对象由URL寻址。<strong>HTTP使用TCP作为它的支撑运输协议</strong>(而不是在UDP上运行)。因为HTTP服务器并不保存关于客户的任何信息，所以说HTTP是一个**无状态协议(stateless protocol)**。</p>
+<p>当客户发出一系列请求时，每个请求响应如果是经一个<strong>单独</strong>的TCP连接发送，这样的应用程序称为<strong>非持续连接</strong>(non-persistent connection)；如果所有的请求及其响应经过<strong>相同</strong>的TCP连接发送，这样的应用程序称为<strong>持续链接</strong>(persistent connection)。</p>
+<p><strong>非持续连接</strong>的使用，其中每个TCP连接在服务器发送一个对象后关闭，即该连接不为其他的对象而持续下来。值得注意的是每个TCP连接只传输一个请求报文和一个响应报文。**往返时间(Round-Trip Time，RTT)**是指一个短分组从客户到服务器然后再返回客户所花费的时间。RTT包括分组传播时延、分组在中间路由器和交换机上的排队时延以及分组处理时延。</p>
+<p>“<strong>三次握手</strong>”过程：客户向服务器发送一个小TCP报文段，服务器用一个小TCP报文段做出确认和响应，最后，客户向服务器返回确认(其中包含请求报文)。</p>
+<p>非持续连接的缺点：第一，必须为每一个请求的对象建立和维护一个全新的连接。对于每个这样的连接，在客户和服务器中都要分配TCP的缓冲区和保存TCP变量，这给Web服务器带来了严重的负担。第二，每个对象经受两倍RTT的交付时延，即一个RTT用于创建TCP，另一个RTT用于请求和接收一个对象。</p>
+<p><strong>持续链接</strong>的HTTP，服务器在发送响应后保持该TCP连接打开。在相同的客户和服务器之间，后续的请求和响应报文能够通过相同的连接进行传送。</p>
+<p>HTTP报文有两种：请求报文和响应报文。HTTP请求报文的第一行叫作<strong>请求行</strong>(request line)，其后继的行叫作<strong>首部行</strong>(header line)。请求行有<strong>3</strong>个字段：<strong>方法字段</strong>、<strong>URL字段</strong>和<strong>HTTP版本字段</strong>。方法字段可以取不同的值，包括<strong>GET,POST,HEAD,PUT</strong>和<strong>DELETE</strong>。示例如下：</p>
+<p><img src="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/three.jpg" alt="three"></p>
+<p>其中首部行Host的内容指明了对象所在的主机，该首部行提供的信息是Web代理高速缓存所要求的。后面的Connection首部行告诉服务器是否使用持续连接(close即不要使用持续连接)。User-agent首部行用来指明用户代理，即向服务发送请求的浏览器类型。最后的Accept-language首部行表示用户想得到对象的法语版本(如果服务器中有这样的对象的化)；否则，服务器应当发送它的默认版本。Accept-language首部行仅是HTTP中可用的众多内容协商首部之一。</p>
+<p>一个请求报文的通用格式如下：</p>
+<p><img src="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/four.jpg" alt="four"></p>
+<p>注意到在首部行后有一个“实体体”(entity body)，使用GET方法时实体体为空，而使用POST方式时才使用该实体体。当服务器收到一个使用HEAD方法的请求时，将会用一个HTTP报文进行响应，但是并不返回请求对象。PUT方法常与Web发行工具联合使用，它允许用户上传对象到指定的Web服务器上指定的路径(目录)。DELETE方法允许用户或者应用程序删除Web服务器上的对象。</p>
+<p>如下是上述HTTP请求报文示例的对应的HTTP响应报文：</p>
+<p><img src="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/five.jpg" alt="five"></p>
+<p>该响应报文分为<strong>三</strong>个部分：一个初始化<strong>状态行</strong>(status line)，6个<strong>首部行</strong>(header line)，然后是<strong>实体体</strong>(entity body)。实体体部分是报文的主要部分，它包含了所请求的对象本身。状态行有<strong>3个</strong>字段：<strong>协议版本字段，状态码和响应状态信息</strong>。Connection首部行具有与请求报文中相同的含义，表示是否使用持续连接(该例中不使用，服务器将告诉客户发送报文后将关闭该TCP连接)。Date首部行指示服务器产生并发送该响应报文的日期和时间，这个时间不是指对象创建或者最后修改的时间，而是服务器从它的文件系统中检索到该对象，将该对象插入响应报文，并发送响应报文的时间。Server首部行指示该报文由那一台服务器产生的。Last-Modified首部行指示了对象创建或者最后修改的日期和时间。Content-Length首部行指示了被发送对象中的字节数。Content-Type首部行指示了实体体中对象的类型(在该例中是HTML文本)。</p>
+<p>一个HTTP响应报文的通用格式如下：</p>
+<p><img src="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/six.jpg" alt="six"></p>
+<p>一些常见的状态码和相关的短语如下：</p>
+<p>1）200 OK：请求成功，信息在返回的响应报文中。</p>
+<p>2）301 Moved Permanently：请求的对象已经被永久转移了，新的URL定义在响应报文的Location首部行中。客户软件将自动获取新的URL。</p>
+<p>3）400 Bad Request：一个通用差错代码，指示该请求不能被服务器理解。</p>
+<p>4）404 Not Found：被请求的文档不在服务器上。</p>
+<p>5）505 HTTP Version Not Supported：服务器不支持请求报文使用的HTTP协议版本。</p>
+<p>HTTP使用了cookie，它允许站点对用户进行跟踪。如下所示，cookie技术有4个组件：</p>
+<p>1）在HTTP响应报文中的一个cookie首部行。</p>
+<p>2）在HTTP请求报文中的一个cookie首部行。</p>
+<p>3）在用户端系统中保留一个cookie文件，并由用户的浏览器进行管理。</p>
+<p>4）位于Web站点的一个后端数据库。</p>
+<p><img src="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/seven.jpg" alt="seven"></p>
+<p><strong>Web缓存器</strong>(Web cache)也叫<strong>代理服务器(<strong>proxy server)，它是能够代表初始Web服务器来满足HTTP请求的网络实体。Web缓存器有自己的磁盘存储空间，并在存储空间中保存最近请求过的对象的副本。需要注意的是，当Web缓存器接收浏览器的请求并发回响应时，它是一个服务器。当它向初始服务器发送请求并接收响应时，它是一个客户。因此Web缓存器既是服务器又是客户。Web缓存器通常由ISP购买并安装。通过使用</strong>内容分发网络</strong>(Content Distribution Network，CDN)，Web缓存器正在因特网中发挥着越来越重要的作用。</p>
+<p>HTTP协议有一种机制，允许缓存器证实它的对象是最新的。它就是**条件GET(**conditional GET)方法。如果请求报文中使用GET方法，并且请求报文中包含一个“If-Modified-Since:”首部行。那么，这个HTTP请求报文就是一个条件GET请求报文。</p>
+<p><strong>内容分发网络</strong>(Content Distribution Network，CDN)基本思路是尽可能避开互联网上有可能影响传输速度和稳定性的瓶颈和环境，使内容传输得更快更稳定。通过在网络各处放置节点服务器所构成的在现有的互联网基础之上的一层智能虚拟网络，CDN系统能够实时地根据网络流量和各节点的连接，负载状况以及到用户的距离和响应时间等综合信息将用户的请求重新导向最新的服务节点上。使用户就近取得所需内容，解决网络拥挤情况，提供用户访问网站的响应速度。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/" data-id="ckn5mhdod003bf0v3coyc6or0" data-title="计算机网络自顶向下方法——应用层" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-计算机网络自顶向下方法——计算机网络和因特网" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/" class="article-date">
+  <time class="dt-published" datetime="2020-12-07T01:15:25.000Z" itemprop="datePublished">2020-12-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> 因特网是一个世界范围内的计算机网络，即它是一个互联了遍及全世界数十亿计算机设备的网络。用因特网术语来说，这些设备都被称为**主机(host)<strong>或</strong>端系统(end system)**。</p>
+<p>端系统通过<strong>通信链路(communication link)<strong>和</strong>分组交换机(packet switch)<strong>连接到一起。链路的</strong>传输速率</strong>(transmission rate)以<strong>比特/秒</strong>(bit/s，或bps)度量。当一台端系统要向另一条端系统发送数据时，发送端系统将数据分段，并为每段加上首部字节。由此形成的信息包用计网术语来说称为<strong>分组(packet)<strong>。从发送端系统到接收端系统，一个分组所经历的一系列通信链路和分组交换机被称为通过该网络的</strong>路径</strong>(path或route)。在当今的因特网种，两种最著名的交换机类型是路由器(router)和链路层交换机(link-layer switch)。链路层交换机通常用于接入网中，而路由器通常用于网络核心中。</p>
+<p>端系统通过<strong>因特网服务提供商(Internet Service Provider，ISP)<strong>接入因特网。每个ISP自身就是一个由多台分组交换机和多段通信链路组成的网络。ISP网络都是独立管理的，运行着IP协议，遵从一定的命名和地址规则。</strong>TCP(Transmission Control Protocol，传输控制协议)<strong>和</strong>IP(Internet Protocol，网际协议)<strong>是因特网中两个最为重要的协议。IP协议定义了在路由器和端系统之间发送和接收的分组格式。因特网的主要协议统称为</strong>TCP/IP</strong>。</p>
+<p>因特网标准(Internet standard)由因特网工程任务组(Internet Engineering Task Force，IETF)研发。IETF的标准文档被称为请求评论(Request For Comment，RFC)。当一些应用程序涉及到多个相互交换数据的端系统时，这些应用程序通常称为<strong>分布式应用程序</strong>(distributed application)。</p>
+<p>与因特网相连的端系统提供了一个**套接字接口(socket interface)**，该接口规定了运行在一个端系统上的程序请求因特网基础设施向运行在另一个端系统上的特定目的地程序交付数据的方式。</p>
+<p>**协议(protocol)**定义了在两个或多个通信实体之间交换的报文的格式和顺序，以及报文发送和/或接收一条报文或其他事件所采取的动作。</p>
+<p>主机=端系统。主机有时又被进一步划分为两类：客户机(client)和服务器(server)。</p>
+<p><strong>接入网</strong>，这是指将端系统物理连接到其边**缘路由器(edge router)**的网络。边缘路由器是端系统到任何其他远程端系统的路径上的第一台路由器。</p>
+<p>物理媒体分成两种类型：**导引型媒体(guided media)<strong>和</strong>非导引型媒体(unguided media)**。对于导引型媒体，电波沿着固体媒体前行，如光缆。对于非导引型媒体，电波在空气或外层空间中传播。</p>
+<p>在各种网络应用中，端系统彼此交换<strong>报文(message)<strong>。为了从源端系统向目的端系统发送一个报文，源将长报文划分为较小的数据块，称之为</strong>分组</strong>。在源和目的地之间，每个分组都通过通信链路和<strong>分组交换机</strong>(packet switch)(主要有两类：<strong>路由器</strong>和<strong>链路层交换机</strong>)传送。分组以等于该链路<strong>最大</strong>传输速率的速度传输通过通信链路。</p>
+<p>多数分组交换在链路的输入端使用<strong>存储转发传输</strong>(store-and-forward transmission)机制。存储转发传输是指在交换机能够开始向输出链路传输该分组的第一个比特之前，必须接收到整个分组。</p>
+<p>每台分组交换机有多条链路与之相连。对于每条相连的链路，该分组交换机具有一个**输出缓存(output buffer，也称为输出队列)<strong>，它用于存储路由器准备发往那条链路的分组。当某个到达的分组需要传输到某条链路，但发现该链路正忙于传输其他分组，则该分组必须在输出缓存中等待。因此，除了存储转发时延以外，分组还要承受输出缓存的</strong>排队时延(queuing delay)<strong>。因为缓存空间的大小是有限的，当一个到达分组可能发现该缓存已被其他等待的传输的分组完全充满了，在此情况下，会出现</strong>分组丢失(丢包)(packet loss)**，到达的分组或已经排队的分组之一将被丢弃。</p>
+<p>每台路由器具有一个**转发表(forwarding table)**，用于将目的地址(或目的地址的一部分)(也就是IP地址)映射称为输出俩路。</p>
+<p>通过网络链路和交换机移动数据有两种基本方法：<strong>电路交换(circuit switching)<strong>和</strong>分组交换(packet switching)<strong>。在电路交换网络中，在端系统间通信会话期间，</strong>预留</strong>了端系统间沿路径通信所需要的资源(缓存，链路传输速率)。而在分组交换网络中，这些资源则<strong>不是预留</strong>的。电路交换网络中，在发送方能够发送信息之前，该网络必须在发送发和接收方之间建立一条连接。这是一个名副其实的连接，因为此时沿着发送发和接收方之间的路径上的交换机都将为该连接维护连接状态。用电话的术语讲，该连接称为一条**电路(circuit)**。</p>
+<p>链路中的电路是通过频分复用(Frequency-Division Multiplexing，FDM)或时分复用(Time-Division Multiplexing，TDM)来实现的。对于FDM，链路中的频谱由跨越链路创建的所有连接共享。特别是，在连接期间链路为每条连接专用一个频段，在频段的宽度称为**带宽(band-width)**。对于一条TDM链路，时间被划分为固定期间的帧，并且每个帧又被划分为固定数量的时隙。当网络跨越一条链路创建一条连接时，网络在每个帧中为该连接指定一个时隙。这些时隙专门由该连接单独使用，一个时隙(在每个帧内)可用于传输该连接的数据。</p>
+<p><em><strong>网络结构1</strong></em>：用单一的全球传输ISP互联所有接入ISP。</p>
+<p><em><strong>网络结构2</strong></em>：由数十万接入ISP和多个全球传输ISP组成。需要注意的是，这些全球传输ISP之间必须是互联的。</p>
+<p><em><strong>网络结构3</strong></em>：不仅有多个竞争的第一层ISP，而且在一个区域可能有多个竞争的区域ISP。由多个第一层ISP，多个区域ISP以及数以亿计的底层接入ISP组成。</p>
+<p><em><strong>网络结构4</strong></em>：由接入ISP，区域ISP，第一层ISP，<strong>PoP</strong>，<strong>多宿</strong>，<strong>对等</strong>和<strong>IXP</strong>组成。</p>
+<p>1）PoP存在于等级结构的所有层次，但底层(接入ISP)等级除外。一个PoP只是提供商网络中的一台或多台路由器(在相同位置)群组，其中客户ISP能够与提供商ISP连接。</p>
+<p>2）多宿：任何ISP(除了第一层ISP)可以选择多宿(multi-home)，即可以与两个或更多提供商ISP连接。</p>
+<p>3）位于相同等级结构层次的邻近一对ISP能够对等(peer)，也就是说，能够直接将它们的网络连到一起，使它们之间的所有流量经直接连接而不是通过上游的中间ISP传输。当两个ISP对等时，通常不进行结算，即任一个ISP不向其对等收费。</p>
+<p>4）**因特网交换点(Internet Exchange Point，IXP)**，IXP是一个汇合点，多个ISP能够在这里一起对等。</p>
+<p><em><strong>网络结构5</strong></em>：通过在网络结构4顶部增加内容提供商构建而成。效果图如下所示：</p>
+<p><img src="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/one.jpg" alt="one"></p>
+<p>分组交换网中的<strong>吞吐量</strong>是指每秒能够传送的数据量，而时延又分为**节点处理时延(nodal processing delay)<strong>、</strong>排队时延(queuingdelay)<strong>、</strong>传输时延(transmission delay)<strong>和</strong>传播时延(propagation delay)<strong>，这些时延总体累加起来组成了</strong>节点总时延(total nodal delay)**。效果图如下所示：</p>
+<p><img src="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/two.jpg" alt="two"></p>
+<p>1）节点处理时延：检查分组首部和决定将该分组导向何处所需的时间是<strong>处理时延</strong>的一部分。处理时延能包括其他因素，如检查比特级别的差错。</p>
+<p>2）排队时延：在队列中，当分组在链路上等待传输时，它经受<strong>排队时延</strong>。</p>
+<p>3）传输时延：用L比特表示传输分组的长度，用 R bps(即b/s)表示路由器A到路由器B的链路传输速率。那<strong>传输时延</strong>就是L/R。</p>
+<p>4）传播时延：从该链路的起点到路由器B传播所需要的时间是<strong>传播时延</strong>。该传播时延等于两台路由器之间的距离除以传播速率。</p>
+<p>传输时延和传播时延的比较：传输时延是路由器推出分组所需的时间，它是分组长度和链路传输速率的函数，而与两台路由之间的距离无关。另一方面，传播时延是一个比特从一台路由器传播到另一台路由器所需要的时间，它是两台路由器之间距离的函数，而与分组长度或链路传输率无关。</p>
+<p>令a表示分组到达队列的平均速率(a的单位是分组/秒，即pkt/s)，R表示传输速率，即从队列中推出比特的速率(以bps即b/s为单位)，所有的分组都由L比特组成。则比特到达队列的平均速率是La bps。比率La/R被称为<em><em>流量强度(traffic inten)<strong>。如果La/R&gt;1，则表示比特的到达队列的平均速率超过从该队列的传输出去的速率，那么排队时延会非常大，甚至某种情况下趋向无穷大。因此，流量工程中有一条金科玉律是：</strong></em>设计系统时流量强大不能大于1</em>**。下图说明了这样一个事实：随着流量强大接近于1，平均排队时延迅速增加。该强度的少量增加将导致时延大比例增加。</p>
+<p><img src="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/three.jpg" alt="three"></p>
+<p>丢包：当到达的分组发现队列已经被填满了，没有地方存储这个分组了，那路由器将<strong>丢弃</strong>(drop)该分组，即该分组将会<strong>丢失</strong>(lost)。分组丢失的比例随着流量强度增加而增加。</p>
+<p>考虑从主机A到主机B跨越计算机网络传送一个大文件，在任何时间瞬间的**瞬时吞吐量(instantaneous throughput)<strong>是主机B接受到该文件的速率(以bps计)。如果该文件由F比特组成，主机B接受到所有F比特用去T秒，则文件传送的</strong>平均吞吐量(average throughput)**是F/T bps。吞吐量取决于数据流过的链路的传输速率以及是否存在干扰流量。当没有其他干扰流量时，吞吐量能够近似为沿着源和目的地之间路径的最小传输速率。</p>
+<p>网络设计者以<strong>分层(layer)<strong>的方法组织协议以及实现这些协议的网络硬件和软件，每个协议属于这些层次之一。一个协议层能够用软件、硬件或两者结合来实现。要注意的是，一个第n层协议也分布在构成该网络的端系统、分组交换机和其他组件中。这就是说，第n层协议的不同部分常常位于这些网络组件的各部分中。协议分层具有概念化和结构化的优点。各层的所有协议被称为</strong>协议栈(protocol stack)<strong>。因特网的协议栈由</strong>5</strong>个层次组成：<strong>物理层、链路层、网络层、运输层和应用层</strong>。效果图如下所示：</p>
+<p><img src="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/four.jpg" alt="four"></p>
+<p>1）应用层是网络应用程序及它们的应用层协议存留的地方。应用层协议分布在多个端系统上，而一个端系统中的应用程序使用协议与另一个端系统中的应用程序交换信息分组。通常把这种位于应用层的信息分组称为**报文(message)**。</p>
+<p>2)运输层在应用程序端点之间传送应用层报文。在因特网中，有两种运输协议，即TCP/UDP。TCP向它的应用程序提供了面向连接的服务。这种服务包括了应用层报文向目的地的确保传递和流量控制(即发送/接收方速率匹配)。TCP也将长报文划分为短报文，并提供拥塞控制机制。UDP协议向它的应用程序提供无连接服务，这是一种不提供不必要服务的服务，没有可靠性，没有流量控制，也没有拥塞控制。运输层的分组称为**报文段(segment)**。</p>
+<p>3）网络层负责将称为**数据报(datagram)**的网络层分组从一台主机移动到另一台主机。网络层包括著名的网际协议IP，该协议定义了在数据报中各个字段以及端系统和路由器如何作用于这些字段。</p>
+<p>4）网络层必须依靠<strong>链路层</strong>的服务。特别是在每个节点，网络层将数据包下传给链路层，链路层沿着路径将数据包传递给下一个节点。在该下一个节点，链路层将数据包上传给网络层。由链路层提供的服务取决于应用于该链路的特定链路层协议。链路层的分组称为**帧(frame)**。</p>
+<p>5）物理层的任务是将帧中的一个个比特从一个节点移动到下一个节点。在这层中的协议仍然是链路相关的，并且进一步与该链路的实际传输媒体相关。</p>
+<p>20世纪70年代后期，国际标准化组织(ISO)提出计算机网络围绕7层来组织，称为开放系统互连模型。OSI参考模型的7层分别是：应用层、<strong>表示层、会话层</strong>、运输层、网络层、数据链路层和物理层。效果图如下：</p>
+<p><img src="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/five.jpg" alt="five"></p>
+<p>5层的功能大致和因特网中对应层的功能相同。其中<em><strong>表示层</strong></em> 的作用是<strong>使通信的应用程序能够解释交换数据的含义</strong>。这些服务包括数据压缩和数据加密以及数据描述。<em><strong>会话层</strong></em> 提供了<strong>数据交换的定界和同步功能</strong>，包括了建立检查点和恢复方案的方法。</p>
+<p>一个<strong>应用层报文</strong>(application-layer message)被传送给运输层，在最简单的情况下，运输层收取到报文并附上附加信息(即运输层首部信息)，该首部将被接收端的运输层使用。应用层报文和运输层首部信息一道构成了<strong>运输层报文段(<strong>transport-layer segment)。附加的信息可能包括：允许接收方运输层向上向适当的应用程序交付报文的信息；差错检测位信息，让接收方能够判断报文中的比特是否在途中已被改变。报文段到达网络层后，网络层增加了如源和目的端系统地址等网络层首部信息，生成了</strong>网络层数据包</strong>(network-layer datagram)。该数据包下达到链路层后，链路层增加它的链路层首部信息并生成<strong>链路层帧</strong>(link-layer frame)。因此，在每一层，一个分组具有两种类型的字段，即首部字段和<strong>有效载荷字段</strong>(payload field)。有效载荷通常是来自上一层的分组。这整个过程蕴含了一个重要的概念，<strong>封装</strong>。</p>
+<p><strong>病毒</strong>(virus)是一种需要某种形式的用户交互来感染用户设备的恶意软件。<strong>蠕虫</strong>(worm)是一种无须任何明显用户交互就能进入设备的恶意软件。拒绝服务攻击(Denial-of-Service (DOS) attack)使得网络、主机或其他基础设施部分不能由合法用户使用。大多数因特网DoS攻击属于以下三种类型之一：</p>
+<p>1）弱点攻击：这涉及向一台目标主机上运行的易受攻击的应用程序或OS发送制作精细的报文。如果适当顺序的多个分组发送给一个易受攻击的应用程序或OS，该服务器可能停止运行或直接崩溃。</p>
+<p>2）带宽洪泛：攻击者向目标主机发送大量的分组，分组数量之多使得目标的接入链路变得拥塞，使得合法的分组无法达到服务器。</p>
+<p>3）连接洪泛：攻击者在目标主机中创建大量的半开或全开的TCP连接。该主机因为这些伪造的连接而陷如困境，并停止接受合法的连接。</p>
+<p>在无线传输设备的附近放置一台被动的接收机，该接收机就能得到传输的每个分组的副本。像这种记录每个流经的分组副本的被动接收机被称为<strong>分组嗅探器</strong>(packet sniffer)。嗅探器也能够部署在有线环境中。</p>
+<p>将具有虚假源地址的分组注入因特网的能力称为<strong>IP哄骗</strong>(IP spoofing)。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/" data-id="ckn5mhdod003df0v33wpp7ik8" data-title="计算机网络自顶向下方法——计算机网络和因特网" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MySQL必知必会——MySQL的保留字" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/06/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94MySQL%E7%9A%84%E4%BF%9D%E7%95%99%E5%AD%97/" class="article-date">
+  <time class="dt-published" datetime="2020-12-06T01:31:10.000Z" itemprop="datePublished">2020-12-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/06/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94MySQL%E7%9A%84%E4%BF%9D%E7%95%99%E5%AD%97/">MySQL必知必会——MySQL的保留字</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> MySQL(自MySQL 5以后的版本)中的所有保留字如下：</p>
+<p><img src="/2020/12/06/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94MySQL%E7%9A%84%E4%BF%9D%E7%95%99%E5%AD%97/one.JPG" alt="one"></p>
+<p><img src="/2020/12/06/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94MySQL%E7%9A%84%E4%BF%9D%E7%95%99%E5%AD%97/two.JPG" alt="two"></p>
+<p><img src="/2020/12/06/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94MySQL%E7%9A%84%E4%BF%9D%E7%95%99%E5%AD%97/three.JPG" alt="three"></p>
+<p><img src="/2020/12/06/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94MySQL%E7%9A%84%E4%BF%9D%E7%95%99%E5%AD%97/four.JPG" alt="four"></p>
+<p><img src="/2020/12/06/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94MySQL%E7%9A%84%E4%BF%9D%E7%95%99%E5%AD%97/five.JPG" alt="five"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/06/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94MySQL%E7%9A%84%E4%BF%9D%E7%95%99%E5%AD%97/" data-id="ckn5mhdng001gf0v30lez9278" data-title="MySQL必知必会——MySQL的保留字" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MySQL必知必会——改善性能" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/06/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%94%B9%E5%96%84%E6%80%A7%E8%83%BD/" class="article-date">
+  <time class="dt-published" datetime="2020-12-06T00:59:45.000Z" itemprop="datePublished">2020-12-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/06/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%94%B9%E5%96%84%E6%80%A7%E8%83%BD/">MySQL必知必会——改善性能</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> 针对前面各个章节，对MySQL提供进行性能优化探讨和分析的一些出发点如下：</p>
+<p>1）首先，MySQL(与所有的DBMS一样)具有特定的硬件建议。在学习和研究MySQL时，使用任何旧的计算机作为服务器都可以。但对于生产的服务器来说，应该坚持遵守硬件建议。</p>
+<p>2）一般来说，关键的生产DBMS应该运行在专用服务器上。</p>
+<p>3）MySQL是用一系列的默认设置预先配置的，从这些设置开始通常是很好的。但过一段时间后可能需要调整内存分配、缓冲区大小等。</p>
+<p>4）MySQL，一个多用户多线程的DBMS，换言之，它经常同时执行多个任务。如果这些任务中的某一个执行缓慢，则所有请求都会执行缓慢。如果遇到显著的性能不良，可以使用show processlist 显示所有活动进程(以及它们的线程ID和执行时间)。还可以使用kill命令终结某个特定的进程(使用这个命令需要作为管理员登录)。</p>
+<p>5）总是有不止一种方法编写同一条select语句。应该试验联结、并、子查询等，找出最佳的方法。</p>
+<p>6）一般来说，存储过程执行得比一条一条地执行其中的各条MySQL语句快。</p>
+<p>7）使用explain语句让MySQL解释它将如何执行一条select语句。</p>
+<p>8）应该总是使用正确的数据类型。</p>
+<p>9）决不要检索比需求还要多的数据。换言之，不要用select*(除非真正需要每个列)。</p>
+<p>10）有的操作(包括insert)支持一个可选的delayed关键字，如果使用它，将把控制立刻返回给调用程序，并且一旦有可能就实际执行该操作。</p>
+<p>11）在导入数据时，应该关闭自动提交。</p>
+<p>12）必须索引数据库表以改善数据检索的性能。确实索引不是一件微不足道的任务，需要分析使用select语句以找出重复的where和order by子句。如果一个简单的where子句返回结果所花的时间太长，则可以断定其中使用的列(或几个列)就是需要索引的对象。</p>
+<p>13）通过使用多条的select语句和连接它们的union语句，能极大的改进性能。</p>
+<p>14）索引改善数据检索的性能，但损害数据插入、删除和更新的性能。如果有一些表，它们收集数据且不经常被搜索，则在有必要之前不用索引它们(索引可根据需要添加和删除)。</p>
+<p>15）like很慢，一般来说。最好是使用fulltext而不是like。</p>
+<p>16）数据库是不断变化的实体。一组优化良好的表一会儿后可能就面目全非了。由于表的使用和内容的更改，理想的优化和配置也会改变。</p>
+<p>17）最重要的规则就是，每条规则在某些条件下就会被打破。    </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/06/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%94%B9%E5%96%84%E6%80%A7%E8%83%BD/" data-id="ckn5mhdo0002jf0v3dzpp3p5k" data-title="MySQL必知必会——改善性能" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Java核心技术——卷I——集合" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/" class="article-date">
+  <time class="dt-published" datetime="2020-12-05T09:48:00.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/">Java核心技术——卷I——集合</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> Java最初的版本只为最常用的数据结构提供了很少的一组类：Vector、Stack、Hashtable、BitSet和Enumeration接口，其中的Enumeration接口提供了一种用于访问任意容器中各个元素的抽象机制。</p>
+<p>Java集合类库将接口与实现分离。在Java类库中，集合类的基本接口是Collection接口。该接口有两个基本方法：add和iterator。add方法用于向集合添加元素。如果添加元素确实改变了集合就返回true；如果集合没有发生变化就返回false。iterator方法用于返回一个实现了Iterator接口的对象。可用使用这个迭代器对象依次访问集合中的元素。</p>
+<p>Iterator接口包含4个方法：next()，hasNext()，remove()，forEachRemaining(Consumer&lt;? super E&gt; action)。有关的这个4个方法的API文档如下：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/one.jpg" alt="one"></p>
+<p>Java集合类库中的迭代器与其他类库中的迭代器在概念上有着重要的区别。传统的集合类库中，如C++的标准模板库，迭代器是根据<strong>数组索引建模</strong>的。这样一个迭代器可以查找存储在指定位置上的元素，如果不需要查找元素，也可以将迭代器向前移动。但是，Java的迭代器不是这样。查找操作与位置变更紧密耦合。查找一个元素的唯一方法是调用next，而在执行查找操作的同时，迭代器的位置就会随之向前移动。因此，可以认为Java迭代器位于两个元素之间。当调用next时，迭代器就越过下一个元素，并返回越过的那个元素的引用。效果图如下所示：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/two.jpg" alt="two"></p>
+<p>需要特别注意，next方法和remove方法调用之间存在依赖性。如果调用remove之前没有调用next，将是不合法的。如果这样做，将会抛出一个IllegalStateException异常。</p>
+<p>因为Collection与Iterator都是泛型接口，所以可以自行编写处理任何集合类型的实用方法。Collection接口的一些常用方法的API文档如下：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/three.jpg" alt="three"></p>
+<p>另外还有一个很有用的方法，方法签名如后所示： default boolean removeIf(Predicate&lt;? super E&gt; filter)。这个方法用于删除满足某个条件的元素。</p>
+<p>Java集合框架为不同类型的集合定义了大量接口，如下所示：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/four.jpg" alt="four"></p>
+<p>集合有两个基本接口：Collection和Map。List是一个有序集合(ordered collection)。元素会增加到容器中的特定位置。可以采用两种方式访问元素：使用迭代器访问，或者使用一个整数索引访问。后面这种方法称为随机访问，因为这样可以访问任意顺序的元素。与之不同，使用迭代器访问时，必须顺序地访问元素。</p>
+<p>为了避免对链表完成随机访问操作，Java 1.4引入了一个标记接口RandomAccess。这个接口不包含任何方法，不过可以用它来测试一个特定的集合是否支持高效的随机访问。</p>
+<p>如下展示了Java类库中的集合，除了以Map结尾的类之外，其他类都实现了Collection接口，而以Map结尾的类实现了Map接口。<img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/five.jpg" alt="five"></p>
+<p>下图显示了这些类之间的关系：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/six.jpg" alt="six"></p>
+<p>在Java中，所有链表实际上都是<strong>双向链接</strong>的(doubly linked)——即每个链接还存放着其前驱的引用。效果图如下所示：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/seven.jpg" alt="seven"></p>
+<p>链表是一个有序集合，每个对象的位置都十分重要。使用链表的唯一理由是尽可能地减少在列表中间插入或删除元素的开销。有关链表的API文档如下：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/eight.jpg" alt="eight"></p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/nine.jpg" alt="nine"></p>
+<p>集合类库提供一种都很熟悉的ArrayList类，这个类也实现了List接口。ArrayList封装了一个动态在分配的对象数组。ArrayList方法<strong>不是同步</strong>的，与之不同的是Vector。Vector类的所有方法的都是<strong>同步</strong>的，可以安全地从两个线程访问一个Vector对象。</p>
+<p>散列表为每个对象计算一个整数，称为散列码(hashcode)。散列码是由对象的实例字段得出的一个整数。更准确地说，有不同数据的对象将产生不同的散列码。在Java中，散列表用链表数组实现，每个列表被称为<strong>桶</strong>(bucket)。要想查找表中对象的位置，就要先计算它的散列码，然后与桶的总数取余，所得到的结果就是存在这个元素的桶的索引。当把一个元素插入桶中时，如果遇到桶已经被填充了的情况。这种现象称为<strong>散列冲突</strong>(hash collision)。这时，需要将新对象与桶中的所有对象进行比较，查看这个对象是否已经存在。在Java 8中，桶满时会从链表变为平衡二叉树。可以通过指定一个初始的<strong>桶数</strong>，以便能够更多地控制散列表的性能。<strong>桶数</strong>是指用于收集有相同散列值的桶的数目。如果散列表太满，就需要再散列(rehashed)。装填因子可以确定何时对散列表进行再散列。<strong>集</strong>是没有重复元素的元素集合。在更改集中的元素时要格外小心。如果元素的散列码发生了改变，元素在数据结构中的位置也会发生变化。Java集合类库通过一个HashSet类，它实现了基于散列表的集。相关的API 如下：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/ten.jpg" alt="ten"></p>
+<p>树集是一个有序集合。可以以任意顺序将元素插入到集合中。在对集合进行遍历时，值将自动地按照排序后的顺序呈现。要使用树集，必须能够比较元素。这些元素必须实现Comarable接口，或者构造集时必须提供一个Comarable。每次将一个元素添加到树中时，都会将其放置在正确的排序位置上。因此，迭代器总是以有序的顺序访问每个元素。将一个元素添加到树中要比添加到散列表满，但是，与检查数组或链表中的重复元素相比，使用树会快很多。树的排序顺序必须是全序的。也就是说，任意两个元素都必须是可比的，并且只有在这两个元素相等时结果才为0。从Java 6起，TreeSet类实现了NavigableSet接口。这个接口增加了几个查找元素以及反向遍历的便利方法。有关树集TreeSet的API文档如下：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/eleven.jpg" alt="eleven"></p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/twelve.jpg" alt="twelve"></p>
+<p>队列允许使用者高效地在尾部添加元素，并在头部删除元素。而双端队列(即deuqe)允许在头部和尾部都高效地添加或删除元素。不支持在队列中间添加元素。Java 6中引入了Deque接口，ArrayDeque和LinkedList类实现了这个接口。这两个类都可以提供双端队列，其大小可以根据需要扩展。相关的API如下：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/thirteen.jpg" alt="thirteen"></p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/fourteen.jpg" alt="fourteen"></p>
+<p>优先队列(priority queue)中的元素可以按照任意的顺序插入，但会按照有序的顺序进行检索。不过，优先队列并没有对所有元素进行排序。优先队列使用了一个精巧且高效的数据结构，称为堆(heap)。堆是一个可以自组织的二叉树，其添加和删除操作可以让最小的元素移动到根，而不必花费时间对元素进行排序。优先队列的相关API如下：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/fifteen.jpg" alt="fifteen"></p>
+<p>映射用来存放键/值。如果提供了键，就能查找到值。Java类库为映射提供了两个通用的实现：HashMap和TreeMap。这两个类都是实现了Map接口。散列映射对键进行散列，树映射根据键的顺序将元素组织为一个搜索树。散列或比较函数<strong>只应用</strong>于键。与键关联的值不进行散列或比较。每当往映射添加一个对象时，必须同时提供一个键。要想检索一个对象，必须使用(因而，必须记住)键。键必须是唯一的。不能对同一个键存放两个值。映射的相关API如下所示：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/sixteen.jpg" alt="sixteen"></p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/seventeen.jpg" alt="seventeen"></p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/eighteen.jpg" alt="eighteen"></p>
+<p>更新映射条目相关的API如下：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/nineteen.jpg" alt="nineteen"></p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/twenty.jpg" alt="twenty"></p>
+<p>集合框架不认为映射本身是一个集合(其他数据结构框架认为映射是一个键/值对集合，或者是按键索引的集合)。不过，可以得到映射的视图(view)——这是实现了Collection接口或某个子接口的对象。有3种视图：键集、值集合(不是一个集)以及键/值对集。键和键/值对可以构成一个集，因为映射中一个键只能有一个副本。映射视图相关的API如下：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/twentyone.jpg" alt="twentyone"></p>
+<p>需要说明的是，keySet不是hashSet或TreeSet，而是实现了Set接口的另外某个类的对象。Set接口扩展了Collection接口。因此，可以像使用任何集合一样使用keySet。在键集视图上调用迭代器的remove方法，实际会从映射中删除这个键和它关联的值。不能向键集视图中添加元素。另外，如果添加一个键而没有同时添加值也是没有意义的。如果试图调用add方法，它会抛出一个UnsupportedOperationException。映射条目集视图也有同样的限制。WeakHashMap使用弱引用(weak references)保存键。与弱散列映射、链接散列集与映射、枚举集与映射和标识散列映射相关的API如下所示：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/twentytwo.jpg" alt="twentytwo"></p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/twentythree.jpg" alt="twentythree"></p>
+<p>Java9引入了一些静态方法，可以生成给定元素的集或列表，以及给定键/值对的映射。相关API如下所示：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/twentyfour.jpg" alt="twentyfour"></p>
+<p>可以为很多集合建立子范围(subrange)视图。可以对子范围应用任何操作，而且操作会自动反映到整个列表。对于有序集和映射，可以使用排序顺序而不是元素位置建立子范围。相关的API如下：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/twentyfive.jpg" alt="twentyfive"></p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/twentysix.jpg" alt="twentysix"></p>
+<p>不可修改的视图对现有集合增加了一个运行时检查。如果发现视图对集合进行修改，就会抛出一个异常，集合仍保持不变。不可修改的视图并不是集合本身不可更改，仍然可以通过集合的原始引用对集合进行修改，并且仍然可以对集合的元素调用更改器方法。由于视图只是包装了接口而不是具体的集合对象，所以只能访问接口中定义的方法。“检查型”视图用来对泛型可能出现的问题提供调试支持。相关API以及对同步视图时所涉及的方法API如下所示：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/twentyseven.jpg" alt="twentyseven"></p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/twentyeight.jpg" alt="twentyeight"></p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/twentynine.jpg" alt="twentynine"></p>
+<p>泛型集合接口有一个很大的优点，即算法只需要实现一次。排序与混排方法的API如下：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/thirty.jpg" alt="thirty"></p>
+<p>二分查找API如下：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/thirtyone.jpg" alt="thirtyone"></p>
+<p>注意，集合必须是有序的，否则算法会返回错误的答案。如果方法返回一个非负的值，这表示匹配对象的索引，如果返回负值，则表示没有匹配的元素。</p>
+<p>Collections类中一些简单算法API如下:</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/thirtytwo.jpg" alt="thirtytwo"></p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/thirtythree.jpg" alt="thirtythree"></p>
+<p>Java集合框架中的遗留类，如下所示：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/thirtyfour.jpg" alt="thirtyfour"></p>
+<p>枚举：遗留的集合中使用Enumeration接口遍历元素序列。API如下：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/thirtyfive.jpg" alt="thirtyfive"></p>
+<p>属性映射(property map)是一个特殊类型的映射结构。它有以下3个特性：</p>
+<p>1）键与值都是字符串。</p>
+<p>2）这个映射可以很容易地保存到文件以及从文件加载。</p>
+<p>3）有一个二级表存放默认值。</p>
+<p>实现属性映射的Java平台类名为properties。相关的API如下：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/thirtysix.jpg" alt="thirtysix"></p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/thirtyseven.jpg" alt="thirtyseven"></p>
+<p>栈，遗留的集合中Stack API文档如下：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/thirtyeight.jpg" alt="thirtyeight"></p>
+<p>Java平台的BitSet类用于存储一个位序列(它不是数学上的集，如果称为位向量或位数组可能更合适)。如果需要高效地存储位序列(如标志)，就可以使用位集。C++中的bitset模板与Java中的BitSet功能一样。相关的API如下：</p>
+<p><img src="/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/thirtynine.jpg" alt="thirtynine"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/" data-id="ckn5mhdnf001ef0v3gkwmavvq" data-title="Java核心技术——卷I——集合" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MySQL必知必会——数据库维护" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/05/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BB%B4%E6%8A%A4/" class="article-date">
+  <time class="dt-published" datetime="2020-12-05T06:11:21.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/05/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BB%B4%E6%8A%A4/">MySQL必知必会——数据库维护</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> 备份数据：</p>
+<p>1）使用命令行实用程序mysqldump转储所有数据库内容到某个外部文件。在进行常规备份前这个实用程序应该正常运行，以便能正确地备份转储文件。</p>
+<p>2）可用命令行实用程序mysqlhotcopy从一个数据库复制所有数据(并非所有数据库引擎都支持这个实用程序)。</p>
+<p>3）可以使用MySQL的backup table或select into outfile转储所有数据到某个外部文件。这两条语句都接受将要创建的系统文件名，此系统文件必须不存在，否则会出错。数据可以用restore table来复原。</p>
+<p>为了保证所有数据都被写到磁盘(包括索引数据)，在进行备份前使用flush tables语句。</p>
+<p>进行数据库维护：</p>
+<p>1）analyze table，用来检查表键是否正确。</p>
+<p>2）check table，用来针对许多问题对表进行检查。在MyISAM表上还对索引进行检查。check table支持一系列的用于MyISAM表的方式。changed检查自最后一次检查以来改动的表。extended执行最彻底的检查，fast只检查未正常关闭的表，medium检查所有被删除的链接并进行键校验，quick只进行快速扫描。</p>
+<p>3）如果MyISAM表访问产生不正确和不一致的结果，可以使用repair table来修复相应的表。</p>
+<p>4）如果从一个表中删除大量的数据，应该使用optimize table来收回所用的空间，从而优化表的性能。</p>
+<p>MySQL服务器自身通过在命令行上执行mysqld启动，如下是几个重要的mysqld命令行选项：</p>
+<p>1）–help 显示帮助——一个选项列表。</p>
+<p>2）–sale-mode装载减去某些最佳配置的服务器。</p>
+<p>3）–verbose显示全文本消息(为获得更详细的帮助可与–help联合使用)。</p>
+<p>4）–version显示版本信息然后退出。</p>
+<p>MySQL维护管理员依赖的一系列日志文件。主要的日志文件有以下几种：</p>
+<p>1）错误日志。它包含启动和关闭问题以及任意关键错误的细节。此日志通常名为hostname.err，位于data目录中。此日志名可用 –log-error命令行选项更改。</p>
+<p>2）查询日志。它记录所有MySQL活动，在诊断问题时非常有用。此日志文件可能会很快地变得非常大，因此不应该长期使用它。此日志通常名为hostname.log，位于data目录中。此名字可用–log命令行选项更改。</p>
+<p>3）二进制日志。它记录更新过数据(或者可能更新过数据)的所有语句。此日志通常名为hostname-bin，位于data目录中。此名字可用–log-bin命令行选项更改。注意，这个日志文件是MySQL 5中添加的，以前的MySQL版本中使用的是更新日志。</p>
+<p>4）缓慢查询日志。此日志记录执行缓慢的任何查询。这个目录在确定数据库何处需要优化时很有用。此日志通常名为hostname-slow.log，位于data目录中。此名字可用 –log-slow-queries命令行选项更改。</p>
+<p>在使用日志时，可用flush logs语句来刷新和重新开始所有日志文件。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BB%B4%E6%8A%A4/" data-id="ckn5mhdo2002lf0v36lw44let" data-title="MySQL必知必会——数据库维护" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MySQL必知必会——安全管理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/05/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86/" class="article-date">
+  <time class="dt-published" datetime="2020-12-05T02:02:07.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/05/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86/">MySQL必知必会——安全管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> MySQL服务器的安全基础是：用户应该对他们需要的数据具有适当的访问权限，既不能多也不能少。MySQL用户账号和信息存储在名为mysql的MySQL数据库中。</p>
+<p>为了创建一个新用户账号，使用crate user语句。在创建用户账号时不一定需要口令，但是也是可以设置的。identified by 指定的口令为纯文本，MySQL将在保存到user表之前对其进行加密。为了作为散列值指定口令，使用 identified by password。</p>
+<p>grant语句也可以创建用户账号，但一般来说crate user是最清楚和最简单的句子。</p>
+<p>为重新命名一个用户账号，使用rename user 语句。，仅MySQL 5或之后的版本支持 rename user 。为了在以前的MySQL中重命名一个用户，可使用update 直接更新user表。</p>
+<p>为了删除一个用户账号(以及相关的权限)，使用drop user 语句，如后所示：drop user 用户账号名称。自MySQL 5以来，drop user 删除用户账号和所有相关的账号权限。在MySQL 5以前，drop user 只能用来删除用户账号，不能删除相关的权限。因此，如果使用旧版的MySQL，需要先用remove删除与账号相关的权限，然后在用drop user 删除账号。</p>
+<p>为了查看赋予用户账号权限，使用show grants for 。如后所示：show grants fo 用户账号名称。 注意usage 表示根本没有权限。</p>
+<p>MySQL的权限用用户名和主机名结合定义，如果不指定主机名，则使用默认的主机名%(授予用户访问权限而不管主机名)。</p>
+<p>为了设置权限，使用grant语句。而grant要求至少要给出以下信息：</p>
+<p>1）要授予的权限。</p>
+<p>2）被授予访问的数据或表。</p>
+<p>3）用户名。</p>
+<p>grant的反操作为revoke，用它来撤销特定的权限。grant和revoke可以在如下几个层次上控制访问权限：</p>
+<p>1）整个服务器，使用grant all和revoke all；</p>
+<p>2）整个数据表，使用 on database.*；</p>
+<p>3）特定的表，使用 on database.table；</p>
+<p>4）特定的列；</p>
+<p>5）特定的存储过程。</p>
+<p>可以授予或撤销的权限如下所示：</p>
+<p><img src="/2020/12/05/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86/one.png" alt="one"></p>
+<p><img src="/2020/12/05/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86/two.png" alt="two"></p>
+<p>在使用grant和revoke时，用户账号必须存在，但对所涉及的对象没有这个要求。这允许管理员在创建数据库表和表之前设计和实现完全措施。这样做的副作用是，当某个数据库或表被删除时(用drop语句)，相关的访问权限仍然存在。而且，如果将来重新创建该数据库或表，这些权限仍然起作用。</p>
+<p>简化多次授予：可通过列出各权限用逗号分隔，将多条grant语句串在一起。</p>
+<p>为了更改用户口令，可以使用set password 语句。且新口令必须如下进行加密：</p>
+<p>set password for bforta=Password(“新口令内容”)；</p>
+<p>set password 更新用户口令。且新口令必须传递到Password()函数进行加密。set password 还可以用来设置自己的口令，在不指定用户名时，set password更新当前登录用户的口令。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/05/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E2%80%94%E2%80%94%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86/" data-id="ckn5mhdnw002df0v3bigzdo0v" data-title="MySQL必知必会——安全管理" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" rel="tag">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" rel="tag">Java核心技术——卷I</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%AC%94%E8%AE%B0/" rel="tag">Linux笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL%E7%AC%94%E8%AE%B0/" rel="tag">MySQL笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" rel="tag">计网笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E5%92%8C%E6%8C%87%E9%92%88/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I/" style="font-size: 15px;">Java核心技术——卷I</a> <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" style="font-size: 12.5px;">Linux笔记</a> <a href="/tags/MySQL%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">MySQL笔记</a> <a href="/tags/%E8%AE%A1%E7%BD%91%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">计网笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/20/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91/">Java核心技术——卷I——并发</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I%E2%80%94%E2%80%94Swing%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6/">Java核心技术——卷I——Swing用户界面组件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%8D%B7I-%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Java核心技术——卷I-图形用户界面程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">计算机网络自顶向下方法——应用层</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/">计算机网络自顶向下方法——计算机网络和因特网</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
